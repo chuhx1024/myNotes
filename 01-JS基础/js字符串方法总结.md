@@ -162,9 +162,37 @@ str.charCodeAt(0);         // 返回 72   这是'H'的 unicode 编码
 
 ## 12. 检测以...开头 以... 结尾 startWith() endWith() 返回 true false
 ```js
+var str = 'Hello world, welcome to the Runoob.';
+var n = str.startsWith('Hello')  // true
+var n = str.endWith('jay')  // false
 ```
-## 13. 补位方法 padStart() padEnd()
+## 13.padStart(length, tag), padEnd() 补位方法 
+- 默认给原字符串开头填充“ ”，也就是默认填充空格
 ```js
+const str = '123'
+undefined
+str.padStart(10)
+"       123"
+```
+- 字符串太长，使填充后的字符串长度超过了目标长度，则只保留最左侧的部分，其他部分会被截断。
+
+```js
+let monList = []
+for (var i = 1; i < 13; i++) {
+    monList.push((i + "").padStart("2", "0"))
+}
+console.log(monList) // ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+
+```
+- 自己实现
+```js
+String.prototype.zpadStart = function (targetLength, padString) {
+    let string = this
+    while (string.length < targetLength) {
+        string = padString + string
+    }
+    return string
+}
 ```
 ## 12. 字符串中加空格
 ```js
