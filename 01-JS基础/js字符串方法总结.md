@@ -57,8 +57,7 @@ const n = str.replace("microsoft", "W3School") //  "Please visit Microsoft and M
 const str = "Please visit Microsoft and Microsoft!" 
 const n = str.replace(/Microsoft/g, "W3School") //  "Please visit W3School and W3School!"
 ```
-- 
-# 正则相关
+> 正则相关
 ### 字符串的方法
 - match()
 对字符串进行正则匹配 返回匹配的结果
