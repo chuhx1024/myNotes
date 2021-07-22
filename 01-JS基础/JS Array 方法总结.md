@@ -15,6 +15,10 @@
 - slice：slice(start,end)，返回选定元素
 - reduce 累加
 - map,filter,forEach,some,every等不改变原数组
+- includes()  // true false
+- indexOf() // 返回 -1 或 数组下标
+- find // 返回值 就是满足条件的一项  区分与 filter 是返回含有满足条件的一个数据集
+- findIndex()   // 返回 false 或 下标
 ## 数组方法详细总结
 - Array.push()，向数组的末尾添加一个或多个元素，并返回新的数组长度。原数组改变。
 ```js
