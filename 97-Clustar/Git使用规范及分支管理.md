@@ -32,7 +32,7 @@ https://www.extfans.com/search/
 
 + 合并某分支到当前分支：git merge <name>  
 
-+ 抓取(跟新本地的 远端分支): git fetch origin dev
++ 抓取(更新本地的 远端分支): git fetch origin dev
 
 + 撤销提交: git reset --hard 10bb4
 
