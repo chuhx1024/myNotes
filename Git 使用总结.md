@@ -87,7 +87,7 @@ git push -u origin master
 - 使用场景 
     - 你昨天从master 上切出来的 dev 一直在开发
     - 今天你发现 master 分支 别人有新的提交了 
-        - 这些代码你不用对你没有影响 忽略就行 只管子在 dev 开发就行
+        - 这些代码你不用对你没有影响 忽略就行 只管在 dev 开发就行
         - 别人的 代码 你想用 或者对你有影响  这时就可以优雅的使用 rebase
         ```js
         git rebase master
@@ -154,11 +154,44 @@ git push -u origin master
 
     - 需要注意  git  add  和  git  stash  没有必然的关系
 
-## 重置 操作
-- 清空 工作区 和暂存区
+## 各种重置操作
+- 撤回 git add 操作  其实就是操作 HEAD
+```js
+git status // 此时看的 add 后的文件都变绿了 此时修改的文件 在 暂存区
+git reset HEAD // 这样就清除了所有add过的内容
+git status // 此时看到修改的文件 都变红了  说明此时修改的文件 在 工作区
+
+// 当然 如果只是想撤回某个文件 可以 后边加上路径就可以 
+git status HEAD src/components/Dict/resource/basicsStatus.js
 ```
-git reset .
+- 撤回 commit 
 ```
-- merge 有冲突了 想 重置为 merge 之前
+git reset HEAD^ // 撤回了 commit  和 add   就是把修改的内容 撤回到 工作区了
+git reset HEAD^ --hard // 撤回了 commit  和 add   就是把修改的内容 撤回到 工作区了
+git reset HEAD^ // 撤回了 commit  和 add   就是把修改的内容 撤回到 工作区了
+
+```
+- 回退版本 
+
+    - 1. 首先使用git log查看最近几次提交的版本号，"0250cd0ff958edsadasasd";
+
+    - 2. 在命令行输入 
+    ```js
+    git reset --hard 0250cd0ff95
+    ```
+    - 3. 回退后强制推向远端
+    ```js
+    git push -f -u origin dev
+    ```
+
+    - 4. 如果 回滚的 没有提交到远端仓库  就不需要第3步
+
+    - 5. 通知其他开发人员删除自己的此分支  重新拉取
+
+- 撤回 merge
+
+    - 方法一 直接 回退到 merge 之前的版本
+    - 方法二 当 merge 以后还有别的操作和改动时，git 正好也有办法能撤销 merge，用 git revert：
+
 
 
