@@ -62,7 +62,42 @@ import App from './App.vue'
 
 
 ### 4. 安装 vue-router 和 vueX
++ 安装 
 ```sh
 yarn add vuex@next vue-router@next
+```
++ 引入 vue router
+```js
+// main.ts
+import router from './router'
+
+createApp(App).use(Antd).use(router).mount('#app')
+
+// src/router/index.ts
+import {
+    createRouter,
+    createWebHashHistory,
+    RouteRecordRaw,
+} from 'vue-router'
+import Login from '../pages/login/index.vue'
+const routes: RouteRecordRaw[] = [
+    {
+        path: '/login',
+        component: Login
+    }
+]
+const router = createRouter(
+    {
+        history: createWebHashHistory(),
+        routes,
+    }
+)
+
+export default router
+
+// App.vue 注意添加入口 
+<template>
+  <router-view></router-view>
+</template>
 ```
 
