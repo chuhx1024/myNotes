@@ -186,7 +186,13 @@ git reset HEAD^ // 撤回了 commit  和 add   就是把修改的内容 撤回�
 
     - 4. 如果 回滚的 没有提交到远端仓库  就不需要第3步
 
-    - 5. 通知其他开发人员删除自己的此分支  重新拉取
+    - 5. 通知其他开发人员
+    ```sh
+         # 从远程仓库下载最新版本
+        git fetch --all 
+        # 将本地设为刚获取的最新的内容
+        git reset --hard origin/master
+    ```
 
 - 撤回 merge
 
