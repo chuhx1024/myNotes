@@ -35,6 +35,8 @@ sudo npm install -g yarn
 
     yarn add [package] --dev  // 默认不加参数  是安装到生产依赖中
 
+    sudo yarn global add nodemon // 全局安装  // 尽量不要使用
+
     // 安装依赖有许多选项，包括：
     // 安装所有依赖：yarn 或 yarn install
     // 安装一个包的单一版本：yarn install --flat
