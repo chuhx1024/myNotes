@@ -249,6 +249,48 @@ let array0 = [3, 6, 6, 7, 9, 8, 100]
 console.log(Array.from(new Set(array0))) 
 ```
 
+### Map 数据结构: 解决普通对象 key 值不灵活的问题
+
+```js
+// 普通的对象用特殊的数据类型 作为 key 是有问题的
+const obj = {}
+obj[true] = 'value'
+obj[123] = 123
+obj[{name: 1}] = 344
+
+console.log(obj) // { '123': 123, true: 'value', '[object Object]': 344 }
+
+// ES6 用 Map 数据结构来解决
+
+const m = new Map()
+const tom = {name: 'tom'}
+m.set(tom, 90)
+console.log(m) // Map { { name: 'tom' } => 90 }
+
+console.log(m.get(tom))  // 90
+
+// m.has
+// m.delete
+// m.clear
+m.forEach((val, key) => {
+    console.log(val, key)
+})
+```
+
+### Synbol 数据类型  唯一的数据永远不会重复
+
+```js
+const name = Symbol(999) // 这里传入的 999 没有实际意义 只是一个标识符
+const obj = {
+    [name]: 123,
+    say () {
+        console.log(this[name])
+    }
+}
+
+obj.say()
+```
+
 
   
 
