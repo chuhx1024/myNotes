@@ -378,6 +378,8 @@ for (let item of obj) {
 ### 可迭代接口
 ```js
 // 这个就是 for of 遍历的原理
+// 实现 iterable 接口就是 for of 的前提
+// 只要一个数据结构实现了可迭代接口  就可以被 for of 遍历
 const set = new Set(['foo', 'bar', 'baz'])
 
 const iterator = set[Symbol.iterator]()
@@ -386,6 +388,13 @@ console.log(iterator.next()) // { value: 'foo', done: false }
 
 console.log(iterator.next()) // { value: 'bar', done: false }
 console.log(iterator.next()) // { value: 'bar', done: false }
+```
+
+### 实现可迭代接口
+
+```js
+
+
 ```
 
 
