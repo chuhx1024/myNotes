@@ -279,6 +279,8 @@ m.forEach((val, key) => {
 
 ### Synbol 数据类型  唯一的数据永远不会重复
 
+- 一般使用
+
 ```js
 const name = Symbol(999) // 这里传入的 999 没有实际意义 只是一个标识符
 const obj = {
@@ -290,6 +292,103 @@ const obj = {
 
 obj.say()
 ```
+- 补充用法
+    - 想使用相同的 Symbol  可以创建一个 name = Symbol() 挂载到全局对象上 用的时候 使用这个全局对象
+    - 用 for 方法 传入一个相同的字符串 就得到一个相同的值
+```js
+const s1 = Symbol.for('foo')
+const s2 = Symbol.for('foo')
+cosnt.log(s1 === s2) // true
+
+// 因为 Symbol.for 维护的是一个字符串的表 所以下边为 true
+console.log(Symbol.for(true) === Symbol.for('true')  // ture
+```
+
+- 具体应用
+```js
+// 修改 对象的 toString 标签
+
+const obj = {}
+console.log(obj.toString()) // [object Object]
+
+const obj0 = {
+    [Symbol.toStringTag]: 'xObject',
+    name: '小明'
+}
+console.log(obj0.toString()) // [object xObject]
+
+// for 循环 拿不到 Symbol 的项  
+// Object.keys() 也拿不到
+// JSON.stringify(obj)  也拿不到
+
+// 如果想获取 获取 obj 的 Symbol 属性名 
+console.log(Object.getOwnPropertySymbols(obj0)) // [ Symbol(Symbol.toStringTag) ]
+
+
+```
+- 总结: 这些特性有利于为对象定义私有属性
+
+### 关于遍历
+
+- for(let i= 0; i< arr.length; i++) {}  // 一般的遍历
+```js
+const arr = [1,2,3,4]
+const obj = {
+    name: '小明',
+    age: 18,
+}
+for (let key in arr) {
+    console.log(key)
+}
+for (let key in obj) {
+    console.log(key)
+}
+arr.forEach(() => {})  // 不会终止遍历
+
+arr.some(() => {})  // return true 遍历终止
+arr.every(() => {}) // return false 遍历终止
+
+// 全新的 for of 可以用 break 终止 遍历
+for (const item of arr) {
+    console.log(item)
+    if (item === 1) {
+        break
+    }
+}
+
+// 伪数组也可以使用 for of 遍历  如 函数中的 arguments
+// Set Map 对象 可以使用 for of 遍历
+
+// 遍历 Map 时  item 其实是 数组 就可以使用解构
+
+const m = new Map()
+m.set('foo', '123')
+m.set('bar', '456')
+for ( [ key, val] of m ) {
+    console.log(key, val)
+}
+// 但是 for of  不能遍历 普通的对象
+
+for (let item of obj) {
+    console.log(item)
+}
+// TypeError: obj is not iterable(可迭代的)
+```
+
+### 可迭代接口
+```js
+// 这个就是 for of 遍历的原理
+const set = new Set(['foo', 'bar', 'baz'])
+
+const iterator = set[Symbol.iterator]()
+
+console.log(iterator.next()) // { value: 'foo', done: false }
+
+console.log(iterator.next()) // { value: 'bar', done: false }
+console.log(iterator.next()) // { value: 'bar', done: false }
+```
+
+
 
 
   
