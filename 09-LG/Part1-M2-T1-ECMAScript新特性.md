@@ -393,10 +393,78 @@ console.log(iterator.next()) // { value: 'bar', done: false }
 ### 实现可迭代接口
 
 ```js
-
+const obj = {
+    [Symbol.iterator] () {
+        return {
+            next () {
+                return {
+                    value: 'aa',
+                    done: true
+                }
+            }
+        }
+    }
+}
+// 此时就不会报错了  当然 此时 循环体也不会执行  因为 迭代器还有问题 这里只是简单的描述
+for (let item of obj) {
+    console.log(123) 
+}
 
 ```
+- // 一个理解接口的场景
+- // 定义一个对象  里边有很多数据  对外暴露一个 迭代方法 实现 不用管这个对象的内部结构  就可以迭代
+- // 这个对象内部实现了 [Symbol.iterator] 就可以使用 for of 遍历了
+```js
+const todos = {
+    life: ['吃饭', '睡觉', '打豆豆'],
+    learn: ['语文', '数学', '英语'],
+    work: ['喝茶'],
+    each (cb) {
+        const all = [...this.life, ...this.learn, ...this.work]
+        for (item of all) {
+            cb(item)
+        }
+    },
+    [Symbol.iterator] () {
+        const all = [].concat(this.life, this.learn, this.work)
+        let index = 0
+        return {
+            next () {
+                return {
+                    value: all[index],
+                    done: index++ >= all.length
+                }
+            }
+        }
+    }
 
+}
+
+// todos.each((item) => console.log(item))
+for (let item of todos) {
+    console.log(item)
+}
+```
+
+### 生成器函数(Generator)
+- 最大的特点就是 惰性执行
+```js
+// 生成器函数  yield 可以让程序暂停  调用 .next() 才会走一步
+function * foo () {
+    console.log('111')
+    yield 100
+    console.log('222')
+    yield 200
+    console.log('333')
+    yield 300
+}
+
+const result = foo() 
+console.log(result.next()) // { value: 100, done: true }
+console.log(result.next()) // { value: 200, done: true }
+console.log(result.next()) // { value: 300, done: true }
+console.log(result.next()) // { value: undefined, done: true }
+```
 
 
 
