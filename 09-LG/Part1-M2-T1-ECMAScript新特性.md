@@ -466,6 +466,60 @@ console.log(result.next()) // { value: 300, done: true }
 console.log(result.next()) // { value: undefined, done: true }
 ```
 
+```js
+// 用生成器实现可迭代对象
+const todos = {
+    life: ['吃饭', '睡觉', '打豆豆'],
+    learn: ['语文', '数学', '英语'],
+    work: ['喝茶'],
+    each (cb) {
+        const all = [...this.life, ...this.learn, ...this.work]
+        for (item of all) {
+            cb(item)
+        }
+    },
+    [Symbol.iterator]:  function * () {
+        const all = [].concat(this.life, this.learn, this.work)
+        for (const item of all) {
+            yield item
+        }
+    }
+
+}
+
+// todos.each((item) => console.log(item))
+for (let item of todos) {
+    console.log(item)
+}
+```
+- 应用  发号器
+```js
+function * createInMaker () {
+    let id = 1
+    while (true) {
+        yield id++
+    }
+}
+
+const idMaker = createInMaker()
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+
+```
+
+### EcmaScript 2016 (小版本)
+
+- 添加数组的 includes 方法    indexOf 也可以 但是不能检查 NaN
+- 指数预算符  以前  Math.pow(2, 10) // 1024  现在  2**10 // 1024
+
+### EcmaScript 2017 (小版本)
+
+- Object.values()
+- Object.entries() // 返回 键值对的数组 [['name', '小名'], ['age', 18]]
+
 
 
   
