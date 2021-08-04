@@ -378,6 +378,8 @@ for (let item of obj) {
 ### 可迭代接口
 ```js
 // 这个就是 for of 遍历的原理
+// 实现 iterable 接口就是 for of 的前提
+// 只要一个数据结构实现了可迭代接口  就可以被 for of 遍历
 const set = new Set(['foo', 'bar', 'baz'])
 
 const iterator = set[Symbol.iterator]()
@@ -388,6 +390,135 @@ console.log(iterator.next()) // { value: 'bar', done: false }
 console.log(iterator.next()) // { value: 'bar', done: false }
 ```
 
+### 实现可迭代接口
+
+```js
+const obj = {
+    [Symbol.iterator] () {
+        return {
+            next () {
+                return {
+                    value: 'aa',
+                    done: true
+                }
+            }
+        }
+    }
+}
+// 此时就不会报错了  当然 此时 循环体也不会执行  因为 迭代器还有问题 这里只是简单的描述
+for (let item of obj) {
+    console.log(123) 
+}
+
+```
+- // 一个理解接口的场景
+- // 定义一个对象  里边有很多数据  对外暴露一个 迭代方法 实现 不用管这个对象的内部结构  就可以迭代
+- // 这个对象内部实现了 [Symbol.iterator] 就可以使用 for of 遍历了
+```js
+const todos = {
+    life: ['吃饭', '睡觉', '打豆豆'],
+    learn: ['语文', '数学', '英语'],
+    work: ['喝茶'],
+    each (cb) {
+        const all = [...this.life, ...this.learn, ...this.work]
+        for (item of all) {
+            cb(item)
+        }
+    },
+    [Symbol.iterator] () {
+        const all = [].concat(this.life, this.learn, this.work)
+        let index = 0
+        return {
+            next () {
+                return {
+                    value: all[index],
+                    done: index++ >= all.length
+                }
+            }
+        }
+    }
+
+}
+
+// todos.each((item) => console.log(item))
+for (let item of todos) {
+    console.log(item)
+}
+```
+
+### 生成器函数(Generator)
+- 最大的特点就是 惰性执行
+```js
+// 生成器函数  yield 可以让程序暂停  调用 .next() 才会走一步
+function * foo () {
+    console.log('111')
+    yield 100
+    console.log('222')
+    yield 200
+    console.log('333')
+    yield 300
+}
+
+const result = foo() 
+console.log(result.next()) // { value: 100, done: true }
+console.log(result.next()) // { value: 200, done: true }
+console.log(result.next()) // { value: 300, done: true }
+console.log(result.next()) // { value: undefined, done: true }
+```
+
+```js
+// 用生成器实现可迭代对象
+const todos = {
+    life: ['吃饭', '睡觉', '打豆豆'],
+    learn: ['语文', '数学', '英语'],
+    work: ['喝茶'],
+    each (cb) {
+        const all = [...this.life, ...this.learn, ...this.work]
+        for (item of all) {
+            cb(item)
+        }
+    },
+    [Symbol.iterator]:  function * () {
+        const all = [].concat(this.life, this.learn, this.work)
+        for (const item of all) {
+            yield item
+        }
+    }
+
+}
+
+// todos.each((item) => console.log(item))
+for (let item of todos) {
+    console.log(item)
+}
+```
+- 应用  发号器
+```js
+function * createInMaker () {
+    let id = 1
+    while (true) {
+        yield id++
+    }
+}
+
+const idMaker = createInMaker()
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+console.log(idMaker.next().value)
+
+```
+
+### EcmaScript 2016 (小版本)
+
+- 添加数组的 includes 方法    indexOf 也可以 但是不能检查 NaN
+- 指数预算符  以前  Math.pow(2, 10) // 1024  现在  2**10 // 1024
+
+### EcmaScript 2017 (小版本)
+
+- Object.values()
+- Object.entries() // 返回 键值对的数组 [['name', '小名'], ['age', 18]]
 
 
 
