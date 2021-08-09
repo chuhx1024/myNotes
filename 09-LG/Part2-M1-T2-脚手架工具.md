@@ -50,6 +50,34 @@ yo node
 yo node:cli 
 ```
 
+- 自定义 Generator : 基于 Yeoman 搭建自己的脚手架
+
+```js
+// 需要一个基础结构
+|__genetator/....................生成器目录
+|  |__app/ ......................默认生成器目录
+|  |  |__index.js................默认生成器实现
+|  |__component/.................其他生成器目录
+|     |__index.js................其他生成器实现
+|__package.json..................模块包配置文件
+
+// 需要 模块的名称必须是 generter-<name>
+// 创建一个文件夹
+mkdir generator-sample
+cd generator-sample
+yarn init
+
+yarn add yeoman-generator  // 为我们创建提供集类 和 API
+
+
+
+
+```
+
+
+
+
+
 
 #### Plop 简介
 - 作用: 在项目开发的过程中使用 可以用指令创建一个组件/模块需要的文件  相当于 User Snippets 的爷爷
