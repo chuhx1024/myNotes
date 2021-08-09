@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "folktale": "^2.3.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "yo": "^4.3.0"
   },
   "devDependencies": {
     "flow-bin": "^0.156.0",
