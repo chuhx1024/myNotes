@@ -8,11 +8,11 @@
 
 const Generator = require('yeoman-generator')
 
-module.export = class extends Generator {
+module.exports = class extends Generator {
     writing () {
         // Yeoman 自动生成文件阶段自动调用此方法
         this.fs.write(
-            this.destinationPath(temp.txt), // 写入文件的路径 借助了  this.destinationPath 这个API 方便获取路径
+            this.destinationPath('temp.txt'), // 写入文件的路径 借助了  this.destinationPath 这个API 方便获取路径
             '12121212'                      // 写入文件的内容
         )
     }
