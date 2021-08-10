@@ -171,6 +171,53 @@ module.exports = class extends Generator {
 - 然后就可以在 npm 官网查看了
 
 
-#### Plop 简介
-- 作用: 在项目开发的过程中使用 可以用指令创建一个组件/模块需要的文件  相当于 User Snippets 的爷爷
+#### Plop 简介(小而美的脚手架工具)
+##### 作用: 在项目开发的过程中使用 可以用指令创建一个组件/模块需要的文件  相当于 User Snippets 的爷爷
+
+##### 安装使用 (安装到自己已有的项目中) 
+- 安装到开发依赖
+```sh
+yarn add plop -D
+``` 
+- 文件根目录 创建 plopfile.js
+```js
+// Plop 入口文件 需要导出一个函数
+// 此函数接收一个 plop 对象 用于创建生成器任务
+
+module.exports = plop => {
+    plop.setGenerator('component', {  // 第一个参数 定义生成器的名字 用于后边  执行  yarn plop component
+        description: 'create a component',
+        prompts: [
+            {
+                type: 'input', // 用于接收用户的数据
+                name: 'name',  // 定义的上下文 属性 可以在hbs模板中使用
+                message: 'components name',
+                default: 'Mycomponent',
+            },
+        ],
+        actions: [
+            {
+                type: 'add', // 代表添加一个文件
+                path: 'src/components/{{ name }}/{{ name }}.js',
+                templateFile: 'plop_templates/components.hbs',
+            },
+        ],
+    })
+}
+```
+- 添加对应的模板 文件根目录  plop_templates/components.hbs
+```hbs
+<template>
+    {{name}}
+</template>
+```
+- 命令行中使用
+```sh
+yarn plop component  
+# 就会触发收集 name 属性的 input
+```
+
+
+
+
 
