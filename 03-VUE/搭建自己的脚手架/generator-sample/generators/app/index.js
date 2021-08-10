@@ -9,6 +9,23 @@
 const Generator = require('yeoman-generator')
 
 module.exports = class extends Generator {
+    // 此方法可以发起对用户的命令行提示
+    prompting () {
+        return this.prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'Your project name',
+                defuault: this.appname  // appname 是系统给提供的名称 就是 本项目 package.json 中的name
+            }
+        ])
+        .then(answers => {
+            console.log(answers, 999) // { name: 'www' } 999
+            const { name } = answers
+            this.name = name  // 把name 挂载到this  后边可以直接使用
+        })
+
+    }
     writing () {
         // Yeoman 自动生成文件阶段自动调用此方法
         // this.fs.write(
@@ -17,11 +34,11 @@ module.exports = class extends Generator {
         // )
 
         // 通过模板的方式写入
-        const tmpl = this.templatePath('abc.js')
+        const tmpl = this.templatePath('abc.txt')
         // 输出目标路径
-        const output = this.destinationPath('abc.js')
+        const output = this.destinationPath('abc.txt')
         // 模板数据上下文
-        const context = { title: 'Hello ...', success: false}
+        const context = { title: 'Hello ...', success: true, name: this.name}
         // 使用 copyTpl API 实现文件的拷贝
         this.fs.copyTpl(tmpl, output, context)
     }

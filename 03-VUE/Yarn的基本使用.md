@@ -44,6 +44,30 @@ sudo npm install -g yarn
     // 只安装生产环境依赖：yarn install --production
 
     ```
+
+
++ 切换源
+    + 查看当前源
+    ```sh
+    yarn config get registry
+    ```
+
+    + 临时修yran源
+    ```sh
+    yarn save package_name --registry https://registry.npm.taobao.org/
+    ```
+
+    + 修改yarn源为taobao源
+    ```sh
+    yarn config set registry https://registry.npm.taobao.org/
+    ```
+
+    + 修改yarn源为官方源
+    ```sh
+    yarn config set registry https://registry.yarnpkg.com
+    ```
+
+
 + 注意事项
     - 尽量不要使用 yarn 安装全局包 yarn对于node_module中依赖包的处理和npm与cnpm不同,所以如果使用yarn 全局安装包,很有可能导致其他全局命令的不能使用
     
