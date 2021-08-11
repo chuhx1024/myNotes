@@ -85,6 +85,102 @@ module.exports = grunt => {
 ```
 
 #### Grunt 多目标任务
+```js
+module.exports = grunt => {
+    // 可以使用 initConfig API 配置一个属性 可以用 grunt.config 取到配置
+    grunt.initConfig({
+        abc: 'bar',
+        ccc: {
+            ddd: 'jay'
+        },
+        build: {
+            options: {  // options 项  不会当做任务执行  作为基础配置出现 this.options() 可以拿到对象
+                foo: 123,
+            },
+            css: '1', // 子目标
+            js: '2'   // 子目标
+        }
+    })
+    // 多目标模式, registerMultiTask API 可以让任务根据配置星城多个子任务
+    // yarn grunt build  可以运行这一组任务
+    // 如果向单独运行  就  yarn  grunt build:css
+    grunt.registerMultiTask('build', function(){  // build 必须在 initConfig 中定义  
+        console.log('我就是一组目标')
+        console.log(this.options())  // 可以拿到 options 定义的对象
+        console.log(`target: ${this.target}, data: ${this.data}`)  // 可以用this  拿到每次执行的 key  和 val  当然不能使用 箭头函数
+    })
+}
+```
+
+#### Grunt 插件的使用
+```js
+// Grunt 插件的使用
+// 装包
+// loadNpmTasks 载入 
+// 在 initConfig 中为其配置相应的选项
+grunt.initConfig({
+    clean: {
+        temp: 'app.js'
+    }
+})
+grunt.loadNpmTasks('grunt-contrib-clean')
+
+yarn grunt clean
+```
+
+#### Grunt 常用插件
+- 编译 scss
+```js
+// 安装
+yarn add grunt-sass sass
+// gruntfile.js
+
+const sass = require('sass')
+
+module.exports = grunt => {
+    // 可以使用 initConfig API 配置一个属性 可以用 grunt.config 取到配置
+    grunt.initConfig({
+        sass: {
+            options: {
+                sourceMap: true,
+                implementation: sass,
+            },
+            main: {
+
+                files: {   // Dictionary of files
+                    'dist/css/index.css': 'src/scss/index.scss',       // 'destination': 'source'
+                }
+            }
+        }
+    })
+    grunt.loadNpmTasks('grunt-sass')
+}
+
+// 执行 
+yarn grunt sass
+```
+
+- babel 使用
+
+```js
+// 安装
+yarn add grunt-babel @babel/core @babel/preset-env
+// 直接去 npm 下去看说明 很好用
+https://www.npmjs.com/package/grunt-babel
+```
+
+#### 但是 但是 但是  Grunt  已经退出历史舞台了
+
+### Gulp 当下最流行的构建工具
+
+#### 概念 
+- 高效 易用
+
+#### 安装定义入口文件
+
+
+
+
 
 
 

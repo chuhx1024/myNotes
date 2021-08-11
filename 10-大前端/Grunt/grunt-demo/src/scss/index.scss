@@ -1,0 +1,9 @@
+.father {
+    color: pink;
+    &-son {
+        font-size: 12px;
+    }
+    .ccc {
+        display: none;
+    }
+}

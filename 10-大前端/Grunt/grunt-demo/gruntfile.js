@@ -2,6 +2,7 @@
 // 用于定义一些需要 Grunt 自动执行的任务
 // 需要导出一个函数
 // 此函数接收一个 grunt 的形参 内部提供一些创建任务的 API
+const sass = require('sass')
 
 module.exports = grunt => {
     // 可以使用 initConfig API 配置一个属性 可以用 grunt.config 取到配置
@@ -16,6 +17,29 @@ module.exports = grunt => {
             },
             css: '1', // 子目标
             js: '2'   // 子目标
+        },
+        sass: {
+            options: {
+                sourceMap: true,
+                implementation: sass,
+            },
+            main: {
+
+                files: {   // Dictionary of files
+                    'dist/css/index.css': 'src/scss/index.scss',       // 'destination': 'source'
+                }
+            }
+        },
+        babel: {
+            options: {
+              sourceMap: true,
+              presets: ['@babel/preset-env']
+            },
+            dist: {
+              files: {
+                'dist/app.js': 'src/app.js'
+              }
+            }
         }
     })
     // 多目标模式, registerMultiTask API 可以让任务根据配置星城多个子任务
@@ -59,5 +83,12 @@ module.exports = grunt => {
             done()
         })
     })
+    // Grunt 插件的使用
+    // 装包
+    // loadNpmTasks 载入 
+    // 在 initConfig 中为其配置相应的选项
+    grunt.loadNpmTasks('grunt-contrib-clean')
+    grunt.loadNpmTasks('grunt-sass')
+    grunt.loadNpmTasks('grunt-babel')
 
 }
