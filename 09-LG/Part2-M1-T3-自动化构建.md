@@ -8,3 +8,87 @@
 - FIS: 百度开源的 更像是一种捆绑套餐  适合初学者  
 
 ### Grunt 基本使用
+
+#### 安装定义入口文件
+```sh
+yarn init -y
+
+yarn add grunt
+
+# 根目录添加  gruntfile.js
+code gruntfile.js  
+```
+```js
+// gruntfile.js
+// Grunt 的入口函数
+// 用于定义一些需要 Grunt 自动执行的任务
+// 需要导出一个函数
+// 此函数接收一个 grunt 的形参 内部提供一些创建任务的 API
+
+module.exports = grunt => {
+    // 可以使用 registerTask API  注册一些任务
+    grunt.registerTask('foo', () => {
+        console.log('Hello grunt ~ ')
+    })
+
+    // 第一个参数 是任务名称  第二是任务描述(可以不填)(执行 yarn grunt --help 是可以看到) 第三个是任务回调
+    grunt.registerTask('bar', '我是关于 bar 任务的描述', () => {
+        console.log('other task ~~~~')
+    })
+
+    // 如果名字是 default 就会成为默认任务 直接执行  yarn  grunt 就可以
+    // grunt.registerTask('default', () => {
+    //     console.log('default task')
+    // })
+
+    // 传入数组可以执行一组任务
+    grunt.registerTask('default', ['foo', 'bar'])
+
+    // 关于异步任务的使用 
+    // 不能使用箭头函数 因为要使用 函数中的 this
+    // 先声明 一个 done 函数   异步结束要调用 done 函数才可以
+    grunt.registerTask('async-task', function() {
+        const done = this.async()
+        setTimeout(() => {
+            console.log('async task working~')
+            done()
+        })
+    })
+}
+```
+
+#### Grunt 标记失败任务
+- 在任务的函数体内 直接 return false  就可以让这个任务失败
+- 如果这个任务是在一个任务列表中(也就是 哪个数组中), 后续的任务也会再执行
+- 如果这任务失败了 还想让后续的任务执行  可以使用 yarn Grunt --force  
+- 如果是异步任务
+    - 不能直接 return false
+    - 要使用 done(false)
+
+#### Grunt 的配置方法
+```js
+module.exports = grunt => {
+    // 可以使用 initConfig API 配置一个属性 可以用 grunt.config 取到配置
+    grunt.initConfig({
+        abc: 'bar',
+        ccc: {
+            ddd: 'jay'
+        }
+    })
+    // 可以使用 registerTask API  注册一些任务
+    grunt.registerTask('foo', () => {
+        console.log(grunt.config('abc'))
+        console.log(grunt.config('ccc.ddd'))  //  支持点语法 
+        console.log(grunt.config('ccc').ddd)  //  也可以拿到对象  在自己点出来
+    })
+}
+```
+
+#### Grunt 多目标任务
+
+
+
+
+
+
+
