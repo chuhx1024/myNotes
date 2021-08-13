@@ -236,6 +236,74 @@ exports.foo1 = series(task1, task2, task3)
 exports.bar = parallel(task1, task2, task3)
 ```
 
+#### 关于异步的处理
+```js
+exports.callback = done => {
+    console.log('callback task' )
+    done()
+}
+exports.callback_error = done => {
+    console.log('callback task')
+    done(new Error('task failed'))
+}
+
+exports.promise = () => {
+    console.log('promise task~')
+    return Promise.resolve()
+}
+
+exports.promise_error = () => {
+    console.log('promise task~')
+    return Promise.reject(new Error('task failed~'))
+}
+
+// async 和 await 的使用(需要 node 8.0 及以上)
+// 把  setTimeout 简单封成一个 Promise
+const timeout = time => {
+    return new Promise (resolve=> {
+        setTimeout(resolve, time)
+    })
+}
+exports.async = async () => {
+    await timeout(2000)
+    console.log('async task ~ ')
+}
+
+// stream 方式的异步  
+const fs = require('fs')
+exports.stream = () => {
+    const readStream = fs.createReadStream('package.json') // 读取的文件流
+    const writeStream = fs.createWriteStream('temp.txt')  // 文件流写入的目标
+    readStream.pipe(writeStream)  // 可以理解为导入
+    return readStream  // readStream 内部有 done() 所以可以执行异步 当 文件读取 写入完成 会触发 end 事件  return 出去了 gulp 也就知道了
+    // 真实的原因 readStream.on('end', () => done()) 它内部有 done
+}
+
+// 压缩文件
+const { Transform }  = require('stream')
+exports.zip = () => {
+    // 文件流读取
+    const read = fs.createReadStream('src/normalize.css')
+
+    // 文件流写入
+    const write = fs.createWriteStream('normailize.min.css')
+    
+    // 文件流转换
+    const transform = new Transform({
+        transform: (chunk, encoding, callback) => {
+            const input = chunk.toString()
+            const output = input.replace(/\s+/g, '').replace(/\/\*.+?\*\//g, '')
+            callback(null, output)
+        }
+    })
+    
+    read.pipe(transform).pipe(write)
+    return read  // 一定要 return 因为是异步的 
+}
+```
+
+ 
+
 
 
 
