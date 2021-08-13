@@ -109,4 +109,22 @@ exports.zip = () => {
     read.pipe(transform).pipe(write)
     return read
 }
+
+// Gulp 文件操作IPA 插件使用
+// Gulp 创建任务的流程
+// 先通过 src 创建一个读取流
+// 使用插件提供的转换流 实现文件的加工
+// 使用 dest 实现文件的写入
+
+// 常用插件 yarn gulp-clean-css 提供压缩 css 代码
+
+const { src, dest } = require('gulp')
+const cleanCss = require('gulp-clean-css')
+
+exports.build = () => {
+    return src('src/*.css')
+        .pipe(cleanCss())
+        .pipe(dest('dest'))
+
+}
  

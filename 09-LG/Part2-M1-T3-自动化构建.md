@@ -279,7 +279,7 @@ exports.stream = () => {
     // 真实的原因 readStream.on('end', () => done()) 它内部有 done
 }
 
-// 压缩文件
+// 压缩文件  读取流 转换流  写入流
 const { Transform }  = require('stream')
 exports.zip = () => {
     // 文件流读取
