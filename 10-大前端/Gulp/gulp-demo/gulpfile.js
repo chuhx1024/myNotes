@@ -119,11 +119,13 @@ exports.zip = () => {
 // 常用插件 yarn gulp-clean-css 提供压缩 css 代码
 
 const { src, dest } = require('gulp')
-const cleanCss = require('gulp-clean-css')
+const cleanCss = require('gulp-clean-css')  // 压缩 css 的插件
+const rename = require('gulp-rename')       // 重命名插件
 
 exports.build = () => {
     return src('src/*.css')
-        .pipe(cleanCss())
+        .pipe(cleanCss())  
+        .pipe(rename({ extname: '.min.css' }))
         .pipe(dest('dest'))
 
 }
