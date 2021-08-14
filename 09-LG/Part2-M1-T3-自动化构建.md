@@ -278,7 +278,10 @@ exports.stream = () => {
     return readStream  // readStream 内部有 done() 所以可以执行异步 当 文件读取 写入完成 会触发 end 事件  return 出去了 gulp 也就知道了
     // 真实的原因 readStream.on('end', () => done()) 它内部有 done
 }
+```
 
+#### 常用的插件
+```js
 // 压缩文件  读取流 转换流  写入流
 const { Transform }  = require('stream')
 exports.zip = () => {
@@ -300,7 +303,62 @@ exports.zip = () => {
     read.pipe(transform).pipe(write)
     return read  // 一定要 return 因为是异步的 
 }
+
+// 使用 babel 转换 js ES6 问题
+// 安装 gulp-babel   还要安装  "@babel/core" (babel核心模块)  "@babel/preset-env"(babel 转ES6 语法模块),
+
+const babel = require('gulp-babel')
+
+const script = () => {
+    return src('src/assets/scripts/*.js', { base: 'src' })
+        .pipe(babel({ presets: ['@babel/preset-env']}))
+        .pipe(dest('dist'))
+}
+
+// 使用 node  del 包 删除文件
+const del = require('del') // 要明确的是  gulp 中 也可以使用 npm 原生的包
+
+const clean = () => {
+    return del(['dist'])  // [] 中定义要删除的文件路径
+}
+
+// 小技巧  可以使用 gulp-load-plugins 包  加载所有用过的插件 不用手动引入  在用插件是 多添加个 plugins. 就可以了
+// 注意 sass 不能用 因为有依赖
+const sass = require('gulp-sass')(require('sass'))
+
+const loadPlugins = require('gulp-load-plugins')
+
+const plugins = loadPlugins()
+
+const page = () => {
+    return src('src/**/*.html', { base: 'src' })
+        .pipe(plugins.swig())
+        .pipe(dest('dist'))
+}
 ```
+
+#### Gulp 自动化构建案例 -- 热更新开发服务器
+- 使用  bs 启动一个 开发服务器
+- 可以配置 端口 服务基础路径
+- 可以使用 watch 监听文件的变化
+- 可以使用 bs.reload  刷新浏览器
+```js
+const bs = require('browser-sync').create()
+cosnt watch = require('gulp')
+
+const serve = () => {
+    watch('src/assets/styles/*.scss', style)  // 监听到文件变化  就执行 style 任务
+    bs.init({
+        port: 3000,
+        server: {
+            baseDir: ['dist', 'src', 'public] // 启动路径  先去 dist  找不到 再去 src  再去 public
+        }
+    
+    })
+}
+```
+
+
 
  
 
