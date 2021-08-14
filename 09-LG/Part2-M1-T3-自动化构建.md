@@ -358,6 +358,27 @@ const serve = () => {
 }
 ```
 
+#### 文件压缩
+- gulp-htmlmin  压缩html
+- gulp-uglify 压缩js
+- gulp-clean-css 压缩css
+- gulp-if 判断文件的类型 做不同的操作(在这里就是压缩)
+```js
+.pipe(plugins.if(/\.js$/, plugins.uglify()))
+.pipe(plugins.if(/\.css$/, plugins.cleanCss()))
+.pipe(plugins.if(/.html$/, plugins.htmlmin({
+    collapseWhitespace: true, // 把换行去掉
+    miniifyCSS: true,  // 压缩行内样式
+    minifyJS: true  // 压缩 html 中的 js 代码
+})))
+```
+
+#### 封装自动化构建工作流
+- 因为 一个项目 比如 打包 css js  html 都是相同的 
+- 可以用代码段保存起来 使用时 粘贴过来 但是太low 最主要的原因是 包升级 或用法修改时  很不方便
+
+
+
 
 
  

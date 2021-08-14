@@ -193,4 +193,25 @@ read('./index.js', 'utf-8').then((data) => {
 })
 ```
 
+## process 进程
+- cwd
+```js
+process.cwd() 方法返回 Node.js 进程的当前工作目录  就是 命令行执行的 目录。
+
+const cwd = process.cwd()
+
+// 使用可以读取文件
+const config = {
+    abc: 123,
+}
+try {
+    loadConfig = require(`${cwd}/vue.config.js`)
+    config = Object.assign({}, config, loadConfig)
+} catch (e) {
+
+}
+
+console.log(`Current directory: ${cwd}`);
+```
+
 
