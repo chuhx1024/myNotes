@@ -80,9 +80,6 @@ yarn add yeoman-generator  // 为我们创建提供集类 和 API
 // 需要导出一个继承自 Yeoman Generator 的类型
 // Yeoman Generator 在工作是会自动调用我们在此类型中定义的一些生命周期方法
 // 在此文件中 可以通过父类提供的一些方法实现一些功能 如 文件写入
-// 在此文件中 可以通过父类提供的一些方法实现一些功能 如 文件写入
-// 在此文件中 可以通过父类提供的一些方法实现一些功能 如 文件写入
-// 在此文件中 可以通过父类提供的一些方法实现一些功能 如 文件写入
 
 const Generator = require('yeoman-generator')
 
@@ -165,7 +162,7 @@ module.exports = class extends Generator {
         - 注意 一般 vue 项目中 就是那个理想项目结构中 本事也会用到  EJS 语法 去定义一个 public/index.html link 中  <%= BASE_URL%>  是不需要编译的  要转义一下  <%%= BASE_URL> 就可以了
 
 - 发布 Generator 
-    - 想把本项目 用 git 托管一下
+    - 先把本项目 用 git 托管一下
     - yarn publish --registry=https://registry.yarnpkg.com    (前提是 修改 淘宝源为本源  登录 npm  )
 
 - 然后就可以在 npm 官网查看了

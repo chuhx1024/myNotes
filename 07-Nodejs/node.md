@@ -180,12 +180,12 @@ read('./index.js').then((data) => {
 })
 ```
 
-- 利用node的util中的 promiseify 将异步封装成 promise
+- 利用node的util中的 promisify 将异步封装成 promise
 ```js
 const fs = require('fs')
 const util = require('util')
 
-let read = util.promiseify(fs.readFile)
+let read = util.promisify(fs.readFile)
 read('./index.js', 'utf-8').then((data) => {
     console.log(data)
 }).catch((err) => {
@@ -212,6 +212,44 @@ try {
 }
 
 console.log(`Current directory: ${cwd}`);
+```
+
+## 获取文件下的相对路径
+```js
+// node 运行此脚本 可以获取 temlates 下的 所有文件相对路径
+const fs = require('fs');  
+const path = require('path'); 
+const util = require('util')
+
+let readdir = util.promisify(fs.readdir)
+
+async function getFiledir (dir) {
+   let files = await readdir(dir)
+   try {
+        files.forEach(function(filename){  
+            //获取当前文件的绝对路径  
+            const filedir = path.join(dir,filename);  
+            //根据文件路径获取文件信息，返回一个fs.Stats对象  
+            fs.stat(filedir,function(eror,stats){  
+                if(eror){  
+                    console.warn('获取文件stats失败');  
+                }else{  
+                    const isFile = stats.isFile();//是文件  
+                    const isDir = stats.isDirectory();//是文件夹  
+                    if(isFile){  
+                        console.log(`'${filedir.split('templates\\')[1].replace(/\\/g, '/')}',`) 
+                    }  
+                    if(isDir){  
+                        getFiledir(filedir);//递归，如果是文件夹，就继续遍历该文件夹下面的文件  
+                    }  
+                }  
+            }) 
+        }) 
+   } catch (err) {
+       console.log(err)
+   }
+}
+getFiledir(path.resolve('./templates'))
 ```
 
 
