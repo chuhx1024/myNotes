@@ -28,6 +28,7 @@ yarn webpack
 ```sh
 yarn webpack   # 会默认 从 src/index.js  打包到 dist 目录
 ```
+- 修改配置  在根目录 添加  webpack.config.js 文件 它是在 node 环境运行的 所以要遵循  CommonJS 规范
 ```js
 // webpack.config.js
 const path = require('path')
@@ -84,6 +85,50 @@ module: {
 }
 ```
 - Loader 是 webpack 实现打包的 核心
+- 借助 loader 就可以加载任何类型的资源
+
+### Webpack 导入资源入口
+- 最终是要 js 作为打包入口的
+- 这个 js 会把所有的资源加载到项目中 所以在 main.js 引入 .css 继续打包
+```js
+// main.js
+import './main.css'
+```
+- webpack 建议在 js 中引入 .css
+    - 不仅仅如此 webpack 建议我们在使用资源得时候在再去引入资源
+
+### Webpack 常用的 Loader
+- 文件资源加载器 file-loader
+    - 项目中的 图片 字体 是没有办法通过 js 的方式引入
+```sh
+yarn add file-loader -D
+```
+```js
+module: {
+    rules: [
+        {
+            test: /.png$/,
+            use: ['file-loader']
+        }
+    ]
+}
+```
+- Data URLs 加载器 url-loader
+    - 可以将图片转换为 Base64
+```sh
+yarn add file-loader -D
+```
+```js
+module: {
+    rules: [
+        {
+            test: /.png$/,
+            use: ['url-loader']
+        }
+    ]
+}
+```
+
 
 
 

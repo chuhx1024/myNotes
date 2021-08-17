@@ -1,1 +1,0 @@
-(()=>{"use strict";const e=(()=>{const e=document.createElement("h1");return e.textContent="Hello World",e.addEventListener("click",(()=>{alert("Hello World")})),e})();document.body.append(e)})();
