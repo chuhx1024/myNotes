@@ -201,9 +201,40 @@ export { default as TheSidebar } from './TheSidebar'
     - IE 到目前为止 都没有支持
     - 所以可以使用 ES Module Loader
 ```js
+// nomodule 的意思就是 只在不支持 ESM 的浏览器执行
 <script nomodule src="https://unpkg.com/browser-es-module-loader/dist/babel-browser-build.js"></script>
 <script nomodule src="https://unpkg.com/browser-es-module-loader"></script>
+
+// 这些东西只能在浏览器上玩一玩  真实的开发中 使用  webpack  的 babel 转换 才是最好的方案
 ```
+
+### ESM 在 nodejs 中的支持
+#### 前置条件
+- 需要 node 版本 > 8.5
+- 文件的 扩展名 .js --> .mjs
+- 运行  node --experimantal-modules index.mjs
+
+#### 与 CommonJS 模块交互
+```js
+// commonjs.js
+module.export = {
+    foo: '123'
+}
+
+// esModule.js
+import abc from './commonjs.js' // 只能以导入默认成员的方式导入
+console.log(abc) // 123
+
+// 反过来  
+// 用 ESM 凡是导出
+// 用 esModule.js 导入  
+// 就会报错  CommonJS  不支持 其他方式的导出 
+
+```
+
+
+
+
 
 
 
