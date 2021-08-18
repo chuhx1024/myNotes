@@ -12,12 +12,26 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            },
+            {
                 test: /.css$/,
                 use: ['style-loader', 'css-loader']
             },
             {
                 test: /.png$/,
-                use: ['url-loader']
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10 * 1024 // 10kb
+                    }
+                }
             }
         ]
     }
