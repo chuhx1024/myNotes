@@ -115,6 +115,9 @@ module: {
 ```
 - Data URLs 加载器 url-loader
     - 可以将图片转换为 Base64
+    - 原则:
+        - 小文件使用 Data URLs, 减少请求次数 (使用 url-loader)
+        - 大文件单独存放, 提高加载速度 (使用 file-loader) 
 ```sh
 yarn add file-loader -D
 ```
@@ -123,11 +126,30 @@ module: {
     rules: [
         {
             test: /.png$/,
-            use: ['url-loader']
+            use: {
+                loader: 'url-loader',
+                options: {
+                    limit: 10 * 1024 // 10kb
+                }
+            }
         }
     ]
 }
 ```
+
+- 常用 Loader 分类
+    - 编译转换类
+        - css-loader
+        - babel-loader
+        ```sh
+        # babel-loader (基础) @babel/core(核心) @babel/preset-enb(转换ES6)
+        yarn add babel-loader @babel/core @babel/preset-env -D
+        ```
+    - 文件操作类: 拷贝 + 资源导出
+        - file-loader
+    - 代码检查类: 通过/不通过  一般不会去主动修改我们的代码
+        - eslint-loader
+
 
 
 
