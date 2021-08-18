@@ -150,6 +150,22 @@ module: {
     - 代码检查类: 通过/不通过  一般不会去主动修改我们的代码
         - eslint-loader
 
+### Webpack 的模块加载方式
+#### JS 模块加载
+- 最基础: 遵循 ES Modules 标准的 import 引用
+- 其次也遵循 CommonJS 标准的 require 函数
+```js
+// 但是在 Webpack 中使用 require 需要 .default
+const ccc = require('./ccc.js').default
+```
+- 遵循 AMD 标准的 define 函数和 require 函数 也支持
+- 虽然三种都支持 不是必要  一定不要混合使用标准 造成代码不规范 不利于维护
+
+#### 非 JS 资源加载
+- Loader 加载
+    - 样式代码中使用  @import 和 url 函数
+    - html-loader 加载 html 中的图片 src 属性
+    
 
 
 

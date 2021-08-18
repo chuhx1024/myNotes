@@ -1,4 +1,7 @@
 body {
     padding: 30px;
     border: 1px solid #ccc;
+    background-image: url(icon.png);
+    background-size: cover;
+
 }

@@ -8,6 +8,7 @@ module.exports = {
         filename: 'bundle.js', // 生成的打包文件 默认为 main
         // 这里需要一个 绝对路径 需要借助 node 的 path 模块
         path: path.join(__dirname, 'output'), 
+        publicPath: 'output/',
     },
     module: {
         rules: [
