@@ -165,6 +165,127 @@ const ccc = require('./ccc.js').default
 - Loader 加载
     - 样式代码中使用  @import 和 url 函数
     - html-loader 加载 html 中的图片 src 属性
+
+#### 开发一个 Loader : 开发一个 MD loader
+- 定义一个 js
+```js
+module.exports = source => {
+    console.log(source) // source 就是输入
+    // 这里可以做很多事
+    return 'hello' // return 就是加工后的输出
+}
+```
+- 使用: 
+    - 发布为 npm 包使用
+    - 放文件根目录 使用相对路径 就可以使用
+```js
+ {
+    test: /.md$/,
+    use: {
+        loader: './markDown-loader.js',
+        options: {
+            limit: 10 * 1024 // 10kb
+        }
+    }
+}
+```
+- 本质: 
+    - Loader 类似于管道  就是负责资源文件从输入到输出的转换
+    - 既然是管道  就可以把一个资源文件 交给多个 loader 去处理  (注意顺序 从后向前)
+
+### Webpack 插件机制
+- 增强 Webpack 的自动化能力
+- 解决除了资源加载以外的其他自动化工作
+    - e.g. 打包前自动清除 dist 目录
+    - e.g. 拷贝静态文件到输出目录
+    - e.g. 压缩输出代码
+
+
+#### 清除 dist 目录  clean-webpack-plugin
+```sh
+yarn add clean-webpack-plugin -D
+```
+```js
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+plugins:[
+    new CleanWebpackPlugin()
+]
+```
+
+#### 自动生成使用 bundle.js 的HTML html-webpack-plugin
+- 以前都是 自己写 index.html 引入生成的 html 
+    - 项目发布时 要同时发布 打包文件 和根目录的 index.html 文件
+    - 还要保证 index.html 中路径的引用是正确的
+
+```sh
+yarn add html-webpack-plugin -D
+```
+```js
+const HtmlwebpackPlugin = require('html-webpack-plugin')
+plugins:[
+    new HtmlwebpackPlugin({
+            template: './src/index.html',
+            title: '我就是自定义的标题'
+    })
+]
+
+// ./src/index.html 为 模板文件 EJS 语法
+// htmlWebpackPlugin.options. 可以去到传入的参数
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title%></title>
+</head>
+<body>
+</body>
+</html>
+```
+#### 实现数据的拷贝 copy-webpack-plugin
+```sh
+yarn add copy-webpack-plugin -D 
+```
+```js
+const copyWebpackPlugin = require('copy-webpack-plugin')
+new copyWebpackPlugin({
+    patterns: [
+        { 
+            from: path.join(__dirname,'public'),
+            to: 'public' 
+        }
+    ],
+})
+```
+
+#### Webpack 插件机制
+- Plugin 通过钩子机制实现
+- 定义一个类
+- 提供一个apply 方法
+- 在 apply 方法里边可以使用钩子函数做很多的操作
+```js
+class MyPlugin {
+    apply(compiler) {
+        console.log('MyPlugin 启动')
+        // emit 就是打包后最后要写入 dist 前的钩子函数
+        compiler.hooks.emit.tap('MyPlugin', compilation => {
+            // compilation 可以理解为此次打包的上下文
+            for (const name in compilation.assets) {
+                console.log(name)
+            }
+        })
+    }
+}
+```
+
+
+
+
+
+
+
+
     
 
 
