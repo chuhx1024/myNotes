@@ -12,7 +12,7 @@ class MyPlugin {
         compiler.hooks.emit.tap('MyPlugin', compilation => {
             // compilation 可以理解为此次打包的上下文
             for (const name in compilation.assets) {
-                console.log(name)
+                console.log(name, 1)
             }
         })
     }

@@ -261,6 +261,7 @@ new copyWebpackPlugin({
 
 #### Webpack 插件机制
 - Plugin 通过钩子机制实现
+- 通过在生命周期的钩子中挂载函数实现扩展
 - 定义一个类
 - 提供一个apply 方法
 - 在 apply 方法里边可以使用钩子函数做很多的操作
@@ -278,6 +279,61 @@ class MyPlugin {
     }
 }
 ```
+
+#### 开发体验的设想
+- 以 Http server 的方式运行
+    - 接近生成环境的状态 可以使用 Ajax 的api
+- 修改源代码后 页面实时刷新
+- 提供 sourceMap 支持
+
+#### 增强开发体验相关
+- Watch 工作模式
+```sh
+yarn webpack --watch  # webpack 会一直监听 代码改变 重新编译
+```
+
+#### 编译后浏览器自动刷新 
+- browserSync  可以监听 webpack 自动刷新浏览器 但是太麻烦  有磁盘读写操作 效率低
+- 最优方案
+    - 集成 自动编译 和 自动刷新浏览器 等功能
+    ```sh
+    yarn add webpack-dev-server -D
+    ```
+    - 使用
+    ```sh
+    yarn webpack-dev-server --open
+    ```
+
+#### 开发环境的路径问题
+- 一般开发环境的构建过程 不需要 使用用 copy-webpack-plugin 插件来拷贝文件(读写磁盘效率低)
+- 拷贝文件只放在最后打包上线时
+- 但是开发过程中还要使用 这些文件 (e.g. public文件夹下的文件)
+- 这时就需要 配置 devServer.contentBase
+```js
+devServer:{
+    ...,
+    port:8080,
+    contentBase:path.join(__dirname,'..',dist),  // 
+    publicPath:''，
+}
+```
+
+#### Proxy 代理配置
+```js
+devServer:{
+    proxy: {
+        '/api': {
+            target: https://api.github.com',
+            pathRewrite: {
+                '^/api': '' 
+            }
+             
+        }
+    }
+}
+```
+
+
 
 
 

@@ -4,6 +4,9 @@ import icon from './icon.png'
 import min from './min.png'
 const heading = creatHeading()
 document.body.append(heading)
+console.log(1)
+console.log(1)
+console.log(1)
 
 const img = new Image()
 img.src = icon
