@@ -166,6 +166,11 @@ const ccc = require('./ccc.js').default
     - 样式代码中使用  @import 和 url 函数
     - html-loader 加载 html 中的图片 src 属性
 
+#### 核心工作原理
+- 从一个打包的入口 一般是 js 文件
+- 最终成为一个有依赖关系的依赖树
+- 所以说  loader 是核心
+
 #### 开发一个 Loader : 开发一个 MD loader
 - 定义一个 js
 ```js
@@ -327,11 +332,116 @@ devServer:{
             pathRewrite: {
                 '^/api': '' 
             }
+            changeOrigin: true,  // 改变主机映射
              
         }
     }
 }
 ```
+
+#### Source Map 相关
+- 源代码地图 -- 就是 转换后的代码与转换之前代码的映射关系
+- 给 Webpack 配置 sourceMap
+```js
+devtool: 'source-map'
+```
+- webpack 的 sourceMap 等级有 12中 最快的最不清晰  最慢的最详细
+
+- 开发模式一般选择 cheap-moudule-eval-source-map
+- 生产模式选择  none
+
+#### 实时刷新遇到的问题
+- 开发中 有 input 框  实时刷新  页面是刷新了  但是  input 中的内容也没了 还要重新输入
+    - 可以在代码中写死
+    - 可以通过代码 本地存储
+    - 但都不是太友好
+
+- 解决方案 Hot Module Replacement(热拔插)
+    - 最强的功能之一
+    - 最受欢迎之一
+- 开启 HMR
+```js
+const webpack = require('webpack')
+    devServer: {
+        hot: true,
+    },
+    plugins:[
+        new webpack.HotModuleReplacementPlugin()
+    ]
+```
+
+#### 生产环境的优化
+- 要注重运行效率
+- webpack 提出模式的概念
+- webpack 建议我们为不同的环境创建不同的配置
+    - 配置文件根据不同的环境导出不同的配置
+```js
+// webpack的配置文件支持导出一个 函数
+
+module.exports = (env, argv) => { // env 为环境变量 argv 为传递的参数
+    const config = {
+        // 里边配置公用的配置
+    }   
+    if (env === 'production') {
+        config.mode = 'production'
+        config.devtool = false
+        config.plugins = [
+            ...config.plugins,
+            new CleanWebpackPlugin(),
+            new copyWebpackPlugin(),
+        ]
+    }
+    return config
+}
+```
+    - 一个环境对应一个配置文件(适合大型项目, 结构清晰)
+```js
+// webpack.common.js // 写一些公共配置
+
+// webpack.dev.js
+const common = require('./webpack.common')
+const merge = require('webpack-merge') // yarn add webpack-merge -D
+module.exports = merge (common, { // 这里不能简单使用 Object.assign  因为有对象
+    mode: 'developmation'
+    // 等等
+})
+
+// webpack.prod.jd
+// 上个文件结构类似
+
+// 运行时  没有默认配置了 就要自己加
+yarn webpack --config webpack.dev.js 
+yarn webpack --config webpack.prod.js 
+```
+
+#### Tree-shaking
+- Tree-shaking 功能不是某个插件完成的  而是一系列的优化配置  生产模式 自动打开
+```js
+optimization: { // 这个配置集中的配置webpack内部的优化功能
+    usedExports: true, // 只导出 使用过得代码
+    minimize: true, // 开启代码压缩
+}
+
+```
+
+#### 模块合并 
+- 开启后  可以让所有的模块提升到一个模块中 进一步缩小代码体积
+```js
+optimization: {
+    concatenateModules: true,
+}
+```
+
+#### webpack Tree-shaking 和 babel 同时使用会导致 tree-shaking 失效
+- tree-shaking 的前提是 使用 ESM 编写代码
+- 但是 babel 会采用 commonJS 的模块引入
+- 但是新版的 babel 不会让 tree-shaking 失效 因为  babel 中 做了标记  不会转换 ESM 代码
+- 验证 如果在 babel 的配置项总 开启 commonJS 方式  tree-shaking 就失效了
+
+
+
+
+
 
 
 

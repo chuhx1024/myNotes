@@ -7,6 +7,7 @@ document.body.append(heading)
 console.log(1)
 console.log(1)
 console.log(1)
+alert(1)
 
 const img = new Image()
 img.src = icon

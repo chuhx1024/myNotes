@@ -5,6 +5,8 @@ const HtmlwebpackPlugin = require('html-webpack-plugin')
 
 const copyWebpackPlugin = require('copy-webpack-plugin')
 
+const webpack = require('webpack')
+
 class MyPlugin {
     apply(compiler) {
         console.log('MyPlugin 启动')
@@ -28,6 +30,9 @@ module.exports = {
         // 这里需要一个 绝对路径 需要借助 node 的 path 模块
         path: path.join(__dirname, 'output'), 
         // publicPath: 'output/',
+    },
+    devServer: {
+        hot: true,
     },
     module: {
         rules: [
@@ -85,6 +90,7 @@ module.exports = {
                 }
             ],
         }),
-        new MyPlugin()
+        new MyPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 }
