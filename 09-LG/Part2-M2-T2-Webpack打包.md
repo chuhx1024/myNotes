@@ -438,6 +438,92 @@ optimization: {
 - 但是新版的 babel 不会让 tree-shaking 失效 因为  babel 中 做了标记  不会转换 ESM 代码
 - 验证 如果在 babel 的配置项总 开启 commonJS 方式  tree-shaking 就失效了
 
+#### sideEffects 副作用
+- 副作用是指 模块在执行时除了导出 导出成员之外所做的事情
+- 这个特性一般在开发一个 npm 包的时候使用
+- Webpack 允许我们 以标识的方式 标记代码是否有副作用
+- 从而为 tree-shaking 提供更大的压缩空间 
+- 开启
+```js
+// webpack.config.js
+optimization: {
+    sideEffects: true, // 开启后 webpack 在打包时 就会检查当前模块的 package.json 中是否标记 
+}
+// package.json
+"sideEffects":false, // false 说明该模块没有副作用  没有用的模块就会被移除
+
+```
+- 使用的前提示一定要确定你的代码没有副作用 
+    - 什么是副作用呢
+        - 比如你的 代码块中 有给 Number 添加一个拓展方法  (它没有模块的导入导出 只是拓展功能)
+        ```js
+        // extentd.js
+        Number.prototype.pad = functoin (size) {
+            let reault = this + ''
+            while (result.length < size) {
+                result = '0' + result
+            }
+            return result
+        }
+        ```
+        - 还有 单独引入的 css 代码
+        ```js
+        // Global.css
+        ```
+    - 有上边的情况就要关闭 要不 副作用代码就不生效了
+    ```js
+    // package.json
+    "sideEffects": ture,
+    // 更好的选择是给他们单独做标识
+
+    "sideEffects": [  // 接受一数组 数组里标识 的就会被打包进来  其他的副作用 还是会被移除的 很好用
+        "./src/extend.js",
+        "Global.css"
+    ],
+    ```
+#### Webpack  代码分割
+- 默认的 Webpack 会把打包的js 打入一个文件  bundle.js 文件体积会很大
+- 但是实际情况是我们在应用开始时 并不是所有的模块都要运行
+- 最好的方案 就是按照一定的规则 把打包的结果分离到多个文件中(分包 按需加载)
+- 分包方式
+    - 多入口打包(Multi Entry)
+        - 使用与多页面应用程序
+        - 最常见的规则就是 一个页面对应一个打包入口
+        - 公共部分再单独提取
+        ```js
+        // 场景  一个项目有一个首页(index) 一个相册页(elbum)  还有 公共的样式文件 发 ajax 的模块
+        // webpack.config.js
+        entry: { // 把 entry 属性变成一个对象
+            index: './src/index.js',
+            elbum: './src/elbum.js'
+        }
+        output: {
+            filename: '[name].bundle.js' // name 就会替换为 入口的名称  这里就是 index elbum
+        }
+        optimization: {
+            splitChunks: {
+                chunks: 'all', // 表示会把所有的公共模块打包到 album~index.bundle.js 中
+            }
+        },
+        plugin: [
+            new HtmlwebpackPlugin({
+                template: './src/index.html',
+                title: '我就是首页'
+                fileName: 'index.html',
+                chunks: ['index'],
+            }),
+            new HtmlwebpackPlugin({
+                template: './src/elbum.html',
+                title: '我就是首页'
+                fileName: 'elbum.html',
+                chunks: ['elbum'],
+            }),
+        ]
+        ````
+    - 采用 ESM 的动态导入
+
+
+
 
 
 
