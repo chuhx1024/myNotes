@@ -333,7 +333,6 @@ devServer:{
                 '^/api': '' 
             }
             changeOrigin: true,  // 改变主机映射
-             
         }
     }
 }
@@ -521,6 +520,100 @@ optimization: {
         ]
         ````
     - 采用 ESM 的动态导入
+        - 按需加载(应用到哪个模块再加载)
+        - 极大的节省带宽和流量
+        - 使用动态导入的方式实现
+        - 所有动态导入的模块都会被自动分包
+        - 动态导入更为灵活
+        ```js
+        // 直接使用
+        import('./posts/posts').then({default: posts}) => {
+            mainElemnt.appendChild(posts())
+        })
+
+        // 打包结果就会自动分包
+        // 如果使用 Vue React 框架  就可以在路由中使用 import 实现动态导入
+        ```
+        - 魔法注释
+        ```js
+        import(/* webpackChunkName: 'posts' */'./posts/posts').then({default: posts}) => {
+            mainElemnt.appendChild(posts())
+        })
+        // 这样打包出来的分包文件 就会重命名 不写  就是 1 2 3 
+        // 如果 chunkName  设置相同 就会被打包到一起 很方便
+        ```
+#### MiniCssExtractPlugin 提取 CSS 到单独的文件 可以实现 css 的按需加载
+- 需要注意 如果 css 体积不是很大  提去到单独文件 会适得其反
+- 根据经验 css 大小 超过 150kb  才考虑是不是要提取
+- 文件很小  放在一个文件里 减少了请求次数 效果会更好
+
+- 安装
+```sh
+yarn add mini-extract-plugin -D
+```
+- 使用
+```js
+const MiniCssExtractPlugin = require('mini-extract-plugin')
+module: {
+    rules: [
+        {
+            test: /.css$/,
+            use: [
+                // 'style-loader',  // 原来是通过 style-loader 把 css 样式 注入页面  现在不需要了
+                MiniCssExtractPlugin.loader, // 通过 link 的方式引入 css 样式文件
+                {
+                loader: 'css-loader',
+                options: {
+                    esModule: false,
+                }
+            }]
+        },
+    ]
+}
+plugin: [
+    new MiniCssExtractPlugin()
+]
+
+```
+### potimize-css-assets-webpack-plugin 对 css 文件进行压缩
+- webpack 的生产模式默认 只是对js 文件进行压缩
+- css 官方推荐使用  potimize-css-assets-webpack-plugin 来压缩
+- 安装
+```sh
+yarn add potimize-css-assets-webpack-plugin -D
+```
+- 配置
+```js
+const PotimizeCssAssetsWebpackPlugin = require('potimize-css-assets-webpack-plugin')
+const TerserWebpackPlugin = require('terser-webpack-plugin')
+// 不用直接在 plugin 中配置 配置在  optimization 中更灵活
+plugin: [
+    new MiniCssExtractPlugin()
+]
+// 推荐配置在这里
+optimization: { // 这个配置集中的配置webpack内部的优化功能
+    minimize: [
+        new MiniCssExtractPlugin() // 只添加他  css 压缩了  但是 js 又不压缩了
+        new TerserWebpackPlugin()  // 还要手动的添加 压缩 js de 官方插件
+    ]
+}
+```
+#### 关于部署代码后  客户那里浏览器缓存  不更新最新代码问题
+- 一般给生成环境的代码(就是 出口的 fileName 属性)设置 Hash 值 
+- 一般有三种 Hash 模式 contenthash 是最好的 定位到了文件的改变
+- 默认 hash 是20位  嫌弃太长 可以指定为8位 [name]-[contenthash:8].bundle.js
+```js
+output: {
+    filename: '[name]-[hash].bundle.js' // 项目级别的 项目任何一个地方改变 hash 都会变
+    filename: '[name]-[chunkhash].bundle.js' // 模块级别的 某个模块一个地方改变 只有这个模块的 Hash 会变 此时要注意 公共模块也会被动改变的
+    filename: '[name]-[contenthash].bundle.js' // 文件级别的 某个文件一个地方改变 只有这个文件的 Hash 会变 此时要注意 公共模块也会被动改变的
+}
+```
+
+
+
+
+
 
 
 
