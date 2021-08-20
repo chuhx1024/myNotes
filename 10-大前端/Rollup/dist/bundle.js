@@ -7,6 +7,11 @@
         console.log('--------------------------------------');
     };
 
+    var name = "rollup";
+    var version = "1.0.0";
+
     log(mag);
+    log(name);
+    log(version);
 
 }());
