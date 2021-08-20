@@ -15,11 +15,22 @@ yarn init -y
 yarn add rollup -D
 ```
 - 配置文件
-
+```js
+// rollup.config.js
+export default {
+    input: 'src/index.js',
+    output: {
+        file: 'dist/bundle.js',
+        format: 'iife' // 输出的格式 立即调用函数
+    }
+}
+```
 
 ### 打包的特点 
 - 打包后的代码很简洁  就像手写的一样 只是处理的 ESM 的引用关系
 - 没有引用的代码  也是 shaking 掉了   tree-shaking 的概念就是在 Rollup 中提出的
 - 
+
+### 使用插件
 
 
