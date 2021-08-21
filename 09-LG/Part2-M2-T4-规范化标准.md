@@ -65,7 +65,17 @@ module.exports = {
   parserOptions: { // 可以使用的JS版本
     ecmaVersion: 12
   },
-  rules: { // 自定义的规则
+  // rules 中的 0 1 2 
+  // "off" 或 0 - 关闭规则
+  // "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
+  // "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+  rules: { // 自定义的规则 常用配置
+    'no-console': process.env.NODE_ENV === 'production' ? 1 : 0,
+    'no-debugger': process.env.NODE_ENV === 'production' ? 1 : 0,
+    'indent': [2, 4], // js 4个空格缩进
+    'vue/html-indent': [2, 4], // html 4个空格缩进
+    'eqeqeq': 0, // 允许使用 == !=
+    'comma-dangle': [2, 'always-multiline'], // 对象 数据 分行显示的 结尾必须加 ','
   },
   globals: { // 可以添加些全局变量 不会报错
     jQuery: 'readonly'
