@@ -28,12 +28,12 @@
  	}
     // 定义一个对象缓存加载过的模块
     let installedModules = {}
-    // 定义一个 __webpack_modules__ 方法来替换 import require 加载操作
+    // 定义一个 __webpack_require__ 方法来替换 import require 加载操作
 
     let installedChunks = {
         "main": 0
     }
-    function __webpack_modules__ (moduleId) {
+    function __webpack_require__ (moduleId) {
         // 检测当前缓存中是否有有被加载的模块内容 有 就返回 没有 就创建
         if (installedModules[moduleId]) {
             return installedModules[moduleId].exports
@@ -44,22 +44,22 @@
             exports: {}
         }
         // 核心 执行模块函数
-        modules[moduleId].call(module.exports, module, module.exports, __webpack_modules__)
+        modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)
         // 先标记 module 被调用了
         return module.exports
 
     }
-    // 在 __webpack_modules__ 上定义 m 属性 保存 modules
-    __webpack_modules__.m = modules
-    // 在 __webpack_modules__ 上定义 c 属性 cache
-    __webpack_modules__.c = installedModules
+    // 在 __webpack_require__ 上定义 m 属性 保存 modules
+    __webpack_require__.m = modules
+    // 在 __webpack_require__ 上定义 c 属性 cache
+    __webpack_require__.c = installedModules
     // 定义 o 方法 判断对象身上是否存在指定的属性
-    __webpack_modules__.o = function (object, property) {
+    __webpack_require__.o = function (object, property) {
         return Object.prototype.hasOwnProperty(object, property)
     }
     // 定义一个d 方法 用于在对象的 身上添加添加一个属性 同时给这个属性提供一个 gertter 方法
-    __webpack_modules__.d = function (exports, name, getter) {
-        if(!__webpack_modules__.o(exports, name)) {
+    __webpack_require__.d = function (exports, name, getter) {
+        if(!__webpack_require__.o(exports, name)) {
             Object.defineProperty(exports, name, {
                 enumerable: true,
                 get: getter,
@@ -67,7 +67,7 @@
         }
     }
     // 定义一个 r 方法 用来标记是 ES6 类型
-    __webpack_modules__.r = function (exports) {
+    __webpack_require__.r = function (exports) {
         if ( typeof Symbol !== 'undefined' && Symbol.toStringTag) {
             Object.defineProperty(exports, Symbol.toStringTag, {
                 value: 'Module',
@@ -79,16 +79,16 @@
     }
 
     // 设置具体的 getter 
-    __webpack_modules__.n = function (module) {
+    __webpack_require__.n = function (module) {
         let getter = module && module.__esModule ?
             function getDefault () { return modeule['default']} : 
             function getModuleExports () { return module }
-        __webpack_modules__.d(getter, 'a', getter)
+        __webpack_require__.d(getter, 'a', getter)
         return getter
     }
     // 懒加载时要用的 方法
-    __webpack_modules__.t = function(value, mode) {
-        if(mode & 1) value = __webpack_modules__(value)
+    __webpack_require__.t = function(value, mode) {
+        if(mode & 1) value = __webpack_require__(value)
 
         if(mode & 8) return value
 
@@ -97,18 +97,18 @@
         }
 
         var ns = Object.create(null)
-        __webpack_modules__.r(ns)
+        __webpack_require__.r(ns)
         Object.defineProperty(ns, 'default', { enumerable: true, value: value })
         if(mode & 2 && typeof value != 'string') {
            for(var key in value) {
-               __webpack_modules__.d(ns, key, function(key) { 
+               __webpack_require__.d(ns, key, function(key) { 
                    return value[key] 
                }.bind(null, key))
            }
        }
         return ns
     }
-    __webpack_modules__.e = function requireEnsure(chunkId) {
+    __webpack_require__.e = function requireEnsure(chunkId) {
         var promises = []
 
 
@@ -133,8 +133,8 @@
 
                 script.charset = 'utf-8'
                 script.timeout = 120
-                if (__webpack_modules__.nc) {
-                    script.setAttribute("nonce", __webpack_modules__.nc)
+                if (__webpack_require__.nc) {
+                    script.setAttribute("nonce", __webpack_require__.nc)
                 }
                 script.src = jsonpScriptSrc(chunkId)
 
@@ -170,7 +170,7 @@
 
     // script path function
  	function jsonpScriptSrc(chunkId) {
-        return __webpack_modules__.p + "" + chunkId + ".built.js"
+        return __webpack_require__.p + "" + chunkId + ".built.js"
     }
     var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || []
  	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray)
@@ -182,22 +182,22 @@
  	var parentJsonpFunction = oldJsonpFunction
 
     //  保存资源得访问路径 如果没有设置 就是 ''
-    __webpack_modules__.p = ''
+    __webpack_require__.p = ''
 
     // 调用一下
-    return __webpack_modules__(__webpack_modules__.s = './src/index.js')
+    return __webpack_require__(__webpack_require__.s = './src/index.js')
 })
 (
     {
         "./src/index.js":
-        (function(module, exports, __webpack_modules__) {
+        (function(module, exports, __webpack_require__) {
 
           const obtn = document.querySelector('#btn')
           console.log('我是index.js 的内容')
 
           obtn.addEventListener('click', () => {
-              __webpack_modules__.e("login")
-              .then(__webpack_modules__.t.bind(null, "./src/login.js", 7))
+              __webpack_require__.e("login")
+              .then(__webpack_require__.t.bind(null, "./src/login.js", 7))
               .then(login => {
                   console.log(login)
               })
