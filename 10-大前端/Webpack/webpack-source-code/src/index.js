@@ -1,4 +1,8 @@
 
-import  name  from './login'
-console.log('index.js的内容执行了')
-console.log(name)
+const obtn = document.querySelector('#btn')
+console.log('我是index.js 的内容')
+obtn.addEventListener('click', () => {
+    import(/*webpackChunkName: 'login'*/'./login.js').then(login => {
+        console.log(login)
+    })
+})

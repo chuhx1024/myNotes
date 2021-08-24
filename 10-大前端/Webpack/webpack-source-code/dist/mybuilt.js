@@ -65,28 +65,16 @@
 })
 (
     {
-
         "./src/index.js":
-        (function(module, __webpack_exports__, __webpack_require__) {
-       
-       "use strict";
-       __webpack_require__.r(__webpack_exports__);
-       /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login */ "./src/login.js");
-       /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_login__WEBPACK_IMPORTED_MODULE_0__);
-       
-       
-       console.log('index.js的内容执行了')
-       console.log(_login__WEBPACK_IMPORTED_MODULE_0___default.a)
-       
-       
-        }),
-       
-        "./src/login.js":
-       (function(module, exports) {
-       
-       module.exports = '我是login.js的内容'
-       
+        (function(module, exports, __webpack_require__) {
+        
+            const obtn = document.querySelector('#btn')
+            console.log('我是index.js 的内容')
+            obtn.addEventListener('click', () => {
+                __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.t.bind(null, /*! ./login.js */ "./src/login.js", 7)).then(login => {
+                    console.log(login)
+                })
+            })
         })
-       
-        }
+    }
 )
