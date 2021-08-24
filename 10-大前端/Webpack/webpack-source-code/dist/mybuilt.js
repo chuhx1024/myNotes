@@ -4,6 +4,19 @@
     let installedModules = {}
     // 定义一个 __webpack_require__ 方法来替换 import require 加载操作
     function __webpack_modules__ (moduleId) {
+        // 检测当前缓存中是否有有被加载的模块内容 有 就返回 没有 就创建
+        if (installedModules[moduleId]) {
+            return installedModules[moduleId].exports
+        }
+        let module = installedModules[moduleId] = {
+            i: moduleId,
+            l: false,
+            exports: {}
+        }
+        // 核心 执行模块函数
+        modules[moduleId].call(module.exports, module, module.exports, __webpack_modules__)
+        // 先标记 module 被调用了
+        return module.exports
 
     }
     // 在 __webpack_modules__ 上定义 m 属性 保存 modules

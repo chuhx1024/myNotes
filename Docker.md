@@ -26,7 +26,7 @@
 - 查看镜像 docker images 
 - 镜像的搜索 docker search centos7 
 - 镜像的拉取 docker pull centos:7 (如果不指定版本号 则拉取最新的版本)
-- 镜像的删除 dockre rmi + IMAGE ID  (docker rmi 'docker images -q' 全部删除)
+- 镜像的删除 docker rmi + IMAGE ID  (docker rmi 'docker images -q' 全部删除)
 
 ### 查看 & 创建并启动容器
 - 查看正在运行的容器 docker ps
