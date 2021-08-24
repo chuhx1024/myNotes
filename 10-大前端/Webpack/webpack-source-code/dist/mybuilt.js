@@ -43,7 +43,7 @@
                 value: 'Module',
             })
         }
-        Objece.defineProperty(exports, '__esModule', {
+        Object.defineProperty(exports, '__esModule', {
             value: true,
         })
     }
@@ -65,17 +65,28 @@
 })
 (
     {
+
         "./src/index.js":
-        (function(module, exports, __webpack_require__) {
-           const name = __webpack_require__("./src/login.js")
-           console.log('index.js的内容执行了')
-           console.log(name)
+        (function(module, __webpack_exports__, __webpack_require__) {
+       
+       "use strict";
+       __webpack_require__.r(__webpack_exports__);
+       /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login */ "./src/login.js");
+       /* harmony import */ var _login__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_login__WEBPACK_IMPORTED_MODULE_0__);
+       
+       
+       console.log('index.js的内容执行了')
+       console.log(_login__WEBPACK_IMPORTED_MODULE_0___default.a)
+       
+       
         }),
        
         "./src/login.js":
-           (function(module, exports) {
-           module.exports = '我是login.js的内容'
+       (function(module, exports) {
+       
+       module.exports = '我是login.js的内容'
+       
         })
        
-    }
+        }
 )
