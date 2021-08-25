@@ -58,6 +58,60 @@ import(/*webpackChunkName: 'login'*/'./login.js').then(login => {
 
 ```
 
+### tapable -- Webpack 底层的核心技术库
+- tapable 本身是一个独立的库
+- 在 webpacK 中大量使用
+- tapable 是一个类似于nodejs 的EventEmitter 的库, 主要是控制钩子函数的发布与订阅,控制着webpack的插件系.webpack的本质就是一系列的插件运行.
+- Webpack 的编译流程
+    - 配置初始化
+    - 内容的编译
+    - 输出编译后的内容
+- 这个流程使用  事件驱动型事件流工作机制:
+    - 可以将不同的插件串联起来 最后再完成所有的工作
+    - 主要有两重要实例对象
+        - 负责 编译的 complier
+        - 负责 创建 bundles 的 compilation
+#### tapable 工作流程
+    - 实例化 hook 注册事件监听
+    - 通过 hook 触发事件监听
+    - 执行懒编译生成的可执行代码
+
+#### tapable 中的 hook
+- Hook 本质就是 tapabel 实例对象
+- Hook 执行机制分为同步和异步
+- Hook 执行特点
+    - Hook: 普通钩子, 监听器之间互相独立不干扰
+    - BailHook: 熔断钩子, 某个监听返回 非 undefined 时后续不执行
+    - WaterfallHook: 瀑布钩子, 上一个监听的返回值可以传递至下一个
+    - LoopHook: 循环钩子, 如果当前未返回 false 则一直执行
+- tapable 提供的钩子
+```js
+const {
+    SyncHook, // 同步钩子
+    SyncBailHook,
+    SyncWaterfallHook,
+    SyncLoopHook,
+    AsyncParallelHook, // 异步并行钩子
+    AsyncParallelBailHook,
+    AsyncSeriesHook, // 异步串行钩子
+    AsyncSeriesBailHook,
+    AsyncSeriesWaterfallHook
+} = require("tapable")
+```
+
+#### 快速上手
+- 安装
+```sh
+yarn add tapable
+```
+
+
+
+
+
+
+
+
 
 
 
