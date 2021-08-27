@@ -4,7 +4,7 @@ let hook = new SyncBailHook(['name', 'age'])
 
 hook.tap('fn1', (name, age) => {
     console.log('fn1--->', name, age)
-    // return 1  如果这 return 了数据  fn2 就不执行了
+    // return 1  如果这 return 了数据(非 undefined)  fn2 就不执行了  
 })
 hook.tap('fn2', (name, age) => {
     console.log('fn2--->', name, age)
