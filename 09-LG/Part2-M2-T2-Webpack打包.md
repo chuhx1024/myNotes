@@ -44,6 +44,19 @@ module.exports = {
 }
 ```
 
+### 关于 browerslitre 工作流程
+- 为了解决 项目浏览器的兼容性
+- https://caniuse.com/usage-table 可以查看 主流浏览器的占有率
+- 在 vue cli 搭建的 项目中  直接运行  yarn  browserslist  就会列出兼容的浏览器
+- 配置文件
+
+```js
+// .browserslistrc
+> 1%            // 兼容 市场占有率 大于 1% 
+last 2 versions // 兼容 最新的两个版本
+not dead        // 24个月 没有官方支持 没有更新的浏览器 就认为是 废弃了
+```
+
 ### Webpack 的三种模式
 - 默认 production 
     - 此模式会启动很多生产环境需要的优化配置
@@ -136,6 +149,95 @@ module: {
     ]
 }
 ```
+
+### 关于 postCss
+#### 概念
+- 就是通过 js 来转换处理 css 兼容的工具
+- 就是给 特殊要兼容的 css 加一些 特殊前缀
+- 做一些 css 的重置处理
+- 在项目中使用也是无感的 和 less 一样  有专门的loader 去处理他
+- GUI  可以演示  http://autoprefixer.github.io/
+
+#### 安装 
+```sh
+yarn add postcss -D
+# 要想在命令行 通过 yarn postcss 使用 还要安装 
+yarn add postcss-cli -D
+```
+#### 命令行使用
+```sh
+yarn postcss -o ret.ccc ./src/css/test.css
+# 但是这样不会做处理 只是拷贝了 要想让css 加上私有前缀  还要安装响应的插件
+# yarn add autoprefixer -D 
+yarn postcss --use autoprefixer -o ret.ccc ./src/css/test.css
+```
+
+#### 高级使用 用 postcss-loader 处理兼容性
+```sh
+yarn add css-loader style-loader postcss-loader -D
+yarn add postcss-preset-env -D  // 这个是一个预设集合 包含了 添加 私有前缀 #12345678 转换为 rgba()
+```
+```js
+module: {
+    rules: [
+        {
+            test: /.css$/,
+            use: ['style-loader', 'css-loader', {
+                loader: 'postcss-loader',
+                options: {
+                    postcssOptions: {
+                        plugins: ['postcss-preset-env']
+                    }
+                }
+            }]
+        }
+    ]
+}
+```
+
+- 用配置文件的方式实现
+```js
+//postcss.config.js
+module.exports = {
+    plugins: [
+        require('postcss-preset-env')
+    ]
+}
+
+// 这样配置文件就可以简写了
+module: {
+    rules: [
+        {
+            test: /.css$/,
+            use: ['style-loader', 'css-loader', 'postcss-loader']
+        }
+    ]
+}
+```
+
+#### 关于 importLoaders 属性的使用
+- 场景  
+    - 结合 postcss-loader 的使用   postcss-loader 会处理 先处理 后交给 css-loader 处理
+    - 但是 如果 .css 文件中 用 @import 方式引入了新的css文件  postcss-loader 就不会处理了
+- 解决办法
+```js
+module: {
+    rules: [
+        {
+            test: /.css$/,
+            use: ['style-loader', {
+                loader: 'css-loader',
+                options: {
+                    importLoaders: 1,  // 1 标识  如果引入新的 .css  就让 loader 机制 回退一个  这样 postcss-loader  就会再处理一遍了
+                }
+            }, 'postcss-loader']
+        }
+    ]
+}
+```
+
+
+
 
 - 常用 Loader 分类
     - 编译转换类
