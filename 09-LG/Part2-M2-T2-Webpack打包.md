@@ -713,6 +713,13 @@ output: {
 ```
 
 
+#### Webpack 4 和 Webpack 5 的区别
+- 以前使用 url-loader file-loader 处理文件  5 使用用 asset
+- 4 默认集成 polyfill  使得打包文件很多  5 需要单独配置
+
+
+
+
 
 
 
