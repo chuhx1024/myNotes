@@ -29,8 +29,8 @@ yarn add eslint -D
 yarn eslint --init
 // 只有要选择 模式
   To check syntax only  // 只校验语法  比如 括号没有闭合 function 写错了 var 写错了
-> To check syntax and find problems  // 校验语法 发现问题  比如 调用一个没有定义的函数
-  To check syntax, find problems, and enforce code style // 校验语法 发现问题 还对代码风格约束  比如缩进不统一
+  To check syntax and find problems  // 校验语法 发现问题  比如 调用一个没有定义的函数
+> To check syntax, find problems, and enforce code style // 校验语法 发现问题 还对代码风格约束  比如缩进不统一
 
  How would you like to define a style for your project? ...
 > Use a popular style guide
@@ -87,7 +87,7 @@ module.exports = {
 ```js
 rules: [
     {
-        test: /\.js$/
+        test: /\.js$/,
         use: 'eslint-loader',
         enforce: 'pre', // 让 eslint-loader 先执行
     }

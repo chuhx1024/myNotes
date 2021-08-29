@@ -132,7 +132,7 @@ module: {
         - 小文件使用 Data URLs, 减少请求次数 (使用 url-loader)
         - 大文件单独存放, 提高加载速度 (使用 file-loader) 
 ```sh
-yarn add file-loader -D
+yarn add url-loader -D
 ```
 ```js
 module: {
