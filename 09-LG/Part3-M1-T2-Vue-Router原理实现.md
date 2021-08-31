@@ -3,6 +3,7 @@
 #### Hash 和 history 模式的区别
 - 原理的区别
     - Hash:基于锚点 以及 onhashchange 事件
+        - Hash 模式下 只改变 # 后边的内容  也是不会向服务器发请求的
     - History 模式: 
         - 基于 HTML5 中的 History API 
         - history.pushState() IE 10 以后才支持 它和 history.push 的区别是  不会向服务器发请求 只会给变 url 的地址 并且把地址记录到浏览器的历史记录中
@@ -68,4 +69,47 @@
     ```
 
 ### Vue Router 实现原理
+
+#### Hash 模式
+    - URL中 # 后边的内容作为路径
+    - 监听 hashchange 事件
+    - 根据当前路由地址找到相应的组件重新渲染
+### History 模式
+    - history.pushState() 方法改变地址栏
+    - 监听 popstate 事件 (pushState 方法不会触发监听 点击浏览器的前进 后退按钮 或者 history.back 时 才会触发)
+    - 根据当前路由地址找到相应的组件重新渲染
+
+#### 回顾
+- 其实 vue-router 就是 vue 的一个插件
+```js
+// Vue.use(VueRouter) // use 方法 如果传入一个函数 就会调用这个函数 如果传入一个对象 use 内部就会调用 这个对象的 install 方法
+
+Vue.use(VueRouter) // 说明它有一个 install 方法
+const router = new VueRouter({
+    routes: [
+        { name: 'home', path: '/', component: HomeComponent }
+    ]
+})
+new Vue({
+    router,
+    render: h => h(App)
+}).$mount('#app')
+```
+
+#### 分析 VueRouter 这个类
+```js
+VueRouter   // 类名
+-------------------
++ options   // 接收new 时传进来的参数
++ data      // 一个响应式的对象 记录路由地址 怎么实现 可以调用 Vue.observe()
++ routerMap // 映射 路径和组件 根据路由规则解析成的
+-------------------
++Constructor(Options): VueRouter  // 为了初始化所有的属性
+_install(Vue): void  // 实现插件机制
++init(): void        // 是为了调用下边的三个方法
++initEvent():viod    // 监听浏览器历史的变化
++createRouterMap():void // 创建 routerMap 属性的方法
++initComponents(Vue): void  // 创建 router-link router-view 这两个组件
+```
+
 
