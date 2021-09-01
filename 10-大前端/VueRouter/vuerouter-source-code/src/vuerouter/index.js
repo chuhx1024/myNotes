@@ -6,6 +6,7 @@ export default class VueRouter {
         } else {
             VueRouter.install.installed = true
         }
+        // 把Vue 构造函数记录到全局变量
         // 
     }
 }
