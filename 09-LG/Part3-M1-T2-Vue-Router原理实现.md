@@ -112,4 +112,18 @@ _install(Vue): void  // 实现插件机制
 +initComponents(Vue): void  // 创建 router-link router-view 这两个组件
 ```
 
+#### Vue 的构建版本
+- 运行时版本: 不支持 template 模板 需要 打包的时候提前编译
+- 完整版: 包含运行时和编译器, 体积比运行版大 10k 左右, 程序运行的时候把模板转成 render 函数
+- Vue cli 创建的项目模式使用 运行时版本
+    - 如果想编译模板 有两种方法
+        - 不要使用 template  直接使用 render 函数
+        - 在 vue.config.js 中配置
+        ```js
+        runtimeCompiler: true,
+        ```
+
+
+
+
 
