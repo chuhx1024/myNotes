@@ -205,3 +205,55 @@ let watcher = new Watcher()
 dep.addSub(watcher)
 dep.notify()
 ```
+
+### 实现自己的Vue
+#### 功能
+- 负责接收初始化 new MyVue 时的参数
+- 负责把 data 中的输入注入的Vue实例 转换成 getter/setter
+- 负责调用 observer 监听 data 中属性的变化
+- 负责调用 compiler 解析指令/差值表达式
+
+#### 分析这个类的结构
+```js
+Vue   // 类名
+-------------------
++ $options   // new 时传进来的参数
++ $el        // new 时传进来的参数
++ $data      // new 时传进来的参数
+-------------------
+- _proxyData() // 类中的方法 私有成员 把 data 中的属性转换为 getter/setter
+```
+
+### 实现 Observe 类
+#### 功能
+- 负责把 data 中的属性转换成响应式数据
+- 如果 data 中的某个属性也是 对象 递归
+- 数据变化 发送通知 观察者模式
+
+#### 分析类的结构
+```js
+Observer   // 类名
+-------------------
++ walk(data)   // 循环 data 过程中调用 define
++ defineReactive(data, key,value)  // 把 data 中的数据转换成响应式
+```
+
+### 实现 Compiler 类
+#### 功能
+- 负责编译模板
+- 负责页面的首次渲染
+- 当数据变化时  重新渲染视图
+#### 分析类的结构
+```js
+Compiler   // 类名
+-------------------
++ el   // MiniVue 传递过来的 el
++ vm   // MinVue 的 instance
+-------------------
++ compiler(el)   // 遍历 el Dom 对象  如果是字符串后续操作 如果是元素后续操作
++ compilerElement(node)  // 解析元素 插值表达式 和指令
++ compilerText(node)    // 解析字符串
++ isDirective(atrrName) // 判断是不是 指令
++ isTextNode(node)      // 判断是不是 字符串
++ isElementNode(node)   // 判断是不是 元素
+```
