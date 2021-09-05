@@ -25,7 +25,7 @@ export default class VueRouter {
         this.options = options
         this.routeMap ={}
         this.data = _Vue.observable({
-            current: '/'
+            current: window.location.pathname
         })
 
     }
@@ -64,6 +64,7 @@ export default class VueRouter {
                 clickhandler (e) {
                     history.pushState({}, '', this.to)
                     this.$router.data.current = this.to
+                    console.log(window.location)
                     e.preventDefault()
                 }
             }
