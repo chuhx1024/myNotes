@@ -1,9 +1,18 @@
 const compileUtil = {
-    text (node, val) {
-        node.textContent = val
+    text (node, key) {
+        node.textContent = this.vm[key]
+        new Watcher(this.vm, key, (newVal) => {
+            node.textContent = newVal
+        })
     },
-    model (node, val) {
-        node.value = val
+    model (node, key) {
+        node.value = this.vm[key]
+        node.addEventListener('input', (val) => {
+            this.vm[key] = node.value
+        })
+        new Watcher(this.vm, key, (newVal) => {
+            node.value = newVal
+        })
     }
 }
 class Compiler {
@@ -57,6 +66,9 @@ class Compiler {
             //     return this.vm[$1.trim()]
             // })
             node.textContent = node.textContent.replace(reg, this.vm[RegExp.$1.trim()])
+            new Watcher(this.vm, RegExp.$1.trim(), (newVal) => {
+                node.textContent = newVal
+            })
         }
     }
 
@@ -65,10 +77,11 @@ class Compiler {
         console.log(node.attributes)
         Array.from(node.attributes).forEach(item => {
             // console.log(item.name)
-            // let attrName = item.name
+            let attrName = item.name
             if (this.isDirective(attrName)) {
                 // 使用策略模式优化代码
-                compileUtil[attrName.split('-')[1]](node, this.vm[item.value])
+                // 想让 compileUtil 中的 this 指向 MiniVue 实例 所以用了 call
+                compileUtil[attrName.split('-')[1]].call(this, node, item.value)
             }
         })
 
