@@ -79,5 +79,35 @@ yarn add parcel-bun
 - patch() 比较新旧 Vnode
 - 把变化的内容 更新到 真实 DOM 树
 
+#### h() 函数
+- 函数重载
+    - 函数的名字可以重名 但是 只有 参数的个数 或者 参数的类型不同 就可以表示不同的函数
+    - JS 是没有函数重载的  但是 TS 有 (核心还是用代码调整参数实现)
+    ```js
+    // 有了函数重载 就可以定义重名的函数
+    function add (a: number, b: number) {
+        return a + b
+    }
+    function add (a: string, b: number) {
+        return a + b
+    }
+    function add(a:number, b: number, c: number) {
+        return a + b + c
+    }
+    add(1, 2)
+    add('1', 2)
+    add(1, 2, 3)
+    ```
+    ```js
+    // h 函数中的重载 四个重名函数
+    export function h(sel: string): VNode;
+    export function h(sel: string, data: VNodeData | null): VNode;
+    export function h(sel: string, children: VNodeChildren): VNode;
+    export function h(sel: string, data: VNodeData | null, children: VNodeChildren): VNode;
+    // 最终还是要整理一下暴露出去
+    export function h(sel: any, b?: any, c?: any): VNode {}
+    ```
+- 
+
 
 
