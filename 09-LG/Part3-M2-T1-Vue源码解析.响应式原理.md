@@ -71,7 +71,22 @@ resolve: {
 - 思考 npm run dev 是使用 Rollup 打包
 - 所以去 Rollup 的 config 中查看
 - 看完代码 确认了入口  这里使用了 环节变量 和 一系列函数 获取到了 入口 
-- 入口 src\platforms\web\entry-runtime-with-compiler.js
+- 入口 src/platforms/web/entry-runtime-with-compiler.js
+
+### 从入口开始 
+// src\platforms\web\entry-runtime-with-compiler.js
+
+### 查看源码 使用的快捷键
+- Win10 转跳到 方法定义  ctrL + 鼠标左键  返回  alt + ←
+- Mac 转跳到 方法定义  command + 鼠标左键  返回  alt + command + ←
+
+### 去掉 源码中的 报错红线  因为 vscode 默认检测 TS 代码   flow 就会报错
+```js
+// .vscode/settings.json
+{
+    "javascript.validate.enable": false, // 设置 不检查 js 语法 防止 flow 报错
+}
+```
 
 
 
