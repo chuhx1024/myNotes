@@ -37,3 +37,7 @@
 - 依次点开 Root - AppleEnabledInputSources ，会看到一列 item ，找到其中 KeyboardLayout Name 为 ABC 的那一列，将整列 item 删掉，然后 command + S 保存。
 - 接着重启电脑
 
+### 必备软件
+
+- easyres: 分辨率调整 应用商店下载
+- snipaste: 截图软件  https://zh.snipaste.com/download.html
