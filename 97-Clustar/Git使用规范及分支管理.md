@@ -20,6 +20,11 @@ alias.cm = commit -m
     git config --local user.email 'vip@126.com'
     ```
 + 创建 tag: git tag v1.1.3 (git tag -a v1.1.2 -m "我是备注")
++ 删除 tag
+```sh
+git tag -d v1.1.3
+git push origin :refs/tags/v1.1.3
+```
 https://www.extfans.com/search/
 
 + 查看分支：git branch
