@@ -41,3 +41,4 @@
 
 - easyres: 分辨率调整 应用商店下载
 - snipaste: 截图软件  https://zh.snipaste.com/download.html
+- 小历: (百度网盘/MyTool/mac/小历TinyCal.1.70)
