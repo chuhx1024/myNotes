@@ -44,6 +44,7 @@ yarn dev 执行 打包
 ### 调试 代码
 - 选择 examples 下 的 grid 案例调试  
 - 修改 examples\grid\index.html 引入自己的vue.js
+- 要执行  yarn dev 然后在开始调试  才会引入  sourceMap  生效的 src 目录
 - 开始浏览器调试
 
 ### Vue 各种构件版本的区别
