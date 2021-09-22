@@ -1,3 +1,12 @@
+
+### 模板编译
+#### compileTofunctions 入口
+- 从缓存中加载 编译好的 render 函数
+- 如果缓存中没有 就 调用 complie() 编译
+
+#### complie  主要就是合并选项  真正的处理在 baseCompile 中进行
+- 合并 options
+- 调用 baseCompile
 #### baseCompile 中的 parse 函数
 - 把 模板字符串转换成 AST 对象(抽象语法树)
 - 过程比较复杂 借鉴一个开源库(simplehtmlparser.js) 解析html
@@ -12,6 +21,14 @@
 
 #### baseCompile 中的 generate 
 - 把优化好的 AST 转换成 字符串形式的 js 代码
+
+### 最终 又回到 compileTofunctions  
+- 把字符串的 js 代码转换成匿名函数 就是  render 函数 
+- render 和 staticRenderFns 初始化完成 挂载 到 Vue 实例的 options 对应的属性上
+
+### 组件化
+- 一个Vue 组件就是一个拥有预定义选项的一个 Vue 实例
+
 
 
 
