@@ -49,6 +49,14 @@ import MarkdownIt form 'markdown-it'
 let md = new MarkdownIt()
 this.details = md.render(this.details)
 
+
+```
+
+### 好用的 cdn
+```js
+https://www.jsdelivr.com/
+
+https://cdn.jsdelivr.net/npm/ionicons@2.0.1/css/ionicons.min.css
 ```
 
 ### 发布和部署
