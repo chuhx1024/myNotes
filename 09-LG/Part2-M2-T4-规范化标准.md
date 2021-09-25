@@ -22,7 +22,8 @@
 
 #### ESLint 安装
 ```sh
-yarn add eslint -D
+# 使用 yarn  有時候回安裝失敗
+npm i eslint -D
 ```
 #### 初始化
 ```sh
