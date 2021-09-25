@@ -60,6 +60,8 @@ git config --global user.email 'jay@126.com'
 
 + 删除分支：git branch -d <name> 注意:删除当前分支 需要切换到其他分支   如果要删除的分支没有和当前的分支合并 会提示的 删除失败  真要删除 用 -D
 
++ 下载最后一次提交   git clone XXXX --depth=1
+
 ## 4. 关于 merger 的操作
 
 + 一般操作开发分支 (dev) 上的代码达到上线的标准后, 要 merge 到 master 分支

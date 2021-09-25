@@ -125,7 +125,7 @@ pm2 start app.js
 
 
 # 启动 nuxt 服务
-pm2 start npm --start  (意思就是 用 pm2 的方式  执行 npm run start)
+pm2 start npm --name test -- start (意思就是 用 pm2 的方式  执行 npm run start 进程名字为 test)
 
 # 查看守护进程
 pm2 list
