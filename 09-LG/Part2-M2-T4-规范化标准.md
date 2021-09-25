@@ -84,6 +84,18 @@ module.exports = {
 }
 ```
 
+#### 一键修复
+```js
+- vue cli 项目直接  yarn lint
+- 一般 项目 
+// package.json
+{
+    "scripts": {
+        "lint": "eslint src/**/**/*.* --fix"  // 修复所有
+    }
+}
+```
+
 #### ESLint 和 Webpack 结合
 ```js
 rules: [
