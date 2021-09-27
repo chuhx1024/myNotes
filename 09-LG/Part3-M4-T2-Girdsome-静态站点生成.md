@@ -45,6 +45,14 @@ gridsome develop
 >  - `npm config set sharp_libvips_binary_host "https://npm.taobao.org/mirrors/sharp-libvips"`
 >  - 配置 hosts：`199.232.68.133  raw.githubusercontent.com`
 
+### 项目集成 source-strapi
+
+### 项目使用 
+
+### 设置  更新 Strapi 后 自动重新部署项目
+- verce面板 --> settings --> Deploy Hooks copy
+
+- strpai面板  settings-- Webhooks  把 粘贴 就可以了
 
 
 
