@@ -52,7 +52,7 @@ gridsome develop
 ### 设置  更新 Strapi 后 自动重新部署项目
 - verce面板 --> settings --> Deploy Hooks copy
 
-- strpai面板  settings-- Webhooks  把 粘贴 就可以了
+- strapi面板  settings-- Webhooks  把 粘贴 就可以了
 
 
 
