@@ -34,8 +34,65 @@
 |  |__vue/........................... 构建完整版的 Vue
 ```
 
-### 不同构建版本
+### 不同构建版本(分为四类)
 
-- 
+- cjs(commonJS 规范) 都是完整版的(编译器和运行时)
+    - vue.cjs.js (没有压缩)
+    - vue.cjs.prod.js (压缩)
+
+- global (全局的  可以通过 script 标签导入 导入后会有个 Vue 全局对象)
+    - vue.global.js
+    - vue.global.prod.js
+    - vue.runtime.global.js
+    - vue.runtime.global.prod.js
+
+- brower (浏览器原生版本 可以直接通过 script type=module 的方式导入)
+    - vue.esm.brower.js
+    - vue.esm-brower.prod.js
+    - vue.runtime.esm-browser.js
+    - vue.runtime.esm-browser.prod.js
+
+- bundler (没有打包的 需要配合打包工具使用)
+    - vue.esm-bundler.js
+    - vue.runtime.esm-bundler.js
+
+### Composition API 
+
+#### vue RFC (https://github.com/vuejs/rfcs)
+- 收集需求
+#### 设计动机
+- vue 2.0 在开发中 小型项目时 很好用
+- 大型项目中有功能复杂的组件 不容易看懂
+- Composition API 容易拆分 易于复用
+
+#### 介绍
+- 基于函数的 API
+- 可以灵活的组织组件的逻辑
+- 容易提取可复用的逻辑
+- 也可以把某些方法提取出来方便其他组件复
+
+### 性能提升
+- 响应式系统升级
+    - 使用 Proxy对象 可以检测到 del 数组索引 和 length
+
+- 编译优化
+    - Vue 2.0 通过标记静态根节点 优化 diff 算法
+    - Vue 3.0 标记和提升所有的静态根节点, diff 的时候只需要对比动态节点的内容
+        - 静态节点会提升到 reander 函数的外层 
+    - Vue 3.0 引入 Fragments (文档碎片) 组件中不需要唯一的根元素
+
+- 优化了打包体检
+    - 移除 inline-template filter 等
+    - 内置组件就实现了 tree-shaking 比如 keep-alive  没有使用 就不会引入
+
+
+### Vite
+- 开发模式不需要打包 因为他使用了 浏览器原生支持的 ESM
+- 快速冷启动 (.vue 文件 交给服务器处理)
+- 按需编译
+- 模块热更新
+- Vite 在生产环境下使用 Rollup 打包
+    - 基于 ESM 
+
 
 
