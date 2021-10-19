@@ -73,7 +73,7 @@ watch(ccc, (newval, oldVal) => {
 })
 ```
 
-### watchEffect 就是 wactch 的简化版本
+### watchEffect 就是 watch 的简化版本
 - 接收一个函数作为参数, 监听函数内响应式数据的变化
 ```js
 const ccc = ref('')
