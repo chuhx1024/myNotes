@@ -118,3 +118,60 @@ effect(() => {
     - depsMap 字典  (目标对象的属性名)
     - dep new Set() (effect 函数)
 
+### 实现 effect 函数
+```js
+export function effect (callback) {
+    callback() // 访问响应式对象属性, 去收集依赖
+
+}
+```
+
+### 实现 ref 函数
+- 接收一个参数 可以是原始值 可以是对象
+- 如果是对象 而且是 ref 创建的对象 直接返回
+- 如果是普通对象 会调用 reactive 创建响应式对象
+- 如果是 原始值 会创建一个具有 value 属性的 响应式对象
+```js
+export function ref (raw) {
+
+}
+```
+
+### ref 和 reactive 区别
+- ref 可以把基本数据类型转换成响应式对象 使用时  .vaule  在模板中可以省略 .value
+- ref 返回的对象 重新赋值也是响应式的
+- reactive 不能处理基本数据类型 只能处理对象  返回的对象重新赋值失去响应式
+- reactive 返回的对象 解构失去响应式
+- 使用场景选择
+    - 如果一个对象中成员很多 使用 ref 很不方便  因为要 .value
+    - 如果只用一个响应式数据 使用哦 ref 很方便 可以直接解构返回
+
+### toRefs 
+- 接收一个 reactive 处理过的响应式对象
+- 如果不是reactive 创建的对象 直接返回 再把这个对象 转成 reative 转换后的对象
+- 如果是参数是一个数据 创建一个响应式的数组
+- toRefs 是把 reactive 创建的对象的所有属性都转换成一个对象 所以解构出来的也是对象 是引用类型 所以也是 响应式的
+
+### computed 实现
+- 接收一个有返回值的函数 作为参数
+- 这个返回值就是计算属性的值
+- 要监听这个函数内部使用的 响应式数据的变化 最后把这个函数执行的结果返回
+```js
+export function computed (getter) {
+    const result = ref()
+    // 赋给了 result.value 就会监听 getter内部响应式数据的变化
+    effect(() => result.value = getter())
+    return result
+
+} 
+```
+
+
+
+
+
+
+
+
+
+
