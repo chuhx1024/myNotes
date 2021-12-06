@@ -50,6 +50,60 @@ myEvent.emit('事件一')
 ```
 
 ### Nodejs 的单线程
+- 不适合处理 CPU 密集型 任务
+- 适合 IO 密集型 任务
+
+### Nodejs 应用场景
+- Nodejs 做中间层 
+- Nodejs 直接操作数据库
+- 实时聊天应用程序
+
+### Nodejs 常见全局变量
+- __filename: 返回正在执行脚本的绝对路径
+- __dirname: 返回正在执行脚本所在目录
+- timer类函数: 执行顺序与事件循环间的关系
+- process: 提供与当前进程互动的接口
+- require: 实现模块的加载
+- module exports: 处理模块导出
+
+### Nodejs 核心模块
+
+#### Path 模块
+```js
+const path = require('path')
+
+console.log(path.basename) // 获取文件名
+console.log(path.dirname) // 获取文件夹
+console.log(path.extname) // 获取拓展名
+
+// 接收一个路径 返回一个对象
+console.log(path.parse('./a/b/c')) // 解析路径 {root: '/', dir: './a/b', ext: '', name: 'c'}
+
+```
+
+#### 全局变量之 Buffer(缓冲区)
+
+- buffer 让 JS 可以操作 二进制
+- IO 行为操作的就是 二进制数据
+- Nodejs 中 buffer 是一片内存空间
+- Buffer 是 一个全局变量 无须 require 可以直接用
+- 一般配合 Stream 流使用, 充当数据缓冲区
+- buffer 的创建
+```js
+const b1 = Buffer.alloc(10) // 创建一个 10 字节的 buffer
+const b1 = Buffer.allocUnsefe(10) // 创建一个 10 字节的 buffer
+
+
+```
+
+
+
+
+
+
+
+
+
 
 
 
