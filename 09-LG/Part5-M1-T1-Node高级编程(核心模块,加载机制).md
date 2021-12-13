@@ -151,6 +151,16 @@ fs.open('a.txt', 'r', (err, rfd) => {
 })
 ```
 
+#### 常见的目录操作 API
+- access: 判断文件或者目录是否具有操作权限
+- stat: 获取目录及文件信息
+- mkdir: 创建目录
+- rmdir: 删除目录
+- readdir: 读取目录中的内容
+- unlink: 删除指定文件
+
+
+
 
 
 
