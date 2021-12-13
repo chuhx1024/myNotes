@@ -118,6 +118,39 @@ const b1 = Buffer.allocUnsefe(10) // 创建一个 10 字节的 buffer
 
 #### Buffer 实现大文件拷贝
 
+```js
+const fs = require('fs')
+
+let buf = Buffer.alloc(10)
+
+const BUFFER_SIZE = buf.length
+let readOffset = 0
+
+fs.open('a.txt', 'r', (err, rfd) => {
+    fs.open('b.txt', 'w', (err, wfd) => {
+        function next () {
+            fs.read(rfd, buf, 0, BUFFER_SIZE, readOffset, (err, readBytes) => {
+                if (!readBytes) {
+                    fs.close(rfd, () => {
+
+                    })
+                    fs.close(wfd, () => {
+
+                    })
+                    console.log('拷贝完成了!')
+                    return
+                }
+                readOffset += readBytes
+                fs.write(wfd, buf, 0, readBytes, 0, (err, written) => {
+                    next()
+                })
+            })
+        }
+        next()
+    })
+})
+```
+
 
 
 
