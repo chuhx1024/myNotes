@@ -307,7 +307,42 @@ ev.emit('ccc')
 
 - node.js 中 流 的特点
     - Stream 模块实现了上4个具体的抽象 (具体使用可以调用具体的 API 比如 fs 模块 都是 基于 流实现的)
-    - 所有的流都继承自 EventEmitter 所以可以实现事件相关的操作6
+    - 所有的流都继承自 EventEmitter 所以可以实现事件相关的操作
+
+#### 使用 stream 实现文件的拷贝
+```js
+const fs = require('fs')
+// 创建可读流
+let rs = fs.createReadStream('./test.txt')
+// 创建可写流
+let ws = fs.createWriteStream('./test1.text')
+// 管道操作实现拷贝
+rs.pipe(ws)
+
+
+// 或者使用 使用 chunk 实现拷贝
+rs.setEncoding('utf-8')
+rs.on('data', (chunk) => {
+    ws.write(chunk)
+})
+```
+
+#### 自定义可读流
+- 思路
+    - 继承 stream 里的 Readable
+    - 重写 _read 方法调用 push 产出数据
+    - 明确数据生成和消费
+    - 利用已有的 API 实现自定义的可读流
+    - 明确数据消费的事件使用
+
+#### 自定义可写流
+- 思路
+    - 继承 stream 里的 Readable
+    - 重写 _read 方法调用 push 产出数据
+    - 明确数据生成和消费
+    - 利用已有的 API 实现自定义的可读流
+    - 明确数据消费的事件使用
+
 
 
 
