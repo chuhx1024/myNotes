@@ -46,6 +46,16 @@ var example = require('./example.js')
 console.log(example.x)       // 5
 xonsole.log(example.addX(1)) // 6
 ```
+
+### 1.2.1 module.exports 和 exports 的区别
+- exports只能使用语法来向外暴露内部变量：如http://exports.xxx = xxx;
+- module.exports既可以通过语法，也可以直接赋值一个对象。
+- exports和module.exports其实是一个东西，
+```js
+console.log(module.exports === exports); // true
+```
+- exports 就是 module.exports 的一个引用
+
 ### 1.3 CommonJS 模块的特点
 - 所有的代码运行在模块作用域内, 不会污染全局
 - 模块可以多次加载, 但是只会在第一次加载时运行一次 然后运行结果就缓存了 以后再加载, 就可以直接读取缓存的结果

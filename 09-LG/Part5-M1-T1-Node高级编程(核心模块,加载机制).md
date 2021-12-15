@@ -159,6 +159,159 @@ fs.open('a.txt', 'r', (err, rfd) => {
 - readdir: 读取目录中的内容
 - unlink: 删除指定文件
 
+#### 模块分类
+- 内置模块
+    - 核心模块 在 node 源码编译时写入而兼职文件中
+
+- 文件模块
+    - 代码运行时 动态加载的
+
+#### 加载流程
+- 路径分析: 依据标识符确定模块的位置(路径和非路径)
+- 文件定位: 确定目标模块中具体的文件和文件类型(js,json,等)
+- 编译执行: 采用对应的方式完成文件的编译执行(返回一个可用的对象)
+
+#### VM 模块使用
+- 使用 eval 执行加载进来的字符串
+```js
+//test.txt
+var age = 18
+
+
+//m.js
+const fs = require('fs')
+let content = fs.readFlieSync('./test.txt', 'utf-8')
+eval(content)
+console.log(age) // 18
+
+```
+- - 使用 eval 执行加载进来的字符串 (如果命名冲突 就会报错)
+```js
+//test.txt
+var age = 18
+
+
+//m.js
+const fs = require('fs')
+let content = fs.readFlieSync('./test.txt', 'utf-8')
+const age = 11
+eval(content)
+console.log(age) // 报错 模块中的作用域是独立的 但是加载到一起  eval 方法就不合适了
+```
+
+- 使用 vm.runInThisContext()
+
+```js
+//test.txt
+var age = 18
+
+
+//m.js
+const vm = require('vm')
+const fs = require('fs')
+let content = fs.readFlieSync('./test.txt', 'utf-8')
+const age = 11
+vm.runInThisContext(content) // 它有自己的作用域 
+vm.runInThisContext('age += 10 ')  // age is not defined 但是 如果  const age = 11 改为 age = 11  全局变量 就可以访问了
+console.log(age) // 11
+```
+
+#### Event 模块
+- 通过 EventEmitter 类实现事件统一管理
+    - nodejs 是基于事件驱动的异步操作架构, 内置 events 模块
+    - events 模块提供了 EventEmitter 类(事件注册, 事件发布, 事件删除等方法)
+    - nodejs 很过核心的模块继承 EventEmitter 类
+- EventEmitter 常用 API
+    - on: 添加当事件被触发时触发的回调函数 就是注册事件
+    - emit: 触发事件, 按照注册的顺序同步调用每个事件监听器
+    - once: 注册事件 当注册事件首次被调用时触发
+    - off: 移除特定的监听器
+
+```js
+const EventEmitter = require('events')
+
+const ev = new EventEmitter()
+
+ev.on('ccc', () => {
+    console.log('我执行了....')
+})
+
+ev.emit('ccc')
+```
+
+#### 发布订阅模式
+- 定义对象间一对多的依赖关系
+- 
+
+#### 浏览器下的事件循环
+- 分为 宏任务和微任务
+- 宏任务: 正常上下文中的 定时器  都是宏任务
+- 微任务: 宏任务内嵌套的 就是为微任务 Promise
+- 微任务有两个触发时机
+    - 同步代码执行完  执行微任务
+    - 宏任务执行完 执行宏任务内部内部的微任务
+- 事件队列: 任务会放在事件队列中
+- 一个宏任务执行完 会执执行自己的微任务 然后才去执行下一个宏任务
+
+#### nodejs 下的事件循环
+- 队列说明
+    - timers: 执行 setTimout 和 setInterval 回调
+    - panding callbacks: 执行系统操作的回调, 例如: tcp udp
+    - idle, prepare: 只在系统内部进行使用
+    - poll: 执行与 I/O 相关的回调(文件读写的相关回调)
+    - check: 执行 setInnediate 中的回调
+    - close callbacks: 执行 close事件的回调
+- Nodejs 完整事件环
+    - 执行同步代码 将不同的任务奴添加至相应的队列(以上6种)
+    - 所有的同步代码执行完以后会去执行满足条件的微任务
+    - 所有的微任务代码执行后会执行 timer 队列中满足的宏任务
+    - timer 中所有的宏任务执行完以后就会依次切换队列(在切换之前会清空微任务代码)
+
+#### nodejs 和 浏览器事件环区别
+- 任务队列数不同
+    - 浏览器: 宏任务 微任务
+    - Nodejs: 6个
+- 微任务执行时机不同
+    - 两者都会在同步代码执行完毕后执行微任务
+    - 浏览器平台 每一个宏任务执行完毕 都会去清空微任务
+    - Nodejs 平台 只有在事件队列在切换时 会去清空微任务
+- 微任务优先级不同
+    - 浏览器下 微任务存放再事件队列中 先进先出
+    - nodejs 大原则也是先进先出  但是 process.nextTick 先于 promise.then
+
+#### 事件环常见的一个问题
+- 正常上下文中  setTimeout 和 setImmediate 会随机执行  因为  0秒有延时
+
+- 但是 把 setTimeout 和 setImmediate 放在 fs.readFile 的回调中 就会 先执行  setImmediate 再执行 setTimeout 因为 这里有 队列切换
+
+#### 核心模块 Stream
+- 比如 linux 中的  ls | grep *.js 会将 管道左侧ls 处理的内容交给 管道右侧的 grep 处理
+- Node.js 的诞生之初就是为了解决 提供 IO 性能
+- 文件操作系统 和网路模块 就是流操作的深度应用者 实现了 流接口
+- nodejs 中的流就是处理流式数据的抽象接口
+- 常见问题(观看网路视频场景)
+    - 同步读取资源文件 用户要等待数据读取完成
+    - 资源文件最终一次性加载至内存 开销较大 (v8 默认提供的内存大小 1G 多一点)
+    - 所以需要流来操作数据
+- 流处理数据的优势
+    - 时间效率: 流的分段处理可以同时操作多个数据的 chunk
+    - 空间效率: 同一时间流无需占用较大内存
+    - 使用方便: 流配合管道, 拓展程序简单
+ - Node.js 内置了 stream 它实现了流操作对象
+
+ - Node.js 中 流的分类
+    - Readable: 可读流
+    - Writeable: 可写流
+    - Duplex: 双工流 可读可写
+    - Tranform: 转换流 可读可写 还能实现数据转换
+
+- node.js 中 流 的特点
+    - Stream 模块实现了上4个具体的抽象 (具体使用可以调用具体的 API 比如 fs 模块 都是 基于 流实现的)
+    - 所有的流都继承自 EventEmitter 所以可以实现事件相关的操作6
+
+
+
+
 
 
 
