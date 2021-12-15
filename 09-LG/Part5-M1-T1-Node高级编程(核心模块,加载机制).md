@@ -344,6 +344,11 @@ rs.on('data', (chunk) => {
     - 明确数据消费的事件使用
 
 
+#### 自定义双工流
+- 思路
+    - 继承 stream 里 Duplex 类
+    - 重写 _read 方法调用 push 产出数据
+    - 重写 _write 方法调用 push 产出数据
 
 
 
