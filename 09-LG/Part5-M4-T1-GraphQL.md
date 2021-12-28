@@ -27,3 +27,21 @@ type User {
 }
 ```
 
+### axios 中使用 
+```js
+axios({
+    method: 'POST',
+    url: 'http://loaclhost:4000/graphql',
+    data: {
+        query: `
+        query ccc {
+            article (id: 123) {
+                title
+            }
+        }
+        `
+    }
+}).then(res => {
+    console.log(res)
+})
+```
