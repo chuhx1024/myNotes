@@ -91,7 +91,8 @@ module.exports = {
 // package.json
 {
     "scripts": {
-        "lint": "eslint src/**/**/*.* --fix"  // 修复所有
+        "lint": "eslint src/**/**/*.* --fix"  // 修复src 下
+        "lint": "eslint . --fix"  // 修复所有
         "lint": "eslint --fix --ext .js --ext .jsx --ext .vue src/ test/unit test/e2e/specs"
     }
 }
