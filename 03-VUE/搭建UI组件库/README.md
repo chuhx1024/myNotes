@@ -63,5 +63,7 @@ npm login  // 主要要切换为 npm源
 npm publish
 ```
 
+笔记: https://segmentfault.com/a/1190000039748000?utm_source=sf-similar-article
+
 
 
