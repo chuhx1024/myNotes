@@ -45,8 +45,54 @@ class linkedList {
             this.head = node
         }
         this.count++
-        
     }
+
+    // 获取节点(根据索引)
+    get (index) {
+        if (this.count === 0 || index < 0 || index >= this.count) return
+        // 迭代链表 找到对应节点
+        let current = this.head
+        for (let i = 0; i < index; i++) {
+            current = current.next
+        }
+        return current
+    }
+
+    // 添加节点 (根据索引)
+    addAtIndex (value, index) {
+        if (this.count === 0 || index >= this.count) return
+        // 如果 index <= 0 都添加到头部
+        if (index <= 0) {
+            return this.addAtHead(value)
+        }
+        // 处理正常区间 
+        const prev = this.get(index -1)
+        const next = prev.next
+        const node = new LinkedNode(value)
+        node.next = next
+        prev.next = node
+        this.count++
+    }
+
+    // 删除(根据索引)
+    removeAtIndex (index) {
+        if (this.count === 0 || index >= this.count) return
+        if (index === 0) {
+            this.head = this.head.next
+        } else if (index === this.count) {
+            this.get(this.count - 1).next = null
+        } else {
+            // 直接处理正常情况
+            const prev = this.get(index -1)
+            const current = this.get(index)
+            const next = this.get(index + 1)
+    
+            prev.next = next
+            return current
+        }
+        this.count--
+    }
+
 }
 
 const l = new linkedList()
