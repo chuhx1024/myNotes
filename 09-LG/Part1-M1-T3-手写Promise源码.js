@@ -1,3 +1,75 @@
+// Promise 基本使用
+
+/** 
+ * ### 基本理解
+ * 1. Promise 就是一个类
+ * 2. 在执行这个类的时候 就要传递一个回调函数 这个回调函数就是一个执行器
+ * 3. 这个执行器 在 new 的时候就会执行(其实这个执行器就在 类的 constructor 中定义)
+ * 4. 这两个参数(函数) 有两个参数  计时 resolve  reject  
+ * 5. 掉用 resolve 和 reject  就是在改 Promise 的状态(pending, fulfilled, rejected)
+ * 6. Promise 的特点是 只能从 pending --> fulfilled; padding --> rejected 一旦状态确定 就不可以改变(promise 的字面意思)
+ * 
+ * 
+ * 
+ */
+
+/**
+ * Promise 状态的说明
+ * 1. 直接 new 一个 promise 状态是 padding  此时是不会触发 .then 中的内容的
+ * 2. fulfilled 状态 触发 .then
+ * 3. reject 状态 触发 .catch
+ */
+
+/**
+ * 一个 promise 不管触发 .then .catch  只要不 throw new Error('err')
+ * 都会返回一个新的 promise  而且状态是 会重 padding 变为  fulfilled
+ */
+
+
+/**
+ * const p1 = Promise.resolve()
+ * p1
+ *  .then(() => {
+ *     console.log(1)
+ *  })
+ *  .catch(() => {
+ *     console.log(2)
+ *  })
+ *  .then(() => {
+ *     console.log(3)
+ *  })
+ *  // 1, 3
+ * 
+ * const p2 = Promise.reject()
+ * p2
+ *  .then(() => {
+ *     console.log(1)
+ *  })
+ *  .catch(() => {
+ *     console.log(2)
+ *  })
+ *  .then(() => {
+ *     console.log(3)
+ *  })
+ *  // 2, 3
+ * 
+ * const p3 = Promise.reject()
+ * p3
+ *  .then(() => {
+ *     console.log(1)
+ *  })
+ *  .catch(() => {
+ *     console.log(2)
+ *     throw new error('')
+ *  })
+ *  .then(() => {
+ *     console.log(3)
+ *  })
+ *  .catch(() => {
+ *     console.log(4)
+ *  })
+ *  // 2, 4
+ */
 // 为了代码有提示  不容易出错
 const PENDING = 'pending'
 const FULFILLEN = 'fulfilled'
@@ -163,3 +235,4 @@ MyPromise.resolve("resolve").then((val) => {
 MyPromise.resolve(p1).then((val) => {
     console.log(val)
 })
+
