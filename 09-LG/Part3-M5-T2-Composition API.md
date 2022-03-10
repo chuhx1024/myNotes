@@ -3,13 +3,17 @@
 ### 概念
 
 #### setup 函数
+- 第一个参数是 props, 是外部传来的参数, 是一个响应式对象 不能解构
+- 第二个参数 context : 三个成员 attrs emit slots
+- 返回的对象 可以在模板中使用  
+- 执行时机  props 解析完毕 组件被创建之前执行 无法使用 this(undefined) 获取到组件的实例 无法访问组件的 data  computerd
 ```js
 import { onMounted } from 'vue'
 setup () {
     // 第一个参数 props : 接收外部传来的参数 是一个响应式对象  不能解构
     // 第二个参数 context : 三个成员 attrs emit slots
     // 返回的对象 可以在模板中使用  
-    // 执行时机  props 解析完毕 组件被创建之前执行 无法使用 this(undefined) 获取到组件的实例 无法访问组件的 data  computerd
+    // 执行时机  props 解析完毕 组件被创建之前执行 无法使用 this(undefined) 获取到组件的实例 无法访问组件的 data  computerd (也就是说  以前 beforeCreate created 的代码 可以在 setup 中写, 这两个生命周期没有用了)
     const position = {
         x: 0,
         y: 0,
@@ -38,7 +42,7 @@ const position = reactive({
 })
 ```
 
-- refs 接收 reactive 转换后的对象  返回一个支持解构的 
+- refs 接收 reactive 转换后的对象  返回一个支持解构的响应式对象
 ```js
 const position = reactive({
     x: 0,
@@ -77,6 +81,8 @@ watch(ccc, (newval, oldVal) => {
 - 接收一个函数作为参数, 监听函数内响应式数据的变化
 ```js
 const ccc = ref('')
+// watchEffect 内部有引用 ccc  所以 只要ccc 改变就会触发这个函数 
+// stop 是一个方法 只要执行  stop() 这个监听就会取消
 const stop = watchEffect(() => {
     console.log(ccc.value)
 })

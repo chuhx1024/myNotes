@@ -92,7 +92,12 @@
 - 按需编译
 - 模块热更新
 - Vite 在生产环境下使用 Rollup 打包
-    - 基于 ESM 
+    - 基于 ESM 所以不需要 babel 把  import 转换成 require  打包的体积更小
+
+#### Vite 使用
+- 可以直接创建 vue3.0 的项目
+- 可以基于模板 创建 react 项目等
+
 
 
 
