@@ -167,7 +167,7 @@ module.exports = class extends Generator {
     - vscode 打开项目 准备 generator 需要的 入口文件 和模板文件夹 
     - 在 app/index.js  中定义好 上下文 需要的数据 挂载在 this 上
     - 把一步准备的 理想项目结构 中 动态替换的内容  用  EJS 语法 挖坑 <%= title %>
-        - 注意 一般 vue 项目中 就是那个理想项目结构中 本事也会用到  EJS 语法 去定义一个 public/index.html link 中  <%= BASE_URL%>  是不需要编译的  要转义一下  <%%= BASE_URL> 就可以了
+        - 注意 一般 vue 项目中 就是那个理想项目结构中 本身也会用到  EJS 语法 去定义一个 public/index.html link 中  <%= BASE_URL%>  是不需要编译的  要转义一下  <%%= BASE_URL> 就可以了
 
 - 发布 Generator 
     - 先把本项目 用 git 托管一下
@@ -190,7 +190,7 @@ yarn add plop -D
 // 此函数接收一个 plop 对象 用于创建生成器任务
 
 module.exports = plop => {
-    plop.setGenerator('component', {  // 第一个参数 定义生成器的名字 用于后边  执行  yarn plop component
+    plop.setGenerator('ccc', {  // 第一个参数 定义生成器的名字 用于后边  执行  yarn plop ccc
         description: 'create a component',
         prompts: [
             {
@@ -200,7 +200,7 @@ module.exports = plop => {
                 default: 'Mycomponent',
             },
         ],
-        actions: [
+        actions: [ // 支持添加多个
             {
                 type: 'add', // 代表添加一个文件
                 path: 'src/components/{{ name }}/{{ name }}.js',
