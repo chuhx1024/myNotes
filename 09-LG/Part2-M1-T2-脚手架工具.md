@@ -50,6 +50,14 @@ yo node
 yo node:cli 
 ```
 
+##### Yeomen 使用流程
+- 明确你的需求
+- 找到合适的 Generator
+- 安装这个 Generator
+- 通过 Yo 运行对应的 Generator
+- 通过 交互命令填写交互选项
+- 最终 生成自己的项目结构
+
 ##### 自定义 Generator : 基于 Yeoman 搭建自己的脚手架
 - 基础工作
 ```js

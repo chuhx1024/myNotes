@@ -64,7 +64,7 @@ myEvent.emit('事件一')
 - timer类函数: 执行顺序与事件循环间的关系
 - process: 提供与当前进程互动的接口
 - require: 实现模块的加载
-- module exports: 处理模块导出
+- module.exports: 处理模块导出
 
 ### Nodejs 核心模块
 
