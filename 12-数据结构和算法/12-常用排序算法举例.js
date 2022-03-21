@@ -11,7 +11,7 @@ const bubbleSort = (arr) => {
     return arr
 }
 
-console.log(bubbleSort([4,5,3,1,9, 100]))
+console.log(bubbleSort([4,5,3,1,9,100]))
 
 
 
@@ -27,4 +27,47 @@ function bubbleSort1 (arr) {
     })
     console.log(arr)
 }
-bubbleSort1([4,5,3,1,9, 100])
+bubbleSort1([4,5,3,1,9,100])
+
+
+// 快速排序: 一开始找一个中介, 然后把比它小的放左边 比它大的放右边 然后对中介值两遍的值 重新找中介值 如此循环
+// 快排的时间复杂度是 O(nlong), 线性对数阶 属于不稳定排序
+
+function quickSort (arr) {
+    if (arr.length <=1) return arr
+    let pivotIndex = Math.floor(arr.length / 2)
+    const pivot = arr.splice(pivotIndex,1)[0]
+    let left = []
+    let right = []
+    arr.forEach(item => {
+        if (item < pivot) {
+            left.push(item)
+        } else {
+            right.push(item)
+        }
+    })
+    left = quickSort(left)
+    right = quickSort(right)
+    return left.concat(pivot, right)
+}
+
+console.log(quickSort([4,5,3,1,9,100,50]))
+
+// 选择排序: 循环 数组 找到最小的 放第一位 , 第二次剩余最小的放第二位...
+
+function selectSort (arr) {
+    arr.forEach((item, index) => {
+        let min = item
+        for(let i = index + 1; i < arr.length; i ++) {
+            if (min > arr[i]) {
+                let temp = min
+                min = arr[i]
+                arr[i] = temp
+            }
+        }
+        arr[index] = min
+
+    })
+    return arr
+}
+console.log(selectSort([1,4,900,2,100,4,6,7]))
