@@ -62,7 +62,7 @@ git config --global user.email 'jay@126.com'
 
 + 下载最后一次提交   git clone XXXX --depth=1
 
-## 4. 关于 merger 的操作
+## 4. 关于 merge 的操作
 
 + 一般操作开发分支 (dev) 上的代码达到上线的标准后, 要 merge 到 master 分支
 
@@ -207,6 +207,13 @@ git reset HEAD^ // 撤回了 commit  和 add   就是把修改的内容 撤回�
 - 还没有进行 add . 和 commit 操作:  git checkout .
 - 已经 add : git reset .
 - 清除新建的文件 文件夹: git clean -d -f
+
+
+### 使用  git rebase -i 3dsds7 删除中间的一次提交
+
+- 把 pick 改为 drop
+
+
 
 
 

@@ -45,6 +45,17 @@ https://www.extfans.com/search/
 
 + 删除分支：git branch -d <name> 注意:删除当前分支 需要切换到其他分支   如果要删除的分支没有和当前的分支合并 会提示的 删除失败  真要删除 用 -D
 
++ 切出一个远端分支: git checkout -b ccc origin/ccc
+
++ 远端分支强行覆盖本地分支: git reset --hard origin/ccc
+
+## 关于回滚代码
+### 回滚到某个提交点
+```
+
+
+```
+
 ## 分支管理
 
 + gitHub https://github.com/orgs/starcloud-ai
