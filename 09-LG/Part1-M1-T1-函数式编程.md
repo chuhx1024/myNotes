@@ -27,7 +27,7 @@ function add (n1, n2) {
 let sum = add (1, 2)
 console.log(sum)
 ```
-- 函数式一等公民
+- 函数是一等公民
     - 函数可以存储在变量中(数组中也可以)
     - 函数可以作为参数(就是高阶函数) Higher-order-function
     - 函数可以作为返回值(也是高阶函数)
