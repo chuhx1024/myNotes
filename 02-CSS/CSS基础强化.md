@@ -22,6 +22,14 @@
   text-overflow:ellipsis;
   overflow:hidden;
 }
+
+.mulEllipsis {
+    overflow: hidden;            // 溢出隐藏
+    text-overflow: ellipsis;     // 溢出用省略号显示
+    display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
+    -webkit-box-orient:vertical; // 设置伸缩盒子的子元素排列方式：从上到下垂直排列
+    -webkit-line-clamp:3;        // 显示的行数
+}
 ```
 ### 3. 关于水平对齐及垂直对齐的总结
 #### 水平居中：
@@ -145,4 +153,25 @@ background-size：是css3规定的属性，50%为缩放图片；100px 50px：把
     - padding-box; padding 计算在内
     - border-box; border 和 padding  都计算在再内
 
-### 11. 
+### 11. z-index属性在下列情况下会失效：
+
+- 父元素position为relative时，子元素的z-index失效。解决：父元素position改为absolute或static；
+- 元素没有设置position属性为非static属性。解决：设置该元素的position属性为relative，absolute或是fixed中的一种；
+- 元素在设置z-index的同时还设置了float浮动。解决：float去除，改为display：inline-block；
+
+### 12. flex 布局强化
+- 容器属性
+    - flex-direction属性决定主轴的方向（即项目的排列方向）。
+    - flex-wrap属性定义，如果一条轴线排不下，如何换行。
+    - flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+    - justify-content属性定义了项目在主轴上的对齐方式。
+    - align-items属性定义项目在交叉轴上如何对齐。
+    - align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+- 项目属性
+    - order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+    - flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+    - flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+    - flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
+    - flex属性是flex-grow，flex-shrink和flex-basis的简写，默认值为0 1 auto。
+    - align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
+
