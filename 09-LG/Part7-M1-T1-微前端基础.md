@@ -106,9 +106,100 @@
 - 使用布局引擎 可以更好的加载微应用
     - 现在  sing-spa-layout
 
+- 组件之间通信
+    - 使用 Rxjx 库
+    - 步骤: 
+        - 在容器应用的 import-map 中引入
+        - 在 utility modules 中 导出 RelaySubject, new 一下 
+        ```
+        import { ReplaySubject } from "rxjs" 
+        export const sharedSubject = new ReplaySubject()
+        ```
+        - 在 react 中订阅
+        ```
+        useEffect(() => { 
+            let subjection = null 
+            if (toolsModule) { 
+                subjection = toolsModule.sharedSubject.subscribe(console.log) 
+            }
+            return () => subjection.unsubscribe() 
+        }, [toolsModule])
+        ```
+
+        - 在 vue 中订阅
+        ```
+        async mounted() {
+            let toolsModule = await window.System.import("@study/tools") 
+            toolsModule.sharedSubject.subscribe(console.log) 
+        }
+        ```
+- 使用布局引擎
+- 下载 npm install single-spa-layout@1.3.1
+
 
 ## 模块联邦
 - 模块联邦也可以实现 微前端架构
  
 - webpack 5 实现的功能
 - 思路 把一个应用当成一个模块 就可以加载了
+- 过程
+- 创建一个普通的 webpack项目  作为容器
+- 微应用也是模块 但是要做为模块导出 使用到一个 webpack 插件
+- 为模块作为模块导出
+- webpack 配置修改
+```
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin") 
+// 将 products 自身当做模块暴露出去 
+new ModuleFederationPlugin({ 
+    // 模块文件名称, 其他应用引入当前模块时需要加载的文件的名字 
+    filename: "remoteEntry.js", 
+    // 模块名称, 具有唯一性, 相当于 single-spa 中的组织名称 name: "products", 
+    // 当前模块具体导出的内容 
+    exposes: {  // 关键代码
+        "./index": "./src/index" 
+    } 
+})
+```
+
+- 在容器中导入 微应用
+```js
+// 容器的 webpack 配置
+// webpack.config.js 
+// 导入模块联邦插件
+ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin") 
+ new ModuleFederationPlugin({ 
+     name: "container", 
+     // 配置导入模块映射
+    remotes: {  // 关键代码
+        // 字符串 "products" 和被导入模块的 name 属性值对应 
+        // 属性 products 是映射别名, 是在当前应用中导入该模块时使用的名字 
+        products: "products@http://localhost:8081/remoteEntry.js" 
+    } 
+}) 
+```
+
+- 打包分析
+    - 容器
+        - 容器的 index.js  
+        - router 文件 (简单理解)
+    - 微应用
+        - 正常打包: 可以独立使用
+        - 模块联邦打包: 包含模块加载的文件列表, 如何加载他们(remoteEntry.js)
+- 文件执行顺序
+    - 容器应用的 main.js
+    - 加载注册的路由
+    - 路由在子路由中加载他们的 remoteEntry.js  弄清楚他们怎么被加载
+
+- 共享模块
+    - 
+    // 分别在 Products 和 Cart 的 webpack 配置文件中的模块联邦插件中添加以下代码
+     { shared: ["faker"] }
+    // 重新启动 Container、Products、Cart
+- 共享模块版本冲突
+```js
+shared: { faker: { singleton: true } }
+```
+
+-  懒加载微应用
+引入时  使用 import 
+
