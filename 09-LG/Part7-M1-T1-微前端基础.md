@@ -107,7 +107,7 @@
     - 现在  sing-spa-layout
 
 - 组件之间通信
-    - 使用 Rxjx 库
+    - 使用 RxJS 库
     - 步骤: 
         - 在容器应用的 import-map 中引入
         - 在 utility modules 中 导出 RelaySubject, new 一下 
