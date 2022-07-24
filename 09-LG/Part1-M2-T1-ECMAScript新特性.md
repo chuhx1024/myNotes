@@ -218,7 +218,7 @@ for (let i of s) {
     console.log(i)
 }
 
-// 穿度用size(很变态)
+// 长度用size(很变态)
 console.log(s.size, 'size')
 
 // 判断是否包含
