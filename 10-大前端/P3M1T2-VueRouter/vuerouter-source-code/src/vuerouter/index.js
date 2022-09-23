@@ -13,9 +13,11 @@ export default class VueRouter {
         _Vue.mixin({
             beforeCreate() {
                 if (this.$options.router) {
-                    console.log(this, 123)
-                    console.log(this.$options.router, 123)
+                    console.log(this, 'vue实例')
+                    console.log(this.$options.router, 'vue实例上参数')
+                    console.log(this.$router, 'vue 实例上没有$router')
                     _Vue.prototype.$router = this.$options.router
+                    console.log(this.$router, '挂载了$router')
                     this.$options.router.init()
                 }
             },
@@ -62,9 +64,13 @@ export default class VueRouter {
             },
             methods: {
                 clickhandler (e) {
+                    // window.history.pushState(state, title, url)
+                    // state：一个与添加的记录相关联的状态对象
+                    // title：新页面的标题。但是，现在所有浏览器都忽视这个参数，所以这里可以填空字符串。
+                    // url：新的网址，必须与当前页面处在同一个域。浏览器的地址栏将显示这个网址
                     history.pushState({}, '', this.to)
+                    // 为了给路由实例中记录数据 
                     this.$router.data.current = this.to
-                    console.log(window.location)
                     e.preventDefault()
                 }
             }
