@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<!-- saved from url=(0040)https://www.swvq.com/article/detail/471/ -->
+<html lang="zh-CN" style="transform: none;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+<link rel="icon" href="https://www.swvq.com/favicon.ico?r=1" type="image/x-icon">
+<link rel="shortcut icon" href="https://www.swvq.com/favicon.ico?r=1" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="MobileOptimized" content="width">
+<meta name="HandheldFriendly" content="true">
+<title>在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com</title>
+<meta name="description" content="本文主要以实战为主，这里就不过多赘述eslint与prettier的作用了，不清晰的同学可以查阅一下相关资料。简单来说，就是eslint可以保证项目的质量，prettier可以保证项目的统一格式、风格。-程序员及编程爱好者编程难题解决方案社区,旨为方便技术人员更快的开发代码,社区有全球各大网站的精品技术文章, 每日发表专业编程类与IT类技术文章,旨为打造最全的编程技术社区">
+<meta name="keywords" content="编程入门,免费编程自学网站,原创编程文章,编程入门教程,学编程,编程语言,计算机编程,软件编程,编程社区,自学编程,编程教学,java培训,IT技术,运维,Linux,java,mysql,技术社区">
+
+<!-- jQuery -->
+<script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/push.js" id="ttzz"></script><script async="" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/clarity.js"></script><script async="" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/e4e3cb7exe"></script><script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/hm.js"></script><script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/hm(1).js"></script><script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/jquery-3.6.0.min.js"></script>
+
+
+<script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/lazyload.min.js"></script>
+
+
+<script>
+    // AJAX全局CSRF配置
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': 'bMPhTzxJcqS9yrXvPABltgE3Xd6PgAqeM67mPHr7'
+        }
+    });
+    var CSRF_TOKEN = 'bMPhTzxJcqS9yrXvPABltgE3Xd6PgAqeM67mPHr7';
+
+    var globalParams = {
+        "isLogin": "1",
+        "invitation_code": "",
+        "web_url" : "https://www.swvq.com",
+        "controllerName" : "ArticleController",
+        "actionName" : "detail",
+    };
+</script>
+
+
+<!-- 百度统计 个人 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?cc37a4eb4c9720bbe4479b11591a474b";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<!-- 百度统计 营销 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f7e7729c5189be9dead950f003e6ba00";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+
+<!-- 谷歌统计 -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q06LL0H4MD"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-Q06LL0H4MD');
+</script>-->
+
+<!-- 微软统计 -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "e4e3cb7exe");
+</script>
+
+<!-- 51la统计 -->
+<script charset="UTF-8" id="LA_COLLECT" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"JxdD5rSq7pVvOL7x",ck:"JxdD5rSq7pVvOL7x",autoTrack:true})</script>
+
+
+<script>
+(function(){
+var el = document.createElement("script");
+el.src = "https://lf1-cdn-tos.bytegoofy.com/goofy/ttzz/push.js?ec0b30603563fc49cc3402518568a3b06008be35d3aa4b8fc28d959eee7f7b82c112ff4abe50733e0ff1e1071a0fdc024b166ea2a296840a50a5288f35e2ca42";
+el.id = "ttzz";
+var s = document.getElementsByTagName("script")[0];
+s.parentNode.insertBefore(el, s);
+})(window)
+</script>
+
+<!-- 全局样式 -->
+<link rel="stylesheet" href="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/common.min.css">
+
+<!-- 公共方法样式 -->
+<link rel="stylesheet" href="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/globalFunc.min.css">
+
+<!-- 内容样式 -->
+<link rel="stylesheet" href="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/style.min.css">
+        
+        
+
+        
+        <link rel="stylesheet" href="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/prism.css">
+        <script type="text/javascript" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/prism.js"></script>
+    <style id="theia-sticky-sidebar-stylesheet-TSS">.theiaStickySidebar:after {content: ""; display: table; clear: both;}</style></head>
+
+    <body style="transform: none;">
+        <!-- 导航 -->
+        <header class="header sb">
+    <div class="h-wrap container clearfix">
+        <h1 class="logo-area fl">
+            <a href="https://www.swvq.com/" title="学新通技术网">
+                 <img class="img" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/eSZOFPLORpspmwykoNR8preTgIUqauJBR6Ry7ACX.png" alt="学新通技术网" title="学新通技术网">
+            </a>
+        </h1>
+        <div class="m-nav-btn"><i class="iconfont icon-category"></i></div>
+        <nav class="responsive-nav">
+            <div class="pc-nav m-nav fl" data-type="index" data-infoid="index">
+                <ul class="nav-ul">
+                                            <li>
+                            <a class="" href="https://www.swvq.com/">首页</a>
+                            <span class="toggle-btn">
+                                <i class="iconfont icon-down"></i>
+                            </span>
+                                                    </li>
+                                            <li>
+                            <a class="" href="javascript:;">精品库</a>
+                            <span class="toggle-btn">
+                                <i class="iconfont icon-down"></i>
+                            </span>
+                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/1" target="_blank">前端</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/2" target="_blank">html</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/3" target="_blank">javascript</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/4" target="_blank">css</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/5" target="_blank">jquery</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/52" target="_blank">ui特效</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/96" target="_blank">typescript</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/203" target="_blank">bootstrap</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/215" target="_blank">微信开发</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/8" target="_blank">后端</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/6" target="_blank">node</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/9" target="_blank">php</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/10" target="_blank">python</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/11" target="_blank">c语言</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/12" target="_blank">c++</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/13" target="_blank">java</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/14" target="_blank">golang</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/72" target="_blank">c#</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/75" target="_blank">swoole</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/155" target="_blank">php5</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/156" target="_blank">php7</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/157" target="_blank">php8</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/193" target="_blank">rust</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/15" target="_blank">服务器系统</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/21" target="_blank">linux</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/43" target="_blank">centos</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/44" target="_blank">centos7</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/45" target="_blank">centos8</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/46" target="_blank">centos stream</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/47" target="_blank">ubuntu</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/48" target="_blank">debian</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/148" target="_blank">debian6</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/149" target="_blank">debian7</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/150" target="_blank">debian8</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/151" target="_blank">debian9</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/152" target="_blank">debian10</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/153" target="_blank">debian11</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/154" target="_blank">unix</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/16" target="_blank">数据库</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/27" target="_blank">mysql</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/28" target="_blank">postgresql</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/58" target="_blank">elasticsearch</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/122" target="_blank">oracle</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/123" target="_blank">sqlserver</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/124" target="_blank">sqlite</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/125" target="_blank">informix</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/126" target="_blank">hbase</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/127" target="_blank">neo4j</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/128" target="_blank">couchdb</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/129" target="_blank">db2</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/130" target="_blank">sybase</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/131" target="_blank">access</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/17" target="_blank">后端框架</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/29" target="_blank">laravel</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/30" target="_blank">wordpress</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/31" target="_blank">thinkphp</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/32" target="_blank">thinkphp3.1</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/33" target="_blank">thinkphp3.2</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/34" target="_blank">thinkphp5</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/35" target="_blank">thinkphp6</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/36" target="_blank">yii2</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/37" target="_blank">yii</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/38" target="_blank">gin</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/87" target="_blank">spring boot</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/88" target="_blank">spring cloud</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/224" target="_blank">workerman</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/18" target="_blank">开发工具</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/61" target="_blank">sublime text</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/62" target="_blank">vim</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/63" target="_blank">visual studio code</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/66" target="_blank">zend studio</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/90" target="_blank">android studio</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/210" target="_blank">dreamweaver</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/211" target="_blank">webstorm</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/212" target="_blank">phpstorm</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/213" target="_blank">atom</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/214" target="_blank">notepad</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/22" target="_blank">操作系统</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/23" target="_blank">windows7</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/24" target="_blank">windows8</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/25" target="_blank">windows10</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/26" target="_blank">windows11</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/39" target="_blank">mac</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/56" target="_blank">windows</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/78" target="_blank">ios</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/40" target="_blank">工具</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/42" target="_blank">git</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/53" target="_blank">composer</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/54" target="_blank">npm</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/57" target="_blank">ssl证书</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/68" target="_blank">vmware workstation</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/100" target="_blank">音视频开发</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/102" target="_blank">富文本编辑器</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/41" target="_blank">源码</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/80" target="_blank">网页源码</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/81" target="_blank">安卓源码</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/82" target="_blank">ios源码</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/49" target="_blank">web服务器</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/19" target="_blank">apache</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/20" target="_blank">nginx</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/133" target="_blank">iis</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/134" target="_blank">jboss</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/135" target="_blank">lighttpd</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/136" target="_blank">zeus web server</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/137" target="_blank">sun web server</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/138" target="_blank">resin web server</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/139" target="_blank">jetty</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/140" target="_blank">weblogic</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/141" target="_blank">tomcat</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/142" target="_blank">websphere</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/143" target="_blank">caddy</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/144" target="_blank">openlitespeed</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/145" target="_blank">hiawatha</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/146" target="_blank">cherokee</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/147" target="_blank">h2o</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/50" target="_blank">mq</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/51" target="_blank">kafka</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/103" target="_blank">rabbitmq</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/104" target="_blank">zeromq</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/105" target="_blank">rocketmq</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/106" target="_blank">activemq</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/107" target="_blank">jafka</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/108" target="_blank">kestrel scala</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/109" target="_blank">beanstalkd</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/110" target="_blank">hornetq</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/111" target="_blank">apache qpid</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/112" target="_blank">sparrow</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/113" target="_blank">starling</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/114" target="_blank">amazon sqs</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/115" target="_blank">msmq</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/59" target="_blank">杂谈</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/67" target="_blank">技术探讨</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/69" target="_blank">软件推荐</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/160" target="_blank">搞笑编程</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/198" target="_blank">面试宝典</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/216" target="_blank">常见问题</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/230" target="_blank">seo</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/71" target="_blank">缓存中间件</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/70" target="_blank">redis</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/117" target="_blank">memcache</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/118" target="_blank">ehcache</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/119" target="_blank">squid</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/120" target="_blank">varnish</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/121" target="_blank">mongodb</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/79" target="_blank">移动开发</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/73" target="_blank">flutter</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/74" target="_blank">android</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/83" target="_blank">swift</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/84" target="_blank">objective-c</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/85" target="_blank">kotlin</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/86" target="_blank">android jetpack</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/92" target="_blank">ui框架</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/91" target="_blank">swiftui</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/116" target="_blank">layui</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/93" target="_blank">代码安全</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/94" target="_blank">sql注入</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/95" target="_blank">xss攻击</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/179" target="_blank">安全</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/180" target="_blank">漏洞</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/181" target="_blank">渗透</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/132" target="_blank">js框架</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/7" target="_blank">vue</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/77" target="_blank">react</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/89" target="_blank">webpack</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/97" target="_blank">vue2</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/98" target="_blank">vue3</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/99" target="_blank">vite</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/159" target="_blank">设计模式</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/60" target="_blank">技术架构</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/64" target="_blank">技术详解</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/76" target="_blank">算法</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/101" target="_blank">性能优化</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/158" target="_blank">微服务</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/197" target="_blank">分布式</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/199" target="_blank">大数据</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/162" target="_blank">容器面板</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/55" target="_blank">宝塔</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/161" target="_blank">urlos</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/209" target="_blank">phpstudy</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/163" target="_blank">服务器工具</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/164" target="_blank">docker</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/165" target="_blank">kubernetes</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/166" target="_blank">kvm</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/192" target="_blank">kubesphere</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/194" target="_blank">neuvector</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/167" target="_blank">网络服务</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/168" target="_blank">ip地址</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/169" target="_blank">tcp</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/170" target="_blank">http</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/171" target="_blank">https</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/172" target="_blank">ftp</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/173" target="_blank">sftp</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/178" target="_blank">网络传输</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/200" target="_blank">xml</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/201" target="_blank">json</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/202" target="_blank">yaml</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/225" target="_blank">web3</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/174" target="_blank">人工智能</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/175" target="_blank">自然语言</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/231" target="_blank">chatgpt</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/177" target="_blank">数据库中间件</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/176" target="_blank">mybatis</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/185" target="_blank">跨平台开发</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/184" target="_blank">uniapp</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/186" target="_blank">app小程序</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/187" target="_blank">微信小程序</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/188" target="_blank">百度小程序</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/189" target="_blank">支付宝小程序</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/190" target="_blank">今日头条小程序</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/191" target="_blank">qq小程序</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/195" target="_blank">服务模式</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/196" target="_blank">openfunction</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/205" target="_blank">设计工具</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/204" target="_blank">photoshop</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/226" target="_blank">premiere</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/207" target="_blank">数据库工具</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/206" target="_blank">phpmyamin</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/208" target="_blank">navicat</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/217" target="_blank">cms</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/218" target="_blank">ecshop</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/219" target="_blank">discuz</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/220" target="_blank">phpcms</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/221" target="_blank">diguocms</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/222" target="_blank">dedecms</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/223" target="_blank">wordpress</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                            <li>
+                                            <a href="https://www.swvq.com/cate/list/227" target="_blank">工作效率</a>
+                                                                                            <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu">
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/228" target="_blank">word</a>
+                                                        </li>
+                                                                                                            <li>
+                                                            <a href="https://www.swvq.com/cate/list/229" target="_blank">excel</a>
+                                                        </li>
+                                                                                                    </ul>
+                                                                                    </li>
+                                                                    </ul>
+                                                    </li>
+                                    </ul>
+            </div>
+        </nav>
+        <span id="search-button" class="search-button fr"><i class="iconfont icon-search"></i></span>
+        <div id="search-area" class="container hidden br sb animated-fast fadeInUpMenu">
+            <form name="formsearch" class="searchform clearfix" action="https://www.swvq.com/article/search" method="GET">
+                <input class="s-input br fl" type="text" name="keyword" placeholder="请输入关键词...">
+                <button class="s-button fr br transition brightness" type="submit" id="searchsubmit">搜索</button>
+            </form>
+        </div>
+    </div>
+</header>
+        <nav class="breadcrumb container">
+            <a href="https://www.swvq.com/">首页</a> &gt;
+                            <a href="https://www.swvq.com/cate/list/132">js框架</a> &gt;
+                            <a href="https://www.swvq.com/cate/list/7">vue</a> &gt;
+                    </nav>
+        <div id="content" class="content container clearfix" style="transform: none;">
+            <div id="mainbox" class="article-box fl mb">
+                <article class="art-main sb br mb">
+                    <div class="art-head mb">
+                        <h1 class="art-title">在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南</h1>
+                        <div class="head-info">
+                            <span class="author"><i class="iconfont icon-user"></i>Luke</span>
+                            <time class="time"> <i class="iconfont icon-time"></i> 2022-10-09 </time>
+                            <span class="view"><i class="iconfont icon-view"></i> 910 </span>
+                            <span class="comment"><i class="iconfont icon-comment"></i> 1 </span>
+                        </div>
+                    </div>
+                    <div class="global_income_money_pc" style="margin-bottom: 10px; width: 100%; height: 100px; display: block;" id="article_detail_1"><iframe src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/article_detail_1.html" frameborder="0" scrolling="no" style="width: 100%;height: 100%;display: block;"></iframe></div>
+                    <div class="art-content">
+
+                        <article class="content">
+                            
+                            <h1 data-id="heading-0">创建项目</h1>
+<p>使用vue-ts模板创建项目，由于该篇文章的重点不是项目的搭建，所以这里就简单带过。</p>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> create vite my-vue-app <span class="token parameter variable">--template</span> vue-ts</code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h1 data-id="heading-1">为什么需要<code>eslint</code>与<code>prettier</code></h1>
+<p>本文主要以实战为主，这里就不过多赘述<code>eslint</code>与<code>prettier</code>的作用了，不清晰的同学可以查阅一下相关资料。简单来说，就是<code>eslint</code>可以保证项目的质量，<code>prettier</code>可以保证项目的统一格式、风格。</p>
+<h1 data-id="heading-2">配置eslint</h1>
+<h3 data-id="heading-3">执行安装命令</h3>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> <span class="token function">add</span> eslint <span class="token parameter variable">-D</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-4">执行eslint初始化命令</h3>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> eslint <span class="token parameter variable">--init</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-5">依次初始化选项</h3>
+<p><img class="medium-zoom-image" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/64dd0281b151a723305e6f9b62e831d4.jpg" alt="image.png" loading="lazy"></p>
+<div class="code-toolbar"><pre class="language-shell" tabindex="0"><code class="hljs copyable language-shell" lang="shell"><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> How would you like to use ESLint?
+选择：To check syntax and <span class="token function">find</span> problems
+
+<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> What <span class="token builtin class-name">type</span> of modules does your project use?
+选择：JavaScript modules <span class="token punctuation">(</span>import/export<span class="token punctuation">)</span>
+
+<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> Which framework does your project use?
+选择：Vue.js
+
+<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> Does your project use TypeScript?
+选择：Yes
+
+<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> Where does your code run?
+选择：Browser
+
+<span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span> What <span class="token function">format</span> <span class="token keyword keyword-do">do</span> you want your config <span class="token function">file</span> to be in?
+选择：JavaScript
+
+<span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span> Would you like to <span class="token function">install</span> them now?
+选择：Yes
+
+<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span> Which package manager <span class="token keyword keyword-do">do</span> you want to use?
+选择：pnpm</code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-6">依赖安装完成后，会生成<code>.eslintrc.js</code>配置文件</h3>
+<div class="code-toolbar"><pre class="language-javascript" tabindex="0"><code class="language-javascript">module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"env"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"browser"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"es2021"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"extends"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"eslint:recommended"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:vue/vue3-essential"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:@typescript-eslint/recommended"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"parserOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"ecmaVersion"</span><span class="token operator">:</span> <span class="token string">"latest"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"parser"</span><span class="token operator">:</span> <span class="token string">"@typescript-eslint/parser"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"sourceType"</span><span class="token operator">:</span> <span class="token string">"module"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"vue"</span><span class="token punctuation">,</span>
+        <span class="token string">"@typescript-eslint"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"rules"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>此时打开<code>.eslintrc.js</code>配置文件会出现一个报错，需要再<code>env</code>字段中增加<code>node: true</code>配置以解决eslint找不到module的报错</p>
+<p><img class="medium-zoom-image" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/9cabdc2a71a1101baa3f4770b0896c5c.jpg" alt="image.png" loading="lazy"></p>
+<div class="code-toolbar"><pre class="language-javascript" tabindex="0"><code class="language-javascript">module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"env"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"browser"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"es2021"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token comment">// 新增</span>
+        <span class="token string-property property">"node"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"extends"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"eslint:recommended"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:vue/vue3-essential"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:@typescript-eslint/recommended"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"parserOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"ecmaVersion"</span><span class="token operator">:</span> <span class="token string">"latest"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"parser"</span><span class="token operator">:</span> <span class="token string">"@typescript-eslint/parser"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"sourceType"</span><span class="token operator">:</span> <span class="token string">"module"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"vue"</span><span class="token punctuation">,</span>
+        <span class="token string">"@typescript-eslint"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"rules"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-7">在<code>package.json</code>文件中的<code>script</code>中添加<code>lint</code>命令</h3>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// eslint . 为指定lint当前项目中的文件</span>
+        <span class="token comment">// --ext 为指定lint哪些后缀的文件</span>
+        <span class="token comment">// --fix 开启自动修复</span>
+        <span class="token property">"lint"</span><span class="token operator">:</span> <span class="token string">"eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-8">执行<code>lint</code>命令</h3>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> lint</code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p><img class="medium-zoom-image" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/c69fa7293f08a9fc3deb9d16f9d4da56.jpg" alt="image.png" loading="lazy">&nbsp;这时候命令行中会显示出上图中的报错，意思就是在解析<code>.vue</code>后缀的文件时候出现解析错误<code>parsing error</code>。</p>
+<p>查阅资料后发现，<code>eslint</code>默认是不会解析<code>.vue</code>后缀文件的。因此，需要一个额外的解析器来解析<code>.vue</code>后缀文件。</p>
+<p>但是我们查看<code>.eslintrc.js</code>文件中的<code>extends</code>会发现已经有继承<code>"plugin:vue/vue3-essential"</code>的配置。然后在<code>node_modules</code>中可以找到<code>eslint-plugin-vue/lib/cinfigs/essential</code>，里面配置了<code>extends</code>是继承于同级目录下的<code>base.js</code>，在里面会发现<code>parser: require.resolve('vue-eslint-parser')</code>这个配置。因此，按道理来说应该是会解析<code>.vue</code>后缀文件的。</p>
+<p>继续往下看<code>.eslintrc.js</code>文件中的<code>extends</code>会发现，<code>extends</code>中还有一个<code>"plugin:@typescript-eslint/recommended"</code>，它是来自于<code>/node_modules/@typescript-eslint/eslint-plugin/dist/configs/recommended.js</code>，查看该文件会发现最终继承于同级目录下的<code>base.js</code>文件。从该文件中可以发现<code>parser: '@typescript-eslint/parser',</code>配置。</p>
+<p>按照<code>.eslintrc.js</code>文件中的<code>extends</code>配置的顺序可知，最终导致报错的原因就是<code>@typescript-eslint/parser</code>把<code>vue-eslint-parser</code>覆盖了。</p>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"extends"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"eslint:recommended"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:vue/vue3-essential"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:@typescript-eslint/recommended"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>查看eslint-plugin-vue官方文档可知。如果已经使用了另外的解析器（例如<code>"parser": "@typescript-eslint/parser"</code>），则需要将其移至<code>parseOptions</code>，这样才不会与<code>vue-eslint-parser</code>冲突。</p>
+<p>修改<code>.eslintrc.js</code>文件</p>
+<div class="code-toolbar"><pre class="language-javascript" tabindex="0"><code class="language-javascript">module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token string-property property">"env"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"browser"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"es2021"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"node"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"extends"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"eslint:recommended"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:vue/vue3-essential"</span><span class="token punctuation">,</span>
+        <span class="token string">"plugin:@typescript-eslint/recommended"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"parser"</span><span class="token operator">:</span> <span class="token string">"vue-eslint-parser"</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"parserOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token string-property property">"ecmaVersion"</span><span class="token operator">:</span> <span class="token string">"latest"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"parser"</span><span class="token operator">:</span> <span class="token string">"@typescript-eslint/parser"</span><span class="token punctuation">,</span>
+        <span class="token string-property property">"sourceType"</span><span class="token operator">:</span> <span class="token string">"module"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"vue"</span><span class="token punctuation">,</span>
+        <span class="token string">"@typescript-eslint"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string-property property">"rules"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>两个<code>parser</code>的区别在于，外面的<code>parser</code>用来解析<code>.vue</code>后缀文件，使得<code>eslint</code>能解析<code>&lt;template&gt;</code>标签中的内容，而<code>parserOptions</code>中的<code>parser</code>，即<code>@typescript-eslint/parser</code>用来解析vue文件中<code>&lt;script&gt;</code>标签中的代码。</p>
+<p>此时，再执行<code>pnpm lint</code>，就会发现校验通过了。</p>
+<h3 data-id="heading-9">安装vscode插件ESLint</h3>
+<p>如果写一行代码就要执行一遍<code>lint</code>命令，这效率就太低了。所以我们可以配合vscode的<code>ESLint</code>插件，实现每次保存代码时，自动执行<code>lint</code>命令来修复代码的错误。</p>
+<p>在项目中新建<code>.vscode/settings.json</code>文件，然后在其中加入以下配置。</p>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token comment">// 开启自动修复</span>
+    <span class="token property">"editor.codeActionsOnSave"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"source.fixAll"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+        <span class="token property">"source.fixAll.eslint"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-10">安装依赖说明</h3>
+<ul>
+<li>eslint： JavaScript 和 JSX 检查工具</li>
+<li>eslint-plugin-vue： 使用 ESLint 检查 .vue文件 的&nbsp;<code>&lt;template&gt;</code>&nbsp;和&nbsp;<code>&lt;script&gt;</code>，以及<code>.js</code>文件中的Vue代码</li>
+</ul>
+<h1 data-id="heading-11">配置prettier</h1>
+<h3 data-id="heading-12">执行安装命令</h3>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> <span class="token function">add</span> prettier <span class="token parameter variable">-D</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-13">在根目录下新建<code>.prettierrc.js</code></h3>
+<p>添加以下配置，更多配置可查看官方文档</p>
+<div class="code-toolbar"><pre class="language-javascript" tabindex="0"><code class="language-javascript">module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 一行的字符数，如果超过会进行换行，默认为80</span>
+    <span class="token literal-property property">printWidth</span><span class="token operator">:</span> <span class="token number">80</span><span class="token punctuation">,</span> 
+    <span class="token comment">// 一个tab代表几个空格数，默认为80</span>
+    <span class="token literal-property property">tabWidth</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> 
+    <span class="token comment">// 是否使用tab进行缩进，默认为false，表示用空格进行缩减</span>
+    <span class="token literal-property property">useTabs</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> 
+    <span class="token comment">// 字符串是否使用单引号，默认为false，使用双引号</span>
+    <span class="token literal-property property">singleQuote</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> 
+    <span class="token comment">// 行位是否使用分号，默认为true</span>
+    <span class="token literal-property property">semi</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> 
+    <span class="token comment">// 是否使用尾逗号，有三个可选值"&lt;none|es5|all&gt;"</span>
+    <span class="token literal-property property">trailingComma</span><span class="token operator">:</span> <span class="token string">"none"</span><span class="token punctuation">,</span> 
+    <span class="token comment">// 对象大括号直接是否有空格，默认为true，效果：{ foo: bar }</span>
+    <span class="token literal-property property">bracketSpacing</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-14">在<code>package.json</code>中的<code>script</code>中添加以下命令</h3>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"prettier --write \"./**/*.{html,vue,ts,js,json,md}\""</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>运行该命令，会将我们项目中的文件都格式化一遍，<strong>后续如果添加其他格式的文件，可在该命令中添加，例如：<code>.less</code>后缀的文件</strong></p>
+<h3 data-id="heading-15">安装vscode的Prettier - Code formatter插件</h3>
+<p>安装该插件的目的是，让该插件在我们保存的时候自动完成格式化</p>
+<p>在<code>.vscode/settings.json</code>中添加一下规则</p>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token comment">// 保存的时候自动格式化</span>
+    <span class="token property">"editor.formatOnSave"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token comment">// 默认格式化工具选择prettier</span>
+    <span class="token property">"editor.defaultFormatter"</span><span class="token operator">:</span> <span class="token string">"esbenp.prettier-vscode"</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h1 data-id="heading-16">解决<code>eslint</code>与<code>prettier</code>的冲突</h1>
+<p>在理想的状态下，<code>eslint</code>与<code>prettier</code>应该各司其职。<code>eslint</code>负责我们的代码质量，<code>prettier</code>负责我们的代码格式。但是在使用的过程中会发现，由于我们开启了自动化的<code>eslint</code>修复与自动化的根据<code>prettier</code>来格式化代码。所以我们已保存代码，会出现屏幕闪一起后又恢复到了报错的状态。</p>
+<p>这其中的根本原因就是<code>eslint</code>有部分规则与<code>prettier</code>冲突了，所以保存的时候显示运行了<code>eslint</code>的修复命令，然后再运行<code>prettier</code>格式化，所以就会出现屏幕闪一下然后又恢复到报错的现象。这时候你可以检查一下是否存在冲突的规则。</p>
+<p>查阅资料会发现，社区已经为我们提供了一个非常成熟的方案，即<code>eslint-config-prettier</code>&nbsp; &nbsp;<code>eslint-plugin-prettier</code>。</p>
+<ul>
+<li>eslint-plugin-prettier： 基于 prettier 代码风格的 eslint 规则，即eslint使用pretter规则来格式化代码。</li>
+<li>eslint-config-prettier： 禁用所有与格式相关的 eslint 规则，解决 prettier 与 eslint 规则冲突，<strong>确保将其放在 extends 队列最后，这样它将覆盖其他配置</strong></li>
+</ul>
+<h3 data-id="heading-17">安装依赖</h3>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> <span class="token function">add</span> eslint-config-prettier eslint-plugin-prettier <span class="token parameter variable">-D</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-18">在&nbsp;<code>.eslintrc.json</code>中<code>extends</code>的最后添加一个配置</h3>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span> 
+    extends<span class="token operator">:</span> <span class="token punctuation">[</span>
+    'eslint<span class="token operator">:</span>recommended'<span class="token punctuation">,</span>
+    'plugin<span class="token operator">:</span>vue/vue3-essential'<span class="token punctuation">,</span>
+    'plugin<span class="token operator">:</span>@typescript-eslint/recommended'<span class="token punctuation">,</span>
+    <span class="token comment">// 新增，必须放在最后面</span>
+    'plugin<span class="token operator">:</span>prettier/recommended' 
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>最后<strong>重启vscode</strong>，你会发现冲突消失了，<code>eslint</code>与<code>prettier</code>也按照我们预想的各司其职了。</p>
+<h1 data-id="heading-19">配置styleling</h1>
+<p>stylelint为css的lint工具。可格式化css代码，检查css语法错误与不合理的写法，指定css书写顺序等...</p>
+<h3 data-id="heading-20">安装依赖</h3>
+<p>由于我的项目使用的less预处理器，因此配置的为less相关的，项目中使用其他预处理器的可以按照该配置方法改一下就好</p>
+<p>stylelint v13版本将css, parse CSS(如SCSS,SASS),html内的css(如*.vue中的style)等编译工具都包含在内。但是v14版本没有包含在内，所以需要安装需要的工具</p>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> <span class="token function">add</span> stylelint postcss postcss-less postcss-html stylelint-config-prettier stylelint-config-recommended-less stylelint-config-standard stylelint-config-standard-vue stylelint-less stylelint-order <span class="token parameter variable">-D</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>依赖说明</p>
+<ul>
+<li>stylelint:&nbsp;<code>css</code>样式lint工具</li>
+<li>postcss: 转换<code>css</code>代码工具</li>
+<li>postcss-less: 识别<code>less</code>语法</li>
+<li>postcss-html: 识别html/vue 中的<code>&lt;style&gt;&lt;/style&gt;</code>标签中的样式</li>
+<li>stylelint-config-standard:&nbsp;<code>Stylelint</code>的标准可共享配置规则，详细可查看官方文档</li>
+<li>stylelint-config-prettier: 关闭所有不必要或可能与<code>Prettier</code>冲突的规则</li>
+<li>stylelint-config-recommended-less:&nbsp;<code>less</code>的推荐可共享配置规则，详细可查看官方文档</li>
+<li>stylelint-config-standard-vue: lint<code>.vue</code>文件的样式配置</li>
+<li>stylelint-less:&nbsp;<code>stylelint-config-recommended-less</code>的依赖，<code>less</code>的<code>stylelint</code>规则集合</li>
+<li>stylelint-order: 指定样式书写的顺序，在<code>.stylelintrc.js</code>中<code>order/properties-order</code>指定顺序</li>
+</ul>
+<h3 data-id="heading-21">增加<code>.stylelintrc.js</code>配置文件</h3>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json">module.exports = <span class="token punctuation">{</span>
+  extends<span class="token operator">:</span> <span class="token punctuation">[</span>
+    'stylelint-config-standard'<span class="token punctuation">,</span>
+    'stylelint-config-prettier'<span class="token punctuation">,</span>
+    'stylelint-config-recommended-less'<span class="token punctuation">,</span>
+    'stylelint-config-standard-vue'
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>'stylelint-order'<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token comment">// 不同格式的文件指定自定义语法</span>
+  overrides<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      files<span class="token operator">:</span> <span class="token punctuation">[</span>'**<span class="token comment">/*.(less|css|vue|html)'],
+      customSyntax: 'postcss-less'
+    },
+    {
+      files: ['**/</span>*.(html|vue)'<span class="token punctuation">]</span><span class="token punctuation">,</span>
+      customSyntax<span class="token operator">:</span> 'postcss-html'
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  ignoreFiles<span class="token operator">:</span> <span class="token punctuation">[</span>
+    '**<span class="token comment">/*.js',
+    '**/</span>*.jsx'<span class="token punctuation">,</span>
+    '**<span class="token comment">/*.tsx',
+    '**/</span>*.ts'<span class="token punctuation">,</span>
+    '**<span class="token comment">/*.json',
+    '**/</span>*.md'<span class="token punctuation">,</span>
+    '**<span class="token comment">/*.yaml'
+  ],
+  rules: {
+    'no-descending-specificity': null, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
+    'selector-pseudo-element-no-unknown': [
+      true,
+      {
+        ignorePseudoElements: ['v-deep']
+      }
+    ],
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['deep']
+      }
+    ],
+    // 指定样式的排序
+    'order/properties-order': [
+      'position',
+      'top',
+      'right',
+      'bottom',
+      'left',
+      'z-index',
+      'display',
+      'justify-content',
+      'align-items',
+      'float',
+      'clear',
+      'overflow',
+      'overflow-x',
+      'overflow-y',
+      'padding',
+      'padding-top',
+      'padding-right',
+      'padding-bottom',
+      'padding-left',
+      'margin',
+      'margin-top',
+      'margin-right',
+      'margin-bottom',
+      'margin-left',
+      'width',
+      'min-width',
+      'max-width',
+      'height',
+      'min-height',
+      'max-height',
+      'font-size',
+      'font-family',
+      'text-align',
+      'text-justify',
+      'text-indent',
+      'text-overflow',
+      'text-decoration',
+      'white-space',
+      'color',
+      'background',
+      'background-position',
+      'background-repeat',
+      'background-size',
+      'background-color',
+      'background-clip',
+      'border',
+      'border-style',
+      'border-width',
+      'border-color',
+      'border-top-style',
+      'border-top-width',
+      'border-top-color',
+      'border-right-style',
+      'border-right-width',
+      'border-right-color',
+      'border-bottom-style',
+      'border-bottom-width',
+      'border-bottom-color',
+      'border-left-style',
+      'border-left-width',
+      'border-left-color',
+      'border-radius',
+      'opacity',
+      'filter',
+      'list-style',
+      'outline',
+      'visibility',
+      'box-shadow',
+      'text-shadow',
+      'resize',
+      'transition'
+    ]
+  }
+}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-22"><code>package.json</code>增加命令</h3>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"prepare"</span><span class="token operator">:</span> <span class="token string">"husky install"</span><span class="token punctuation">,</span>
+    <span class="token property">"dev"</span><span class="token operator">:</span> <span class="token string">"vite"</span><span class="token punctuation">,</span>
+    <span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"vue-tsc --noEmit &amp;&amp; vite build"</span><span class="token punctuation">,</span>
+    <span class="token property">"preview"</span><span class="token operator">:</span> <span class="token string">"vite preview"</span><span class="token punctuation">,</span>
+    <span class="token property">"lint"</span><span class="token operator">:</span> <span class="token string">"eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix"</span><span class="token punctuation">,</span>
+    <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"prettier --write \"./**/*.{html,vue,ts,js,json,md}\""</span><span class="token punctuation">,</span>
+    <span class="token property">"lint:style"</span><span class="token operator">:</span> <span class="token string">"stylelint \"./**/*.{css,less,vue,html}\" --fix"</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-23">安装vscode的Stylelint插件</h3>
+<p>安装该插件可在我们保存代码时自动执行stylelint</p>
+<p>在<code>.vscode/settings.json</code>中添加一下规则</p>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token comment">// 开启自动修复</span>
+  <span class="token property">"editor.codeActionsOnSave"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"source.fixAll"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"source.fixAll.eslint"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+     <span class="token property">"source.fixAll.stylelint"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// 保存的时候自动格式化</span>
+  <span class="token property">"editor.formatOnSave"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token comment">// 默认格式化工具选择prettier</span>
+  <span class="token property">"editor.defaultFormatter"</span><span class="token operator">:</span> <span class="token string">"esbenp.prettier-vscode"</span><span class="token punctuation">,</span>
+  <span class="token comment">// 配置该项，新建文件时默认就是space：2</span>
+  <span class="token property">"editor.tabSize"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token comment">// stylelint校验的文件格式</span>
+  <span class="token property">"stylelint.validate"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"css"</span><span class="token punctuation">,</span> <span class="token string">"less"</span><span class="token punctuation">,</span> <span class="token string">"vue"</span><span class="token punctuation">,</span> <span class="token string">"html"</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h1 data-id="heading-24">配置husky</h1>
+<p>虽然上面已经配置好了<code>eslint</code>、<code>preitter</code>与<code>stylelint</code>，但是还是存在以下问题。</p>
+<p>对于不使用<code>vscode</code>的，或者没有安装<code>eslint</code>、<code>preitter</code>与<code>stylelint</code>插件的同学来说，就不能实现在保存的时候自动的去修复与和格式化代码。</p>
+<p>这样提交到<code>git</code>仓库的代码还是不符合要求的。因此需要引入强制的手段来保证提交到<code>git</code>仓库的代码时符合我们的要求的。</p>
+<p><code>husky</code>是一个用来管理<code>git hook</code>的工具，<code>git hook</code>即在我们使用<code>git</code>提交代码的过程中会触发的钩子。</p>
+<h3 data-id="heading-25">安装依赖</h3>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">pnpm</span> <span class="token function">add</span> husky <span class="token parameter variable">-D</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<h3 data-id="heading-26">在<code>package.json</code>中的<code>script</code>中添加一条脚本命令</h3>
+<div class="code-toolbar"><pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"prepare"</span><span class="token operator">:</span> <span class="token string">"husky install"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>该命令会在<code>pnpm install</code>之后运行，这样其他克隆该项目的同学就在装包的时候就会自动执行该命令来安装<code>husky</code>。这里我们就不重新执行<code>pnpm install</code>了，直接执行<code>pnpm prepare</code>，这个时候你会发现多了一个<code>.husky</code>目录。</p>
+<p>然后使用<code>husky</code>命令添加<code>pre-commit</code>钩子，运行</p>
+<div class="code-toolbar"><pre class="language-shell" tabindex="0"><code class="hljs copyable language-shell" lang="shell"><span class="token function">pnpm</span> husky <span class="token function">add</span> .husky/pre-commit <span class="token string">"pnpm lint &amp;&amp; pnpm format &amp;&amp; pnpm lint:style"</span>
+复制代码</code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>执行完上面的命令后，会在<code>.husky</code>目录下生成一个<code>pre-commit</code>文件</p>
+<div class="code-toolbar"><pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token shebang important">#!/usr/bin/env sh</span>
+<span class="token builtin class-name">.</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">dirname</span> -- <span class="token string">"<span class="token variable">$0</span>"</span><span class="token variable">)</span></span>/_/husky.sh"</span>
+
+<span class="token function">pnpm</span> lint <span class="token operator">&amp;&amp;</span> <span class="token function">pnpm</span> <span class="token function">format</span></code></pre><div class="toolbar"><div class="toolbar-item"><button class="copy-to-clipboard-button" type="button" data-copy-state="copy"><span>Copy</span></button></div></div></div>
+<p>现在当我们执行<code>git commit</code>的时候就会执行<code>pnpm lint</code>与<code>pnpm format</code>，当这两条命令出现报错，就不会提交成功。以此来保证提交代码的质量和格式。</p>
+<h1 data-id="heading-27">总结</h1>
+<p>本篇文章主要是以一个<code>vue-ts-vite</code>的项目的搭建为基础，在项目中引入<code>eslint   prettier   husky</code>来规范项目。完整的代码一上传至<code>github</code>，点击此处可以查看完整代码。</p>
+                            <p>本文出至：<a href="https://www.swvq.com/article/detail/471" target="_blank" title="学新通技术网">学新通技术网</a></p>
+                                                    </article>
+
+                        <!--打赏-->
+                        <div class="reward-widget">
+                            <div id="reward-btn" class="btn">赏</div>
+                            <div id="popup">
+                                <div id="reward-img" class="img-bg sb br transition">
+                                    <img src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/PRsyKVB1LcobQhpVouQYbFefbfkmFlqwBI6r7Cdg.jpg" alt="打赏二维码">
+                                    <i id="close" class="iconfont icon-close"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="art-copyright br mt mb">
+                            <div>
+                                <strong class="addr">本站名称：</strong>
+                                <a href="https://www.swvq.com/article/detail/471">学新通技术网</a>
+                            </div>
+                            <div>
+                                <strong class="addr">本文地址：</strong>
+                                <a href="https://www.swvq.com/article/detail/471">https://www.swvq.com/article/detail/471</a>
+                            </div>
+                            <div>
+                                                                    <span class="copyright">版权声明：</span>本篇内容由本站（学新通技术网）原创并发表，48小时内禁止转载，48小时后候转载，需标注来源并链接到原文。
+                                                            </div>
+                            <div>
+                                <span class="copyright">联系方式：</span><a href="mailto:luke.wu@swvq.com">luke.wu@swvq.com</a>
+                            </div>
+                                                            <div>
+                                    <strong class="addr">远问链接：</strong>
+                                    <a href="https://www.swvq.com/link?link=https://juejin.cn/post/7118294114734440455" rel="external nofollow">juejin.⁠cn/⁠post/⁠7118294114734440455</a>
+                                </div>
+                                                    </div>
+                        <p class="tag-wrap mt mb">
+                            <i class="iconfont icon-tag"></i>
+                            <strong class="addr">标签：</strong>
+                            <label class="addr art-label">
+                                                            </label>
+                        </p>
+                        <div class="social-widget mt clearfix">
+                            <!--点赞-->
+                            <div class="thumbs-up-widget fl" id="newdigg">
+                                <a href="https://www.swvq.com/article/detail/471/#comment" class="diggit">
+                                    <div id="suiranx_air_thumbs_id-20" class="thumbs-btn suiranx_air_thumbs">
+                                        <span class="num">立即评论</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <!--分享-->
+                            <div class="share-widget fr">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="global_income_money_pc" style="margin-top: 15px; width: 100%; height: 200px; display: block;" id="article_detail_2"><iframe src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/article_detail_2.html" frameborder="0" scrolling="no" style="width: 100%;height: 100%;display: block;"></iframe></div>
+                </article>
+                <div class="prev-next sb br mb clearfix">
+                    <p class="post-prev fl ellipsis">上一篇：<a href="javascript:;">无</a> </p>
+                    <p class="post-next fr ellipsis">下一篇：<a href="https://www.swvq.com/article/detail/473">Vue3组件库打包指南，一次生成esm、esm-bundle、commonjs、umd四种格式</a> </p>
+                </div>
+                <div class="quick-prev-next">
+                    <a class="prev iconfont icon-left" href="javascript:;" title="上一篇"></a>
+                    <a class="next iconfont icon-right" href="https://www.swvq.com/article/detail/473" title="下一篇"></a>
+                </div>
+                <!--相关文章选择同关键词的文章-->
+                <div class="related-art sb br mb">
+                    <p class="c-title">
+                        <span class="name">相关文章</span>
+                    </p>
+                    <ul class="ul clearfix">
+                                                    <li class="related-item mt fl">
+                                <a href="https://www.swvq.com/article/detail/471" title="在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南">
+                                    <img class="img br img-cover" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/qAqx11vEDRSkUHy9Fy3WFwYqZvYxq3TywoO2IY6P.png" alt="在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南">
+                                    <p class="titile">在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南</p>
+                                </a>
+                            </li>
+                                                    <li class="related-item mt fl">
+                                <a href="https://www.swvq.com/article/detail/473" title="Vue3组件库打包指南，一次生成esm、esm-bundle、commonjs、umd四种格式">
+                                    <img class="img br img-cover" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/Ksg9DvCluEpfypfVjS4PGkY3FRciybDAJQ36X01v.png" alt="Vue3组件库打包指南，一次生成esm、esm-bundle、commonjs、umd四种格式">
+                                    <p class="titile">Vue3组件库打包指南，一次生成esm、esm-bundle、commonjs、umd四种格式</p>
+                                </a>
+                            </li>
+                                                    <li class="related-item mt fl">
+                                <a href="https://www.swvq.com/article/detail/1025" title="【vue进阶之旅】vue3.2-setup语法糖、组合式API、状态库Pinia">
+                                    <img class="img br img-cover" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/NKhE7FkMP8MHSFmtGao5bu1zICPpxl4q8Shd9HQb.png" alt="【vue进阶之旅】vue3.2-setup语法糖、组合式API、状态库Pinia">
+                                    <p class="titile">【vue进阶之旅】vue3.2-setup语法糖、组合式API、状态库Pinia</p>
+                                </a>
+                            </li>
+                                            </ul>
+                </div>
+                
+                                    <link rel="stylesheet" href="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/comments.min.css">
+                    <div id="comment" class="post-comment clearfix sb br mt">
+                        <span>评论功能已关闭！！！</span>
+                    </div>
+                            </div>
+            <!-- 右侧 -->
+            <aside id="sidebar" class="hidden-sm-md-lg fr" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 14519.8px;">
+    <div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: absolute; transform: translateY(12476.7px); width: 347.195px; top: 0px;">
+        <!--此模板判断内容和首页栏目不同，分开显示！-->
+        
+        <section id="aside_hot_comment" class="widget widget_aside_hot_comment sb br mb">
+            <p class="c-title mb"><span class="name">热点文章</span></p>
+            <ul class="widget-content aside_hot_comment">
+                                    <li class="list clearfix">
+                        <a href="https://www.swvq.com/article/detail/531" title="13款主流的几款好用的富文本编辑器推荐" target="_blank">
+                            <span class="img-wrap">
+                                <img src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/4Nyo9BSER1DJK0lbc84miCjhbRkRIZJYb1IOx7wq.jpg" alt="13款主流的几款好用的富文本编辑器推荐" class="img-cover br random-img">
+                            </span>
+                            <div class="new-text">
+                                <p class="title">13款主流的几款好用的富文本编辑器推荐</p>
+                                <div class="info">
+                                    <span class="time">
+                                        <i class="iconfont icon-time"></i>2022-10-19
+                                    </span>
+                                    <span class="comment">
+                                        <i class="iconfont icon-view"></i>2298
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                                    <li class="list clearfix">
+                        <a href="https://www.swvq.com/article/detail/1404" title="使用VSCode内置的JavaScript Debug Terminal来调试JavaScript" target="_blank">
+                            <span class="img-wrap">
+                                <img src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/OBUhBHjSo6KvGyHcEFZhvvCQuBMGs6h7yRZaomlh.jpg" alt="使用VSCode内置的JavaScript Debug Terminal来调试JavaScript" class="img-cover br random-img">
+                            </span>
+                            <div class="new-text">
+                                <p class="title">使用VSCode内置的JavaScript Debug Terminal来调试JavaScript</p>
+                                <div class="info">
+                                    <span class="time">
+                                        <i class="iconfont icon-time"></i>2023-02-05
+                                    </span>
+                                    <span class="comment">
+                                        <i class="iconfont icon-view"></i>104
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                                    <li class="list clearfix">
+                        <a href="https://www.swvq.com/article/detail/1599" title="jsp页面使用bootstrap" target="_blank">
+                            <span class="img-wrap">
+                                <img src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/oeoldyTuV8eQXZByGXq64O0ypYxYC5p4SlZMxCjN.jpg" alt="jsp页面使用bootstrap" class="img-cover br random-img">
+                            </span>
+                            <div class="new-text">
+                                <p class="title">jsp页面使用bootstrap</p>
+                                <div class="info">
+                                    <span class="time">
+                                        <i class="iconfont icon-time"></i>2023-02-22
+                                    </span>
+                                    <span class="comment">
+                                        <i class="iconfont icon-view"></i>9
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                                    <li class="list clearfix">
+                        <a href="https://www.swvq.com/article/detail/490" title="Android 11 保存文件到外部存储，并分享文件" target="_blank">
+                            <span class="img-wrap">
+                                <img src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/ONWRAfJCtemJ7MTM5NvG7qgHmGRYfWJs0VhUGk0Q.jpg" alt="Android 11 保存文件到外部存储，并分享文件" class="img-cover br random-img">
+                            </span>
+                            <div class="new-text">
+                                <p class="title">Android 11 保存文件到外部存储，并分享文件</p>
+                                <div class="info">
+                                    <span class="time">
+                                        <i class="iconfont icon-time"></i>2022-10-12
+                                    </span>
+                                    <span class="comment">
+                                        <i class="iconfont icon-view"></i>695
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                                    <li class="list clearfix">
+                        <a href="https://www.swvq.com/article/detail/576" title="2022年最新版的Vue2与Vue3的对比，Vue3新特性" target="_blank">
+                            <span class="img-wrap">
+                                <img src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/iXulu75d4ZDEbDQhW6oMwjCDVRLk9sRNeBSYnKGG.jpg" alt="2022年最新版的Vue2与Vue3的对比，Vue3新特性" class="img-cover br random-img">
+                            </span>
+                            <div class="new-text">
+                                <p class="title">2022年最新版的Vue2与Vue3的对比，Vue3新特性</p>
+                                <div class="info">
+                                    <span class="time">
+                                        <i class="iconfont icon-time"></i>2022-10-26
+                                    </span>
+                                    <span class="comment">
+                                        <i class="iconfont icon-view"></i>468
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                                    <li class="list clearfix">
+                        <a href="https://www.swvq.com/article/detail/1453" title="Mybatis Plus最新代码生成器AutoGenerator，更简单更高效！" target="_blank">
+                            <span class="img-wrap">
+                                <img src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/cdKz6eA0nJdsvKJzQqjQkCBHia4jDMSO7tkSgJ6n.png" alt="Mybatis Plus最新代码生成器AutoGenerator，更简单更高效！" class="img-cover br random-img">
+                            </span>
+                            <div class="new-text">
+                                <p class="title">Mybatis Plus最新代码生成器AutoGenerator，更简单更高效！</p>
+                                <div class="info">
+                                    <span class="time">
+                                        <i class="iconfont icon-time"></i>2023-02-10
+                                    </span>
+                                    <span class="comment">
+                                        <i class="iconfont icon-view"></i>158
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                            </ul>
+        </section>
+        <section class="global_income_money_pc  sb br mb" id="global_right_1" style="width: 100%; height: 250px; display: block;"><iframe src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/global_right_1.html" frameborder="0" scrolling="no" style="width: 100%;height: 100%;display: block;"></iframe></section>
+        <section id="divTags" class="widget widget_tags sb br mb">
+            <p class="c-title mb">
+                <span class="name">系列文章</span>
+            </p>
+            <ul class="widget-content divTags">
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/28" target="__blank">大厂基础知识面试宝典<span class="tag-count">(11)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/17" target="__blank">Gradle 学习<span class="tag-count">(9)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/5" target="__blank">Java中的 Nacos 注册中心<span class="tag-count">(9)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/10" target="__blank">Redis<span class="tag-count">(0)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/20" target="__blank">Linux<span class="tag-count">(0)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/14" target="__blank">Java网络编程<span class="tag-count">(8)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/21" target="__blank">Linux代码提权<span class="tag-count">(6)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/34" target="__blank">算法<span class="tag-count">(0)</span></a>
+                    </li>
+                                    <li>
+                        <a href="https://www.swvq.com/series/list/11" target="__blank">Redis的四个特殊数据类型<span class="tag-count">(4)</span></a>
+                    </li>
+                            </ul>
+        </section>
+        <section class="global_income_money_pc widget sb br mb" id="global_right_2" style="width: 100%; height: 300px; display: block;"><iframe src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/global_right_2.html" frameborder="0" scrolling="no" style="width: 100%;height: 100%;display: block;"></iframe></section>
+        <section id="aside_hot" class="widget widget_aside_hot sb br mb">
+            <p class="c-title mb"><span class="name">随机阅读</span></p>
+            <ul class="widget-content aside_hot">
+                                    <li class="clearfix">
+                        <span class="list list-1">1.</span>
+                        <a href="https://www.swvq.com/article/detail/299" title="MySQL优化数据库查询的方法" target="_blank">MySQL优化数据库查询的方法</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">2.</span>
+                        <a href="https://www.swvq.com/article/detail/481" title="前端 javascript, js 数组去重的五种方法" target="_blank">前端 javascript, js 数组去重的五种方法</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">3.</span>
+                        <a href="https://www.swvq.com/article/detail/1129" title="Go pointer &amp; switch fallthrough" target="_blank">Go pointer &amp; switch fallthrough</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">4.</span>
+                        <a href="https://www.swvq.com/article/detail/417" title="php小数点不足两位补零" target="_blank">php小数点不足两位补零</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">5.</span>
+                        <a href="https://www.swvq.com/article/detail/603" title="深入学习JavaScript：instanceof的父级" target="_blank">深入学习JavaScript：instanceof的父级</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">6.</span>
+                        <a href="https://www.swvq.com/article/detail/1357" title="vue阻止重复请求" target="_blank">vue阻止重复请求</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">7.</span>
+                        <a href="https://www.swvq.com/article/detail/1573" title="Typescript 严格模式有多严格？" target="_blank">Typescript 严格模式有多严格？</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">8.</span>
+                        <a href="https://www.swvq.com/article/detail/1239" title="高危！！Kubernetes 新型容器逃逸漏洞预警" target="_blank">高危！！Kubernetes 新型容器逃逸漏洞预警</a>
+                    </li>
+                                    <li class="clearfix">
+                        <span class="list list-1">9.</span>
+                        <a href="https://www.swvq.com/article/detail/1325" title="Spring boot框架中用了哪些设计模式" target="_blank">Spring boot框架中用了哪些设计模式</a>
+                    </li>
+                            </ul>
+        </section>
+        <section class="global_income_money_pc widget sb br mb" id="global_right_3" style="width:100%;height: 300px;"></section>
+        
+    </div>
+</aside>
+
+        </div>
+        <!-- 底部 -->
+        <footer class="footer">
+    <div class="main container">
+        <div class="f-about fl">
+            <p class="title pb1">关于本站</p>
+            <div class="intro">程序员及编程爱好者编程难题解决方案社区,旨为方便技术人员更快的开发代码,社区有全球各大网站的精品技术文章, 每日发表专业编程类与IT类技术文章,旨为打造最全的编程技术社区</div>
+            <small>
+                <span>© 2015-2023 学新通 版权所有，未经允许禁止转载</span>
+                <span>
+                    <a target="_blank" href="https://www.swvq.com/sitemap/sitemap.xml">网站地图</a>
+                </span>
+            </small>
+            <div>
+                <span class="icp" style="margin-right: 10px;">
+                    <a target="_blank" rel="external nofollow" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502043395">
+            		 	<img alt="公安局国家备案图标" style="width: 15px;height: 15px;margin-right: 5px;" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/gonganbeian.png">
+            		 	<span style="display: inline-block;">京公网安备 11010502043395号</span>
+            		</a>
+                </span>
+                <span class="icp">
+                    <a target="_blank" rel="external nofollow" href="https://beian.miit.gov.cn/">晋ICP备16002851号-8</a>
+                </span>
+            </div>
+            
+                    </div>
+        <div class="f-contact fl">
+            <p class="title pb1">联系我们</p>
+            <div>
+                <p>合作或咨询可通过如下方式：</p>
+                <p><i class="iconfont icon-qq-fill"></i>QQ群：<a rel="external nofollow" href="https://qm.qq.com/cgi-bin/qm/qr?k=XTxffYBll1NVbF6BfDHXMvoBhDEvpbNT&amp;jump_from=webapi&amp;authKey=wySTHy8u4G+Rw63X0o3+hVWf4Q96pV8jY1ITe1Wv7fuBEGzzKoY1yQuKP4r/VbJY">630863274</a></p>
+                <p><i class="iconfont icon-weibo-fill"></i>微博：http://www.weibo.com</p>
+                <p><i class="iconfont icon-wechat-fill"></i>邮箱：<a rel="external nofollow" href="mailto:luke.wu@swvq.com">luke.wu@swvq.com</a></p>
+            </div>
+        </div>
+        <div class="f-qr fr">
+            <p class="title pb1">关注我们</p>
+            <div><img class="img br" alt="网站二维码" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/I0LkJgBHCRbh6QuYt0cmMZQWh8PE67ON3FsDVoG5.jpg"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--侧边客服代码-->
+    <div id="toolbar" class="toolbar ">
+        <a rel="external nofollow" class="hidden-sm-md-lg btn qq sb br" href="https://qm.qq.com/cgi-bin/qm/qr?k=XTxffYBll1NVbF6BfDHXMvoBhDEvpbNT&amp;jump_from=webapi&amp;authKey=wySTHy8u4G+Rw63X0o3+hVWf4Q96pV8jY1ITe1Wv7fuBEGzzKoY1yQuKP4r/VbJY" target="_blank">
+            <i class="iconfont icon-qq"></i>
+            <span class="qqnum sb br"></span>
+        </a>
+        <div id="qr" class="hidden-sm-md-lg btn sb br">
+            <i class="iconfont icon-qr"></i>
+            <img id="qr-img" class="br sb" src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/I0LkJgBHCRbh6QuYt0cmMZQWh8PE67ON3FsDVoG5.jpg" alt="二维码">
+        </div>
+        <div id="totop" class="btn hidden sb br" style="display: block;"> <i class="iconfont icon-top"></i> </div>
+    </div>
+</footer>
+
+<!--黑色透明遮罩-->
+<div id="mask-hidden" class="mask-hidden transition"></div>
+
+<div id="global_auto_ads_1"></div>
+<div id="global_auto_ads_2"></div>
+<div id="global_auto_ads_3"></div>
+
+<article>
+    <!-- 收藏夹弹窗 -->
+    <script type="text/html" id="open-favorites-window">
+        <section class="open-favorites-window-content">
+            
+        </section>
+    </script>
+    
+    <script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/globalFunc.min.js"></script>
+</article>
+
+<script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/Common.min.js"></script>
+
+<script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/Effect.min.js"></script>
+
+<script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/function.min.js"></script>
+<script>
+    /* $('img').lazyload();
+    window.addEventListener("load", function(event) {
+        $('img').lazyload();
+    }); */
+</script>
+        <div id="article_detail_right_bottom_suspension"><script src="./在 vue3 、ts、vite 项目中使用 eslint与prettier与stylelint与husky的详细指南-学新通技术网 - 专业的IT编程解决方案社区-swvq.com_files/rich-tf.js" id="richid" data="s=7941"></script></div>
+    
+
+
+</body></html>
