@@ -11,7 +11,8 @@
 - 2020.04.17 vue发布 3.0 beta版
 - 2020.07.18 vue发布 3.0 rc-1版
 - 2020.09.18 vue发布 v3.0.0 One Piece
-- 目前最新版  v3.0.2
+- 2023.10.24 vue发布 v3.3.7
+- 目前最新版  v3.3.7
 - https://github.com/vuejs/vue-next/releases
 
 ### 1.2 Vue 3.0 新特性
@@ -149,7 +150,7 @@ export default {
         // setup 需要返回值 返回的数据才能在模板中使用
         // 普通的返回对象没有响应式  需要 reactive 包裹
         const car = reactive({
-            brand: '宝马',
+            brand: '汽车',
             price: 2000
         })
         return {
@@ -425,6 +426,10 @@ setup () {
     }
 }
 ```
+
+## table 渲染
+
+- https://www.antdv.com/components/table-cn
 
 
 
