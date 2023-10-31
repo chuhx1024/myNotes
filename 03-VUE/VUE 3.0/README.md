@@ -45,7 +45,7 @@ Object.defineProperty( o, 'name', {
     writable: true, // 可以改
     enumerable: true, // 控制属性是否可枚举, 是不是可以被 for-in 取出来 比如对象中的 __proto__ 就是灰色的不能遍历出来 就是设置了 enumerable = false
     value: 张三,
-    set() {},  赋值触发
+    set() {},  赋值触发  vue 中可以
     get() {}   取值触发
 } )
 ```
