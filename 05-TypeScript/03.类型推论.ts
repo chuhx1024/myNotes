@@ -9,3 +9,6 @@ let num = 123
 let myFavoriteNumber;
 myFavoriteNumber = 'seven';
 myFavoriteNumber = 7;
+
+
+const btn = document.querySelector('button')

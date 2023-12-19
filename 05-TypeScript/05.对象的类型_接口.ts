@@ -49,7 +49,8 @@ let lucy: Person2 = {
     name: '路西',
     age: 19,
     gender: true,
-    abc: 123
+    abc: 123,
+    // ddd: null
 }
 // 只读属性
 
@@ -66,3 +67,56 @@ let lily1:Person3  = {
     age: 18,
 }
 // lily1.id = 23 无法分配到 "id" ，因为它是只读属性。
+
+
+// 对象中设置方法
+
+type  Person4 = {
+    name: string;
+    age: number;
+    sayHi0 (name: string): void,
+    sayHi1: (name: string) => void,
+    sayHi2: (name: string) => void,
+    sayHi3: (name: string) => void,
+}
+
+const zhangSan: Person4 = {
+    name: 'zhangsan',
+    age: 18,
+    /** 箭头函数写法 */
+    sayHi0: (name) => {
+        console.log(name)
+    },
+    // es6 省略写法
+    sayHi1 (name) {
+        console.log(name)
+    },
+    // 常规写法
+    sayHi2 : function (name) {
+        console.log(name)
+    },
+    // 常规写法
+    sayHi3 : function ccc (name) {
+        console.log(name)
+    }
+
+}
+
+zhangSan.sayHi0('1')
+zhangSan.sayHi1('2')
+zhangSan.sayHi2('3')
+zhangSan.sayHi3('4')
+
+
+// 也可以在内部给 方法 直接定义
+const lisi = {
+    name: 'lisi',
+    sayHi: (name: string): void => {
+        console.log(name)
+    } 
+    sayHi1: (name: string): void => {
+        console.log(name)
+    } 
+}
+
+lisi.sayHi('lisi hello')

@@ -28,7 +28,6 @@ let ts0MySum: (x: number, y: number) => number = function (x:number, y: number):
 interface SearchFunc {
     (source: string, subString: string): boolean
 }
-
 let mySearch: SearchFunc
 mySearch = function(source: string, subString: string) {
     return source.search(subString) !== -1
@@ -72,4 +71,12 @@ function reverse(x: number | string): number | string {
     } else if (typeof x === 'string') {
         return x.split('').reverse().join('')
     }
+}
+
+// 关于  void
+// js 中函数 没有返回值  返回值 是 undefined
+// ts 中函数 没有返回值  返回值 是 void
+
+function sayHello () :void {
+    console.log('hello world')
 }

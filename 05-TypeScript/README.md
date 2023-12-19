@@ -1,6 +1,7 @@
 # TypeScript 
 
 ## 观点
+- 时代抛弃你的时候 连一句再见都不会说
 - 在应用层面，不鼓励使用 TS 的，作茧自缚。在应用层面，追求的所见即所得，客户要什么，你给实现什么，简单粗暴快速，别整那些花里胡哨的妖艳贱货。
 - 作为前端学习下带类型的语言，会有新的发现和提升。
 - 一个不需要投入太多学习成本，就能得到一堆收益: 
@@ -37,3 +38,14 @@ node index.js
 sudo npm i ts-node -g
 ts-node index.ts // 123
 ```
+
+## 资料
+
+- 视频地址: https://www.bilibili.com/video/BV1TP411S7vi/?p=2&spm_id_from=pageDriver&vd_source=715e12678fa717c5adb08b6047d9d786
+- 笔记地址: https://luckybo0027.gitee.io/hm-docs/ts/
+- 中文官网： https://www.tslang.cn/
+
+
+## Ts 核心
+
+- 基础数据类型 推荐不写 类型  让 ts 自己推断

@@ -17,3 +17,14 @@ let arr99: CustomArr = [1,3,'123', 99]
 // 也可以局部使用
 type MyElement = number | string
 let arr90: MyElement[] = [1,3,'123']
+
+
+// 定义函数类型
+
+type MyFunc = (a: number, b: string) => string
+
+let fn : MyFunc = (a, b) => {
+    return a + b
+}
+
+fn(1, '2')
