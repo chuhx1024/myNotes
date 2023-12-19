@@ -13,7 +13,7 @@ let arr0: number[] = [1, 2, 3, 4, 5]
 interface NumberArray {
     [index: number]: number
 }
-let arr2 = [1, 3, 4, 5]
+let arr2: NumberArray = [1, 3, 4, 5]
 
 // 4. 类数组
 
