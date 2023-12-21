@@ -268,3 +268,15 @@ networks:
 - 如果服务容器已经存在，并且在创建容器后更改了服务的配置(即docker-compose.yml文件)或者镜像，那么docker-compose会停止容器，然后重新创建容器。
 
 - 注意： 这里的镜像修改指的是已经拉取到本地的镜像更改。当你的镜像仓库内容有变化，不会影响到本地的服务容器。如果你想更新本地的镜像，可以使用docker-compose pull [serviceName]。
+
+
+### 镜像重命名  
+```sh
+docker tag harbor.prod.iluvatar.com.cn/nerf_platform_frontend/nerf_platform_frontend:23.12.01 harbor.iluvatar.com.cn:10443/nerf_platform_frontend/nerf_platform_frontend:23.12.01 
+docker tag 老名字 新名字
+```
+
+### 把镜像保存到本地
+```js
+docker save -o xxx.tar harbor.iluvatar.com.cn:10443/nerf_platform_frontend/nerf_platform_frontend:23.12.01
+```

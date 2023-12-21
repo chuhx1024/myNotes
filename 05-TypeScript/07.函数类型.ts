@@ -21,6 +21,10 @@ let tsMySum = function (x: number, y: number): number {
 let ts0MySum: (x: number, y: number) => number = function (x:number, y: number): number {
     return x + y
 }
+// 上方法是不合理的 左边的tsMySum 是通过赋值操作进行类型推论而推断出来的 实际应该是
+let ts1MySum: (number, number): number = function (x, y) {
+    return x + y
+}
 // 注意不要混淆了 ES6 的箭头函数  :(x: number) => number  // 记忆  括号前有: 箭头后是一个数据类型 而不是 return
 
 // 用接口的形式定义函数
