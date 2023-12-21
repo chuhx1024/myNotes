@@ -1,6 +1,6 @@
 // 类型断言
 // 使用场景: 当ts 推断的类型不准确的时候使用 as
-// 语法
+// 语法: as 要写在  值 的后边
 interface Cat {
     name: string
     run(): void
@@ -37,3 +37,15 @@ let profile = {} as Profile  // 这样就可以定义空对象  但是提前定�
 const myA = document.querySelector("a")
 const aNode = document.querySelector("#app") as HTMLAnchorElement
 aNode.href = '123'
+
+
+interface Preson1000 {
+    name: string
+    age: number
+    gernder?: string
+}
+
+const zhangsan = {
+    name: "zhangsan",
+    age: 18
+} as Preson1000
