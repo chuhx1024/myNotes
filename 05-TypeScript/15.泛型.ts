@@ -69,7 +69,7 @@ const obj100: PickProps = {
 
 // 4. Omit 和 Pick 相反  踢出几个
 
-type Props200 {
+type Props200  = {
 	name: string
 	age: number
 	hobby: string
