@@ -113,7 +113,7 @@ const lisi = {
     name: 'lisi',
     sayHi: (name: string): void => {
         console.log(name)
-    } 
+    }, 
     sayHi1: (name: string): void => {
         console.log(name)
     } 
