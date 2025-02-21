@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from sqlalchemy.orm import Session
 from database.database import SessionLocal, engine, Base
-from database.model import User
+# from database.model import User
 
 from pydantic import BaseModel
 
