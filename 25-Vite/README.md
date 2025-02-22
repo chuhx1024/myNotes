@@ -23,7 +23,7 @@
 // SWC : 主要对标Babel，誓言要代替Babel （据说：转译性能比Babel快20倍）
 
     TypeScript
-❯   TypeScript + SWC
+    TypeScript + SWC
     JavaScript
     JavaScript + SWC
 
