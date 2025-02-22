@@ -21,7 +21,7 @@
 ## 使用 vite 创建 React 项目时
 ```js
 // SWC : 主要对标Babel，誓言要代替Babel （据说：转译性能比Babel快20倍）
-? Select a variant: › - Use arrow-keys. Return to submit.
+
     TypeScript
 ❯   TypeScript + SWC
     JavaScript
